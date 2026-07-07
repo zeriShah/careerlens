@@ -1,11 +1,11 @@
 // Polyfill browser globals for pdf-parse in Node.js serverless context
-if (typeof global.DOMMatrix === 'undefined') {
+if (typeof (global as any).DOMMatrix === 'undefined') {
   (global as any).DOMMatrix = class DOMMatrix {};
 }
-if (typeof global.ImageData === 'undefined') {
+if (typeof (global as any).ImageData === 'undefined') {
   (global as any).ImageData = class ImageData {};
 }
-if (typeof global.Path2D === 'undefined') {
+if (typeof (global as any).Path2D === 'undefined') {
   (global as any).Path2D = class Path2D {};
 }
 
