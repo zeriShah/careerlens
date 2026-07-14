@@ -51,7 +51,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex font-sans select-none text-slate-800">
+    <div className="min-h-screen bg-background flex font-sans select-none text-text-primary">
       
       {/* LEFT SIDEBAR NAVBAR */}
       <Sidebar

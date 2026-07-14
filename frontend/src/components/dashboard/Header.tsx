@@ -33,14 +33,14 @@ export default function Header({
   ];
 
   return (
-    <header className="sticky top-0 z-30 w-full h-16 bg-white/80 backdrop-blur-md border-b border-slate-200 px-8 flex items-center justify-between">
+    <header className="sticky top-0 z-30 w-full h-16 bg-background/80 backdrop-blur-md border-b border-border/80 px-8 flex items-center justify-between">
       
       {/* Header Title Section */}
       <div className="flex items-center gap-4">
-        <h1 className="text-sm font-bold text-slate-900 capitalize tracking-tight">
+        <h1 className="text-sm font-bold text-text-primary capitalize tracking-tight">
           {activeTab.replace('-', ' ')}
         </h1>
-        <span className="h-4 w-px bg-slate-200" />
+        <span className="h-4 w-px bg-border/80" />
         <div className="flex items-center gap-1 bg-success/15 text-[10px] font-bold text-success px-2 py-0.5 rounded-full">
           <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
           <span>Workspace Sync Active</span>

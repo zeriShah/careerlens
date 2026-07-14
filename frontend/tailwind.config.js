@@ -8,19 +8,27 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#6366F1', // Indigo-500
-          hover: '#4F46E5',   // Indigo-600
+          DEFAULT: '#A47A8C', // Dusty Mauve
+          hover: '#8C6677',   // Darker Dusty Mauve
         },
-        background: '#F8FAFC',
+        background: '#F5F0E8', // Warm Ivory
+        dark: {
+          DEFAULT: '#222222', // Charcoal Black
+          section: '#1E1E1E',
+        },
         card: '#FFFFFF',
-        border: '#E5E7EB',
+        border: '#E5DED2',     // Warm Border matching Ivory
         text: {
-          primary: '#111827',
-          secondary: '#6B7280',
+          primary: '#1A1A1A',   // Near Black
+          secondary: '#8C8C8C', // Soft Gray
         },
+        accent: '#A47A8C',      // Dusty Mauve
         success: '#22C55E',
         warning: '#F59E0B',
         danger: '#EF4444',
+      },
+      backgroundImage: {
+        'gradient-accent': 'linear-gradient(to right, #B56CFF, #FFB37A, #FF9A3C)',
       },
       borderRadius: {
         'lg': '12px',
