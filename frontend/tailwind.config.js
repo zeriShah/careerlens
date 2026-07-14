@@ -8,27 +8,38 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#A47A8C', // Dusty Mauve
-          hover: '#8C6677',   // Darker Dusty Mauve
+          DEFAULT: '#FFBB00', // Gold Yellow
+          hover: '#E8A800',
         },
-        background: '#F5F0E8', // Warm Ivory
+        background: '#ffffff', // canvas
         dark: {
-          DEFAULT: '#222222', // Charcoal Black
-          section: '#1E1E1E',
+          DEFAULT: '#0D0D0D', // ink / marketing-bg
+          section: '#1A1A1A',
         },
-        card: '#FFFFFF',
-        border: '#E5DED2',     // Warm Border matching Ivory
+        card: '#ffffff',
+        border: '#E5E5E5',
         text: {
-          primary: '#1A1A1A',   // Near Black
-          secondary: '#8C8C8C', // Soft Gray
+          primary: '#0D0D0D',
+          secondary: '#6B7280',
         },
-        accent: '#A47A8C',      // Dusty Mauve
+        accent: '#FFBB00',
         success: '#22C55E',
-        warning: '#F59E0B',
         danger: '#EF4444',
+        
+        // Exact names from downloads config
+        "on-primary": "#0D0D0D",
+        "primary-hover": "#E8A800",
+        "ink": "#0D0D0D",
+        "ink-muted": "#6B7280",
+        "canvas": "#ffffff",
+        "surface-1": "#F9F9F9",
+        "surface-2": "#F0F0F0",
+        "marketing-bg": "#0D0D0D",
+        "marketing-ink": "#F5F5F5",
+        "marketing-muted": "#888888",
       },
       backgroundImage: {
-        'gradient-accent': 'linear-gradient(to right, #B56CFF, #FFB37A, #FF9A3C)',
+        'gradient-accent': 'linear-gradient(to right, #FFBB00, #FFD254, #E8A800)',
       },
       borderRadius: {
         'lg': '12px',
