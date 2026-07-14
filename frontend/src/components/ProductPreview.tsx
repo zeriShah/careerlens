@@ -1,242 +1,274 @@
-import { Search, Bell, LayoutDashboard, FileText, Linkedin, MessageSquare, LineChart, Settings, ExternalLink } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { FileText, Linkedin, Sparkles, CheckCircle, ArrowRight, Cpu } from 'lucide-react';
 
 export default function ProductPreview() {
+  const [atsScore, setAtsScore] = useState(72);
+  const [impressions, setImpressions] = useState(8420);
+
+  // Continually animate metrics for live feel
+  useEffect(() => {
+    const scoreInterval = setInterval(() => {
+      setAtsScore(prev => {
+        if (prev >= 94) return 72;
+        return prev + 1;
+      });
+    }, 800);
+
+    const impressionsInterval = setInterval(() => {
+      setImpressions(prev => prev + Math.floor(Math.random() * 5) + 1);
+    }, 1500);
+
+    return () => {
+      clearInterval(scoreInterval);
+      clearInterval(impressionsInterval);
+    };
+  }, []);
+
   return (
-    <section className="py-20 md:py-28 px-6 bg-slate-50/50 border-b border-border">
+    <section id="preview" className="py-20 md:py-28 px-6 bg-slate-50 border-b border-border">
+      
+      {/* Styles for continuous keyframe animations */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes scanBeam {
+          0% { top: 0%; opacity: 0; }
+          10% { opacity: 0.9; }
+          90% { opacity: 0.9; }
+          100% { top: 98%; opacity: 0; }
+        }
+        @keyframes flowingStream {
+          0% { stroke-dashoffset: 30; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes pulseDot {
+          0%, 100% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.2); opacity: 1; }
+        }
+        .animate-scan-beam {
+          animation: scanBeam 3.5s ease-in-out infinite;
+        }
+        .animate-flow-stream {
+          stroke-dasharray: 6, 4;
+          animation: flowingStream 1.2s linear infinite;
+        }
+        .animate-pulse-dot {
+          animation: pulseDot 2s ease-in-out infinite;
+        }
+      `}} />
+
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
-          <span className="text-xs font-bold text-primary tracking-wider uppercase bg-primary/10 px-3 py-1 rounded-full">
-            Product Walkthrough
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="text-xs font-bold text-primary tracking-wider uppercase bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+            Platform Demo
           </span>
           <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-text-primary mt-4 mb-4 tracking-tight">
-            Designed for high-performance careers
+            See the Profile Sync Engine in Action
           </h2>
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-            Take a look inside the Profiling Workspace. An intuitive interface engineered to accelerate your personal brand.
+            Profiling connects your offline documents with your online presence. Watch our live scanner audit keywords and update your LinkedIn profile continuously.
           </p>
         </div>
 
-        {/* Laptop Mockup Wrapper */}
-        <div className="relative mx-auto max-w-5xl">
-          {/* Laptop Screen Bezel */}
-          <div className="bg-[#1e1e24] p-3 sm:p-4 rounded-t-2xl shadow-2xl border-t border-x border-[#3a3a45]">
-            {/* Screen Inner Frame */}
-            <div className="bg-slate-900 rounded-lg overflow-hidden border border-slate-800 aspect-[16/10] relative flex flex-col">
+        {/* Outer Interface Frame */}
+        <div className="mx-auto max-w-5xl bg-white border border-border rounded-2xl p-4 md:p-8 shadow-subtle relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(#e5e5e5_1px,transparent_1px)] [background-size:20px_20px] opacity-30 pointer-events-none" />
+
+          {/* Sync Engine Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            
+            {/* Left Column: The Resume Scanner (Light Theme card) */}
+            <div className="lg:col-span-5 bg-[#F9F9F9] border border-border rounded-xl p-5 shadow-sm relative overflow-hidden min-h-[380px] flex flex-col justify-between">
               
-              {/* Camera Notch / Dot */}
-              <div className="absolute top-1.5 left-1/2 -translate-x-1/2 flex gap-1 z-35">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-800" />
-                <span className="w-1 h-1 rounded-full bg-blue-500/80" />
-              </div>
-
-              {/* Dashboard Content */}
-              <div className="flex flex-1 overflow-hidden text-left bg-slate-50 text-slate-800 text-xs font-sans">
-                
-                {/* Sidebar */}
-                <aside className="w-40 sm:w-48 bg-white border-r border-slate-200 hidden sm:flex flex-col justify-between p-4 shrink-0">
-                  <div className="flex flex-col gap-6">
-                    {/* Sidebar Logo */}
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
-                        <span className="text-white font-extrabold text-xs">P</span>
-                      </div>
-                      <span className="font-bold text-sm text-text-primary tracking-tight">Profiling</span>
-                    </div>
-
-                    {/* Sidebar Nav */}
-                    <nav className="flex flex-col gap-1">
-                      <a href="#preview" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-primary/10 text-primary font-medium">
-                        <LayoutDashboard className="w-3.5 h-3.5" />
-                        Dashboard
-                      </a>
-                      <a href="#preview" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-text-secondary hover:bg-slate-100 hover:text-text-primary transition-colors">
-                        <FileText className="w-3.5 h-3.5" />
-                        Resume Analyzer
-                      </a>
-                      <a href="#preview" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-text-secondary hover:bg-slate-100 hover:text-text-primary transition-colors">
-                        <Linkedin className="w-3.5 h-3.5" />
-                        LinkedIn Workspace
-                      </a>
-                      <a href="#preview" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-text-secondary hover:bg-slate-100 hover:text-text-primary transition-colors">
-                        <MessageSquare className="w-3.5 h-3.5" />
-                        Content Generator
-                      </a>
-                      <a href="#preview" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-text-secondary hover:bg-slate-100 hover:text-text-primary transition-colors">
-                        <LineChart className="w-3.5 h-3.5" />
-                        Career Insights
-                      </a>
-                    </nav>
+              {/* Animated scan beam line */}
+              <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FFBB00] to-transparent shadow-[0_0_10px_#FFBB00] animate-scan-beam" />
+              
+              {/* Resume Header */}
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-primary" />
+                    <span className="font-bold text-xs text-text-primary uppercase tracking-wide">Resume Parser</span>
                   </div>
-
-                  <div className="flex flex-col gap-1">
-                    <a href="#preview" className="flex items-center gap-2 px-2.5 py-1.5 rounded-md text-text-secondary hover:bg-slate-100 hover:text-text-primary transition-colors">
-                      <Settings className="w-3.5 h-3.5" />
-                      Settings
-                    </a>
-                  </div>
-                </aside>
-
-                {/* Main Workspace Area */}
-                <div className="flex-1 flex flex-col min-w-0">
-                  
-                  {/* Top Bar */}
-                  <header className="h-10 bg-white border-b border-slate-200 px-4 flex items-center justify-between gap-4">
-                    <div className="relative w-44 sm:w-60">
-                      <Search className="w-3.5 h-3.5 text-text-secondary absolute left-2.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        placeholder="Search positions, keywords..."
-                        className="w-full bg-slate-50 border border-slate-200 rounded-md pl-8 pr-3 py-1 text-[11px] focus:outline-none"
-                        disabled
-                      />
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button className="p-1 rounded-full text-text-secondary hover:bg-slate-100 relative">
-                        <Bell className="w-3.5 h-3.5" />
-                        <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-danger" />
-                      </button>
-                      <span className="h-4 w-px bg-slate-200" />
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-5 h-5 rounded-full bg-slate-200 overflow-hidden">
-                          <div className="w-full h-full bg-gradient-to-tr from-primary to-blue-300" />
-                        </div>
-                        <span className="font-medium text-text-primary hidden md:inline">Alex Carter</span>
-                      </div>
-                    </div>
-                  </header>
-
-                  {/* Dashboard Body */}
-                  <main className="flex-1 p-4 overflow-y-auto space-y-4">
-                    
-                    {/* Greeting & Quick Summary */}
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                      <div>
-                        <h3 className="text-sm font-bold text-text-primary">Welcome back, Alex</h3>
-                        <p className="text-[10px] text-text-secondary">Here's your career optimization status today.</p>
-                      </div>
-                      <div className="text-[10px] text-text-secondary bg-white border border-slate-200 px-2 py-1 rounded">
-                        Last synced: 3 mins ago
-                      </div>
-                    </div>
-
-                    {/* Stats Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      <div className="bg-white p-3 border border-slate-200 rounded-lg">
-                        <span className="text-[10px] font-medium text-text-secondary block">ATS Score</span>
-                        <div className="flex items-baseline gap-1 mt-1">
-                          <span className="text-lg font-bold text-text-primary">82%</span>
-                          <span className="text-[9px] text-success font-medium">+4%</span>
-                        </div>
-                      </div>
-                      <div className="bg-white p-3 border border-slate-200 rounded-lg">
-                        <span className="text-[10px] font-medium text-text-secondary block">LinkedIn Views</span>
-                        <div className="flex items-baseline gap-1 mt-1">
-                          <span className="text-lg font-bold text-text-primary">1,248</span>
-                          <span className="text-[9px] text-success font-medium">+24%</span>
-                        </div>
-                      </div>
-                      <div className="bg-white p-3 border border-slate-200 rounded-lg">
-                        <span className="text-[10px] font-medium text-text-secondary block">Active Matches</span>
-                        <div className="flex items-baseline gap-1 mt-1">
-                          <span className="text-lg font-bold text-text-primary">14 Roles</span>
-                          <span className="text-[9px] text-primary font-medium">8 High</span>
-                        </div>
-                      </div>
-                      <div className="bg-white p-3 border border-slate-200 rounded-lg">
-                        <span className="text-[10px] font-medium text-text-secondary block">Weekly Posts</span>
-                        <div className="flex items-baseline gap-1 mt-1">
-                          <span className="text-lg font-bold text-text-primary">3 / 5</span>
-                          <span className="text-[9px] text-text-secondary font-medium">Scheduled</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Inner Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-                      
-                      {/* Active Job Matches */}
-                      <div className="bg-white border border-slate-200 rounded-lg p-3 md:col-span-8 flex flex-col justify-between">
-                        <div>
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="font-bold text-[11px] text-text-primary">AI-Matched Open Roles</span>
-                            <a href="#preview" className="text-[10px] text-primary font-medium hover:underline flex items-center gap-0.5">
-                              View all matches
-                              <ExternalLink className="w-2.5 h-2.5" />
-                            </a>
-                          </div>
-                          
-                          {/* Mock Table */}
-                          <div className="space-y-2">
-                            <div className="grid grid-cols-12 font-semibold text-[10px] text-text-secondary border-b border-slate-100 pb-1">
-                              <span className="col-span-5">Company & Role</span>
-                              <span className="col-span-3">Compatibility</span>
-                              <span className="col-span-2">ATS Score</span>
-                              <span className="col-span-2 text-right">Action</span>
-                            </div>
-                            <div className="grid grid-cols-12 text-[10px] text-text-primary items-center py-0.5 border-b border-slate-100">
-                              <span className="col-span-5 font-medium">Stripe — Staff Frontend Engineer</span>
-                              <span className="col-span-3 text-success font-medium">96% High Match</span>
-                              <span className="col-span-2 font-medium">91%</span>
-                              <button className="col-span-2 text-right text-primary font-bold hover:underline">Apply</button>
-                            </div>
-                            <div className="grid grid-cols-12 text-[10px] text-text-primary items-center py-0.5 border-b border-slate-100">
-                              <span className="col-span-5 font-medium">Vercel — Senior React Developer</span>
-                              <span className="col-span-3 text-success font-medium">92% High Match</span>
-                              <span className="col-span-2 font-medium">88%</span>
-                              <button className="col-span-2 text-right text-primary font-bold hover:underline">Apply</button>
-                            </div>
-                            <div className="grid grid-cols-12 text-[10px] text-text-primary items-center py-0.5">
-                              <span className="col-span-5 font-medium">Linear — Product Designer</span>
-                              <span className="col-span-3 text-warning font-medium">81% Mid Match</span>
-                              <span className="col-span-2 font-medium">74%</span>
-                              <button className="col-span-2 text-right text-primary font-bold hover:underline">Optimize</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* LinkedIn Schedule */}
-                      <div className="bg-white border border-slate-200 rounded-lg p-3 md:col-span-4 flex flex-col justify-between">
-                        <div>
-                          <span className="font-bold text-[11px] text-text-primary block mb-3">LinkedIn Workspace Insights</span>
-                          <div className="space-y-2">
-                            <div className="p-2 bg-slate-50 border border-slate-100 rounded">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-semibold text-[10px] text-text-primary">Optimized Headline Idea</span>
-                                <span className="text-[8px] bg-primary/10 text-primary px-1 rounded font-medium">AI Idea</span>
-                              </div>
-                              <p className="text-[9px] text-text-secondary leading-tight italic">
-                                "Senior Frontend Engineer | React Specialist | Building high-performance developer tools"
-                              </p>
-                            </div>
-                            <div className="p-2 bg-slate-50 border border-slate-100 rounded">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-semibold text-[10px] text-text-primary">Engagement Spike Target</span>
-                                <span className="text-[8px] bg-success/10 text-success px-1 rounded font-medium">Insight</span>
-                              </div>
-                              <p className="text-[9px] text-text-secondary leading-tight">
-                                Posting on Tuesdays at 9:00 AM matches active periods for engineering recruiters.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </main>
+                  <span className="text-[10px] text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded font-bold uppercase tracking-wide">
+                    Live Score: {atsScore}%
+                  </span>
                 </div>
 
+                <div className="space-y-4 text-left">
+                  {/* Dummy Resume Details */}
+                  <div className="space-y-1">
+                    <h4 className="font-black text-sm text-text-primary leading-tight">Alex Mercer</h4>
+                    <p className="text-[10px] text-text-secondary">Senior Software Engineer · San Francisco, CA</p>
+                  </div>
+
+                  <hr className="border-border" />
+
+                  {/* Experience Section */}
+                  <div className="space-y-2">
+                    <span className="text-[9px] font-bold text-text-secondary uppercase tracking-wider block">Professional Experience</span>
+                    
+                    <div className="space-y-1">
+                      <div className="flex justify-between items-center text-[10px]">
+                        <span className="font-bold text-text-primary">Software Engineer III @ Vercel</span>
+                        <span className="text-text-secondary">2024 - Present</span>
+                      </div>
+                      <p className="text-[9px] text-text-secondary leading-normal">
+                        Spearheaded developer relations tools and build systems optimization. 
+                        Integrated TypeScript strict validation checks to reduce pipeline failures.
+                      </p>
+                      {/* Live scanned keyword badge pointer */}
+                      <span className="inline-flex items-center gap-1 text-[8px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20 mt-1">
+                        <Sparkles className="w-2.5 h-2.5" />
+                        Scanned: TypeScript & Build Systems detected
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Bullet optimization panel */}
+              <div className="mt-4 pt-3 border-t border-border space-y-2 text-left">
+                <span className="text-[9px] font-bold text-text-secondary uppercase tracking-wider block">AI Formatting Suggestions</span>
+                <div className="p-2 bg-white rounded border border-border/80 text-[9px] text-text-secondary flex items-start gap-2 shadow-xs">
+                  <CheckCircle className="w-3.5 h-3.5 text-success shrink-0 mt-0.5 animate-pulse" />
+                  <div>
+                    <span className="font-bold text-text-primary block">STAR Formula Match</span>
+                    <span>Action verb "Spearheaded" has strong metric density compatibility.</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
+            {/* Middle Column: Visual Connector & Flow indicators */}
+            <div className="lg:col-span-2 flex lg:flex-col justify-center items-center gap-2 h-12 lg:h-full py-4 lg:py-0">
+              
+              {/* CPU Center processing hub */}
+              <div className="w-10 h-10 rounded-xl bg-slate-900 text-white border border-neutral-800 shadow-md flex items-center justify-center relative shrink-0">
+                <Cpu className="w-5 h-5 text-primary animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-primary animate-ping" />
+              </div>
+
+              {/* Connecting Line (Desktop) */}
+              <div className="hidden lg:block w-px h-28 relative">
+                <svg className="h-full w-full absolute left-1/2 -translate-x-1/2 overflow-visible">
+                  <line x1="0" y1="0" x2="0" y2="110" stroke="url(#line-grad-preview)" strokeWidth="2.5" strokeDasharray="6,4" className="animate-flow-stream" />
+                  <defs>
+                    <linearGradient id="line-grad-preview" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#FFBB00" />
+                      <stop offset="100%" stopColor="#FFD254" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
+              {/* Desktop horizontal flow arrow */}
+              <div className="hidden lg:block text-text-secondary text-[10px] font-bold uppercase tracking-widest text-center rotate-90 my-2">
+                Syncing
+              </div>
+
+            </div>
+
+            {/* Right Column: The LinkedIn Dashboard (Dark Theme card) */}
+            <div className="lg:col-span-5 bg-slate-900 border border-neutral-800 rounded-xl p-5 shadow-sm relative min-h-[380px] flex flex-col justify-between text-white">
+              
+              {/* LinkedIn Header */}
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center gap-2">
+                    <Linkedin className="w-5 h-5 text-primary" />
+                    <span className="font-bold text-xs text-neutral-400 uppercase tracking-wide">LinkedIn Sync Panel</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded font-bold uppercase tracking-wide flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse-dot" />
+                    Connected
+                  </span>
+                </div>
+
+                {/* Dummy LinkedIn Profile details */}
+                <div className="space-y-4 text-left">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center font-bold text-primary text-sm">
+                      A
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-xs text-white">Alex Mercer</h4>
+                      <p className="text-[9px] text-neutral-500">Staff Engineer @ Vercel | TypeScript Architect</p>
+                    </div>
+                  </div>
+
+                  <hr className="border-neutral-800" />
+
+                  {/* impressions dynamic stats */}
+                  <div className="p-3 bg-neutral-950/60 border border-neutral-800/80 rounded-lg space-y-2">
+                    <div className="flex justify-between items-center text-[10px]">
+                      <div>
+                        <span className="text-neutral-500 text-[8px] uppercase tracking-wider block font-bold">Total Profile Impressions</span>
+                        <span className="text-base font-extrabold text-white tracking-tight">{impressions.toLocaleString()}</span>
+                      </div>
+                      <span className="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.2 rounded">
+                        +14.2% growth
+                      </span>
+                    </div>
+
+                    {/* Sparkline chart updating in real time */}
+                    <div className="w-full h-8 pt-1">
+                      <svg className="w-full h-full overflow-visible">
+                        <path
+                          d="M0,22 Q15,12 30,25 T60,8 T90,18 T120,4 T150,14 T180,9 T210,18 T240,11 T270,22 T300,5"
+                          fill="none"
+                          stroke="url(#sparkline-grad-preview)"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                        />
+                        <defs>
+                          <linearGradient id="sparkline-grad-preview" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#FFBB00" />
+                            <stop offset="100%" stopColor="#FFD254" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Scheduled post list block */}
+              <div className="mt-4 pt-3 border-t border-neutral-800 space-y-2 text-left">
+                <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-wider block">Active Scheduled Updates</span>
+                <div className="p-2.5 bg-neutral-950/40 rounded border border-neutral-800 text-[9px] text-neutral-400 space-y-1">
+                  <div className="flex justify-between items-center text-[8px]">
+                    <span className="font-bold text-white uppercase tracking-wider">Scheduled Post Draft</span>
+                    <span className="text-primary font-bold">Tues 9:00 AM</span>
+                  </div>
+                  <p className="text-[9px] leading-relaxed italic text-neutral-500">
+                    "Just deployed TypeScript strict configs inside our monorepo. Saved 14 developer hours of type compilation failures..."
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
-          {/* Laptop Base Bezel */}
-          <div className="bg-[#2c2c34] h-4 rounded-b-2xl shadow-2xl relative border-t border-[#3f3f4a]">
-            {/* Display Notch */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-1.5 bg-[#19191e] rounded-b-md" />
+          {/* Connect CTA Info Card */}
+          <div className="mt-8 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <div className="flex items-center gap-2 text-left">
+              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
+              <p className="text-xs text-text-secondary font-medium">
+                No chrome extension required. All profile synchronizations process directly through UniPile integrations.
+              </p>
+            </div>
+            <a
+              href="/register"
+              className="text-xs font-bold text-primary hover:text-primary-hover transition-colors flex items-center gap-1 bg-primary/10 border border-primary/20 hover:bg-primary/15 px-3.5 py-2 rounded-lg"
+            >
+              <span>Build your synchronized profile</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
+
         </div>
 
       </div>
