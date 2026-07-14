@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Play, FileText, Linkedin, TrendingUp, Sparkles, CheckCircle, Cpu, Layers } from 'lucide-react';
+import { ArrowRight, Play, Sparkles, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
@@ -110,85 +110,160 @@ export default function Hero() {
                 </svg>
               </div>
 
-              {/* Card 1: Resume Niche Card (Top Left - tilted forward) */}
+              {/* Styles for continuous 3D turn around animations */}
+              <style dangerouslySetInnerHTML={{__html: `
+                @keyframes rotateCV {
+                  0% { transform: translate3d(0, 0, 90px) rotateY(-18deg) rotateX(12deg); }
+                  50% { transform: translate3d(8px, -15px, 120px) rotateY(18deg) rotateX(-8deg); }
+                  100% { transform: translate3d(0, 0, 90px) rotateY(-18deg) rotateX(12deg); }
+                }
+                @keyframes rotateLI {
+                  0% { transform: translate3d(0, 0, 35px) rotateY(18deg) rotateX(-12deg); }
+                  50% { transform: translate3d(-8px, 15px, 60px) rotateY(-18deg) rotateX(8deg); }
+                  100% { transform: translate3d(0, 0, 35px) rotateY(18deg) rotateX(-12deg); }
+                }
+                .animate-cv-3d {
+                  animation: rotateCV 8s ease-in-out infinite;
+                }
+                .animate-li-3d {
+                  animation: rotateLI 8s ease-in-out infinite;
+                }
+              `}} />
+
+              {/* Card 1: Actual Styled A4 CV Layout Mockup (Top Left - tilted forward) */}
               <div 
                 onMouseEnter={() => setHoveredCard('resume')}
-                className={`absolute left-[5%] top-[10%] w-[230px] bg-white border rounded-xl p-4 transition-all duration-300 flex flex-col text-left justify-between shadow-[0_8px_30px_rgba(164,122,140,0.06)] ${
-                  hoveredCard === 'resume' ? 'border-primary scale-[1.03]' : 'border-border'
+                onMouseLeave={() => setHoveredCard(null)}
+                className={`absolute left-[2%] top-[5%] w-[240px] h-[340px] bg-white border rounded-lg p-4 transition-all duration-300 flex flex-col text-left justify-between shadow-[0_15px_35px_rgba(0,0,0,0.06)] font-sans border-border/80 overflow-hidden ${
+                  hoveredCard === 'resume' ? 'scale-[1.03] z-30 border-primary' : 'animate-cv-3d border-border/80'
                 }`}
-                style={{ 
-                  transform: 'translateZ(100px) rotateY(-5deg)',
-                  boxShadow: hoveredCard === 'resume' 
-                    ? '0 20px 40px -15px rgba(164, 122, 140, 0.15)' 
-                    : '0 10px 30px -10px rgba(0, 0, 0, 0.05)'
-                }}
+                style={hoveredCard === 'resume' ? {
+                  transform: `translateZ(130px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
+                  boxShadow: '0 25px 50px -12px rgba(255, 187, 0, 0.2)'
+                } : undefined}
               >
-                <div className="flex items-center justify-between mb-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <FileText className="w-4.5 h-4.5 text-primary" />
+                {/* CV Content Container */}
+                <div className="space-y-3 h-full flex flex-col">
+                  {/* CV Header */}
+                  <div className="text-center border-b border-border/60 pb-2">
+                    <h3 className="font-extrabold text-[12px] text-text-primary tracking-tight uppercase">Syed Uzair Shah</h3>
+                    <p className="text-[7px] text-primary font-bold uppercase tracking-wider">Staff Software Engineer</p>
+                    <p className="text-[6px] text-text-secondary mt-0.5">syeduzair7008@gmail.com · San Francisco, CA</p>
                   </div>
-                  <span className="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-100 uppercase tracking-wide">ATS Verified</span>
-                </div>
-                
-                <div className="space-y-1">
-                  <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider block">Resume Integrity</span>
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl font-black text-text-primary">94%</span>
-                    <span className="text-[10px] text-text-secondary font-semibold">ATS Compatibility</span>
-                  </div>
-                </div>
 
-                <div className="mt-4 border-t border-slate-100 pt-3 flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2 text-[10px] text-text-secondary font-medium">
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>Missing Skills Patched</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-[10px] text-text-secondary font-medium">
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                    <span>STAR Formatted Bullets</span>
+                  {/* CV Body */}
+                  <div className="flex-1 space-y-2.5 overflow-hidden">
+                    {/* Summary */}
+                    <div className="space-y-0.5 text-[6px]">
+                      <span className="font-bold text-text-primary uppercase tracking-wide block border-b border-border/40 pb-0.5">Executive Summary</span>
+                      <p className="text-text-secondary leading-normal">
+                        Experienced Software Engineer specializing in scalable full-stack React systems, database architectures, and continuous AI synchronization layers.
+                      </p>
+                    </div>
+
+                    {/* Experience */}
+                    <div className="space-y-1.5 text-[6px]">
+                      <span className="font-bold text-text-primary uppercase tracking-wide block border-b border-border/40 pb-0.5">Professional Experience</span>
+                      
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[6px] font-bold text-text-primary">
+                          <span>Staff Frontend Engineer — Stripe</span>
+                          <span className="text-text-secondary">2024 - Present</span>
+                        </div>
+                        <p className="text-text-secondary leading-normal">
+                          • Designed robust checkout checkout visual flows using React and TypeScript.
+                          <br />
+                          • Leveraged real-time sync systems to improve transactional audit pipeline speed by 40%.
+                        </p>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[6px] font-bold text-text-primary">
+                          <span>Senior Software Dev — Google</span>
+                          <span className="text-text-secondary">2022 - 2024</span>
+                        </div>
+                        <p className="text-text-secondary leading-normal">
+                          • Optimized API latency times by integrating caching models in NestJS engines.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Education & Skills */}
+                    <div className="grid grid-cols-2 gap-2 text-[6px]">
+                      <div>
+                        <span className="font-bold text-text-primary uppercase tracking-wide block border-b border-border/40 pb-0.5">Education</span>
+                        <p className="text-text-secondary font-bold mt-1">Stanford University</p>
+                        <p className="text-text-secondary">BS Computer Science</p>
+                      </div>
+                      <div>
+                        <span className="font-bold text-text-primary uppercase tracking-wide block border-b border-border/40 pb-0.5">Core Skills</span>
+                        <p className="text-text-secondary leading-tight mt-1">
+                          React, Next.js, TypeScript, Node.js, Express, Postgres, Prisma, Docker.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Card 2: LinkedIn Niche Card (Bottom Right - tilted back) */}
+              {/* Card 2: Actual LinkedIn Profile Mockup Card (Bottom Right - tilted back) */}
               <div 
                 onMouseEnter={() => setHoveredCard('linkedin')}
-                className={`absolute right-[5%] bottom-[10%] w-[230px] bg-dark border rounded-xl p-4 transition-all duration-300 flex flex-col text-left justify-between shadow-[0_8px_30px_rgba(0,0,0,0.06)] ${
-                  hoveredCard === 'linkedin' ? 'border-primary/80 scale-[1.03]' : 'border-neutral-800'
+                onMouseLeave={() => setHoveredCard(null)}
+                className={`absolute right-[2%] bottom-[5%] w-[240px] h-[240px] bg-white border rounded-lg transition-all duration-300 flex flex-col text-left justify-between shadow-[0_15px_35px_rgba(0,0,0,0.06)] border-border overflow-hidden ${
+                  hoveredCard === 'linkedin' ? 'scale-[1.03] z-30 border-primary' : 'animate-li-3d border-border'
                 }`}
-                style={{ 
-                  transform: 'translateZ(40px) rotateY(5deg)',
-                  boxShadow: hoveredCard === 'linkedin' 
-                    ? '0 20px 40px -15px rgba(164, 122, 140, 0.3)' 
-                    : '0 10px 35px -10px rgba(0, 0, 0, 0.3)'
-                }}
+                style={hoveredCard === 'linkedin' ? {
+                  transform: `translateZ(75px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
+                  boxShadow: '0 25px 50px -12px rgba(255, 187, 0, 0.2)'
+                } : undefined}
               >
-                <div className="flex items-center justify-between mb-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                    <Linkedin className="w-4.5 h-4.5 text-primary" />
-                  </div>
-                  <span className="text-[10px] text-primary bg-primary/20 px-2 py-0.5 rounded font-bold border border-primary/30 uppercase tracking-wide font-sans">UniPile Connect</span>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider block">LinkedIn Impressions</span>
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl font-black text-white">+14.2K</span>
-                    <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-0.5">
-                      <TrendingUp className="w-3 h-3" />
-                      18.4%
-                    </span>
+                {/* LinkedIn Mockup Header Background Banner */}
+                <div className="h-12 bg-dark relative flex-shrink-0">
+                  {/* Decorative digital layout grid in banner */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#333_1px,transparent_1px),linear-gradient(to_bottom,#333_1px,transparent_1px)] bg-[size:8px_8px] opacity-20" />
+                  
+                  {/* Rounded Profile Photo overlapping the banner */}
+                  <div className="absolute left-4 bottom-[-14px] w-12 h-12 rounded-full border-2 border-white bg-gradient-accent flex items-center justify-center text-white font-extrabold text-sm shadow-sm">
+                    S
                   </div>
                 </div>
 
-                <div className="mt-4 border-t border-neutral-800 pt-3 flex flex-col gap-1.5">
-                  <div className="flex items-center gap-2 text-[10px] text-neutral-400 font-medium">
-                    <Layers className="w-3.5 h-3.5 text-primary shrink-0" />
-                    <span>Auto Post Schedule Active</span>
+                {/* LinkedIn Details Section */}
+                <div className="flex-1 pt-5 px-4 pb-3 flex flex-col justify-between">
+                  <div className="space-y-1.5 text-left">
+                    <div className="flex items-center gap-1">
+                      <h4 className="font-extrabold text-[11px] text-text-primary">Syed Uzair Shah</h4>
+                      <div className="w-2.5 h-2.5 bg-primary/20 rounded-full flex items-center justify-center">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+                      </div>
+                    </div>
+                    
+                    <p className="text-[7px] text-text-primary leading-tight font-medium">
+                      Staff Software Engineer @ Stripe | Tech Creator | Ex-Google | Building Profiling AI
+                    </p>
+                    
+                    <p className="text-[6px] text-text-secondary">
+                      San Francisco Bay Area · <span className="text-primary font-bold hover:underline">12,480 followers</span>
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-neutral-400 font-medium">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-ping" />
-                    <span>Magic Post Draft Ready</span>
+
+                  {/* LinkedIn Action Buttons */}
+                  <div className="flex gap-1.5 my-1">
+                    <button className="flex-1 py-1 bg-primary text-on-primary text-[7px] font-bold rounded-full hover:bg-primary-hover transition-colors shadow-xs">
+                      Open to work
+                    </button>
+                    <button className="flex-1 py-1 border border-border text-text-primary text-[7px] font-bold rounded-full hover:bg-slate-50 transition-colors">
+                      Message
+                    </button>
+                  </div>
+
+                  {/* About Section snippet */}
+                  <div className="border-t border-border/60 pt-1.5 text-[6px]">
+                    <span className="font-bold text-text-primary uppercase tracking-wide block mb-0.5">About</span>
+                    <p className="text-text-secondary leading-normal">
+                      Passionate about building high-performance React architectures, optimizing build systems, and help software engineers synchronize their professional profiles.
+                    </p>
                   </div>
                 </div>
               </div>
