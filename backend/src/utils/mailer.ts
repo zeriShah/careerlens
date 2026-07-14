@@ -31,14 +31,14 @@ export const sendOtpEmail = async (email: string, otp: string, name: string): Pr
     });
 
     const mailOptions = {
-      from: `"CareerLens Security" <${SMTP_USER}>`,
+      from: `"Profiling Security" <${SMTP_USER}>`,
       to: email,
-      subject: `Your CareerLens Login Verification Code - ${otp}`,
+      subject: `Your Profiling Login Verification Code - ${otp}`,
       html: `
         <div style="font-family: sans-serif; max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; rounded-xl: 12px;">
           <h2 style="color: #1e3a8a; margin-top: 0;">Confirm Your Identity</h2>
           <p style="color: #475569; font-size: 14px;">Hello ${name},</p>
-          <p style="color: #475569; font-size: 14px;">We received a request to access your CareerLens account. Please use the following 2-Factor Authentication code to complete your login:</p>
+          <p style="color: #475569; font-size: 14px;">We received a request to access your Profiling account. Please use the following 2-Factor Authentication code to complete your login:</p>
           
           <div style="background-color: #f1f5f9; padding: 16px; border-radius: 8px; text-align: center; margin: 24px 0;">
             <span style="font-size: 32px; font-weight: 800; letter-spacing: 6px; color: #2563eb;">${otp}</span>

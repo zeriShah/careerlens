@@ -63,7 +63,7 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
             <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
               <svg className="w-16 h-16 transform -rotate-90">
                 <circle cx="32" cy="32" r="28" className="stroke-slate-200 fill-none" strokeWidth="4.5" />
-                <circle cx="32" cy="32" r="28" className={`${analysisResult && analysisResult.ats_score >= 75 ? 'stroke-success' : 'stroke-blue-600'} fill-none`} strokeWidth="4.5" strokeDasharray="175.9" strokeDashoffset={dashOffset} strokeLinecap="round" />
+                <circle cx="32" cy="32" r="28" className={`${analysisResult && analysisResult.ats_score >= 75 ? 'stroke-success' : 'stroke-indigo-600'} fill-none`} strokeWidth="4.5" strokeDasharray="175.9" strokeDashoffset={dashOffset} strokeLinecap="round" />
               </svg>
               <span className="absolute font-sans font-extrabold text-sm text-slate-800">{analysisResult ? `${analysisResult.ats_score}%` : '0%'}</span>
             </div>
@@ -143,7 +143,7 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
                 <path
                   d="M0,25 Q15,10 30,28 T60,5 T90,20 T120,3 T150,15 T180,8 T210,18 T240,12 T270,26 T300,4 T330,12 T360,18 T390,6 T420,2"
                   fill="none"
-                  stroke="#2563EB"
+                  stroke="#6366F1"
                   strokeWidth="2"
                 />
               </svg>

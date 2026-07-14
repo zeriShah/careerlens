@@ -3,7 +3,7 @@ import { Star } from 'lucide-react';
 const testimonials = [
   {
     rating: 5,
-    quote: "CareerLens was a game-changer. I uploaded my resume, added Stripe's job description, and optimized for the missing skills. I got an interview call the following week and landed the role.",
+    quote: "Profiling was a game-changer. I uploaded my resume, added Stripe's job description, and optimized for the missing skills. I got an interview call the following week and landed the role.",
     author: "Elena Rostova",
     role: "Senior Frontend Engineer",
     company: "Stripe",
@@ -11,7 +11,7 @@ const testimonials = [
   },
   {
     rating: 5,
-    quote: "Maintaining a personal brand on LinkedIn used to take hours. The AI Post Generator and Content Calendar helper inside CareerLens allowed me to schedule highly engaging posts in 15 minutes a week.",
+    quote: "Maintaining a personal brand on LinkedIn used to take hours. The AI Post Generator and Content Calendar helper inside Profiling allowed me to schedule highly engaging posts in 15 minutes a week.",
     author: "Marcus Vance",
     role: "Product Lead",
     company: "Orbit",
@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     rating: 5,
-    quote: "As a fresh graduate, I had no idea why my resume wasn't getting past ATS checkers. CareerLens gave me clear, line-by-line feedback. My response rate increased from 5% to over 30%.",
+    quote: "As a fresh graduate, I had no idea why my resume wasn't getting past ATS checkers. Profiling gave me clear, line-by-line feedback. My response rate increased from 5% to over 30%.",
     author: "Siddharth Mehta",
     role: "Junior Software Engineer",
     company: "Velocity",

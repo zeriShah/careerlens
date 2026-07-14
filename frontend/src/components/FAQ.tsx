@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     question: 'Is it safe to connect my LinkedIn account?',
-    answer: 'Yes. CareerLens integrates with LinkedIn via UniPile, a secure API connection provider. We strictly request permissions required for publishing posts and analyzing engagement analytics. Your personal details and credentials are never stored or exposed.',
+    answer: 'Yes. Profiling integrates with LinkedIn via UniPile, a secure API connection provider. We strictly request permissions required for publishing posts and analyzing engagement analytics. Your personal details and credentials are never stored or exposed.',
   },
   {
     question: 'What format should I upload my resume in?',
@@ -44,7 +44,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <p className="text-text-secondary text-sm sm:text-base leading-relaxed">
-            Have questions about CareerLens? Find quick answers below.
+            Have questions about Profiling? Find quick answers below.
           </p>
         </div>
 

@@ -9,10 +9,10 @@ export default function Footer() {
           <div className="md:col-span-4 flex flex-col items-start text-left gap-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-white font-extrabold text-lg">C</span>
+                <span className="text-white font-extrabold text-lg">P</span>
               </div>
               <span className="font-sans font-bold text-xl text-text-primary tracking-tight">
-                CareerLens
+                Profiling
               </span>
             </div>
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
@@ -95,7 +95,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <span className="text-xs text-text-secondary">
-            © {new Date().getFullYear()} CareerLens Inc. All rights reserved.
+            © {new Date().getFullYear()} Profiling Inc. All rights reserved.
           </span>
           <span className="text-xs text-text-secondary flex items-center gap-1">
             Build with UniPile Integration.

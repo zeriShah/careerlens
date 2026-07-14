@@ -28,10 +28,10 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center relative z-10 shrink-0">
         <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate('/')}>
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/10">
-            <span className="text-white font-extrabold text-lg">C</span>
+            <span className="text-white font-extrabold text-lg">P</span>
           </div>
           <span className="font-sans font-bold text-lg text-text-primary tracking-tight">
-            CareerLens
+            Profiling
           </span>
         </div>
         <a
@@ -51,7 +51,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
       {/* Footer */}
       <footer className="w-full py-6 text-center text-xs text-text-secondary/50 relative z-10 shrink-0 border-t border-slate-100 bg-white/50 backdrop-blur-sm">
-        <span>© {new Date().getFullYear()} CareerLens Inc. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} Profiling Inc. All rights reserved.</span>
       </footer>
     </div>
   );

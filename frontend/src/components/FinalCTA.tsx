@@ -15,7 +15,7 @@ export default function FinalCTA() {
           </h2>
           
           <p className="text-text-secondary text-sm sm:text-base leading-relaxed mb-8 max-w-md">
-            Join thousands of software engineers, designers, and product leaders who use CareerLens to analyze resumes, schedule posts, and land top opportunities.
+            Join thousands of software engineers, designers, and product leaders who use Profiling to analyze resumes, schedule posts, and land top opportunities.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">

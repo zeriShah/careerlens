@@ -14,7 +14,7 @@ export default function ProductPreview() {
             Designed for high-performance careers
           </h2>
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-            Take a look inside the CareerLens Workspace. An intuitive interface engineered to accelerate your personal brand.
+            Take a look inside the Profiling Workspace. An intuitive interface engineered to accelerate your personal brand.
           </p>
         </div>
 
@@ -40,9 +40,9 @@ export default function ProductPreview() {
                     {/* Sidebar Logo */}
                     <div className="flex items-center gap-1.5">
                       <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
-                        <span className="text-white font-extrabold text-xs">C</span>
+                        <span className="text-white font-extrabold text-xs">P</span>
                       </div>
-                      <span className="font-bold text-sm text-text-primary tracking-tight">CareerLens</span>
+                      <span className="font-bold text-sm text-text-primary tracking-tight">Profiling</span>
                     </div>
 
                     {/* Sidebar Nav */}

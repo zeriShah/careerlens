@@ -41,7 +41,7 @@ export default function Features() {
             Everything you need to step up your career
           </h2>
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-            Stop juggling multiple disconnected tools. CareerLens coordinates your professional assets in one seamless workspace.
+            Stop juggling multiple disconnected tools. Profiling coordinates your professional assets in one seamless workspace.
           </p>
         </div>
 

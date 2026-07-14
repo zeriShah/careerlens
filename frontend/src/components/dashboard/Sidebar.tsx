@@ -31,10 +31,10 @@ export default function Sidebar({ activeTab, setActiveTab, currentUser, onLogout
       {/* Workspace Brand */}
       <div className="p-5 border-b border-slate-100 flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
-          <span className="text-white font-extrabold text-lg">C</span>
+          <span className="text-white font-extrabold text-lg">P</span>
         </div>
         <div>
-          <span className="font-bold text-sm text-slate-900 block leading-tight">CareerLens</span>
+          <span className="font-bold text-sm text-slate-900 block leading-tight">Profiling</span>
           <span className="text-[10px] text-slate-400 font-medium">Workspace v1.0.0</span>
         </div>
       </div>

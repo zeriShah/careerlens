@@ -11,10 +11,10 @@ export default function WhyCareerLens() {
             The Better Way
           </span>
           <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-text-primary mt-4 mb-4 tracking-tight">
-            How CareerLens compares
+            How Profiling compares
           </h2>
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
-            Discover why modern professionals choose CareerLens over traditional templates and static checkers.
+            Discover why modern professionals choose Profiling over traditional templates and static checkers.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default function WhyCareerLens() {
             </div>
           </div>
 
-          {/* CareerLens Card */}
+          {/* Profiling Card */}
           <div className="bg-white border-2 border-primary rounded-lg p-8 shadow-md flex flex-col justify-between relative overflow-hidden">
             {/* Ribbon */}
             <div className="absolute top-0 right-0 bg-primary text-white text-[10px] font-bold tracking-wider px-3 py-1 uppercase rounded-bl">
@@ -76,7 +76,7 @@ export default function WhyCareerLens() {
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-sans font-bold text-lg text-text-primary">CareerLens Platform</h3>
+                  <h3 className="font-sans font-bold text-lg text-text-primary">Profiling Platform</h3>
                   <span className="text-xs text-primary font-medium">All-In-One Career Copilot</span>
                 </div>
               </div>

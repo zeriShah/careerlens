@@ -1,195 +1,194 @@
-import { ArrowRight, Play, CheckCircle, TrendingUp, Sparkles, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Play, FileText, Linkedin, TrendingUp, Sparkles, CheckCircle, Cpu, Layers } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
   const navigate = useNavigate();
+  
+  // Parallax tilt state for the 3D wrapper
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState<'resume' | 'linkedin' | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+    setTilt({ x: x * 15, y: -y * 15 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+    setHoveredCard(null);
+  };
+
   return (
-    <section className="relative overflow-hidden pt-6 pb-16 md:pt-10 md:pb-24 px-6 bg-background">
+    <section className="relative overflow-hidden pt-12 pb-20 md:pt-16 md:pb-28 px-6 bg-slate-50">
       {/* Subtle Background Accent Grid */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
         {/* Left Text Column */}
-        <div className="lg:col-span-5 flex flex-col items-start text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-xs font-semibold text-primary mb-6 animate-fade-in">
-            <Sparkles className="w-3.5 h-3.5" />
-            Next-Gen Career Copilot
+        <div className="lg:col-span-5 flex flex-col items-start text-left z-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 border border-indigo-100 rounded-full text-[11px] font-bold tracking-wide uppercase text-indigo-600 mb-6 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+            Next-Gen Profile Operating System
           </div>
 
-          <h1 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[44px] xl:text-[52px] leading-tight tracking-tight text-text-primary mb-6">
-            Optimize Your <br />
-            <span className="text-primary">Career with AI</span>
+          <h1 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[44px] xl:text-[54px] leading-[1.1] tracking-tight text-slate-900 mb-6">
+            Optimize Your Professional <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Identity with AI</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-text-secondary mb-8 leading-relaxed max-w-lg">
-            CareerLens helps professionals analyze resumes, optimize LinkedIn profiles, create AI-powered content, and grow their careers from one intelligent platform.
+          <p className="text-base sm:text-lg text-slate-500 mb-8 leading-relaxed max-w-lg">
+            Profiling is a premium workspace that connects your offline resume and online professional presence. Analyze resume scores, tailor CVs dynamically, and schedule AI content for LinkedIn from a single dashboard.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <button
               onClick={() => navigate('/register')}
-              className="bg-primary text-white hover:bg-primary-hover font-medium text-sm px-6 py-3.5 rounded-lg shadow-subtle transition-all duration-150 flex items-center justify-center gap-2 active:scale-[0.98] w-full sm:w-auto"
+              className="bg-indigo-600 text-white hover:bg-indigo-700 font-semibold text-sm px-6 py-3.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 flex items-center justify-center gap-2 active:scale-[0.98] w-full sm:w-auto"
             >
               Get Started Free
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="bg-white border border-border hover:bg-black/5 text-text-primary font-medium text-sm px-6 py-3.5 rounded-lg transition-all duration-150 flex items-center justify-center gap-2 w-full sm:w-auto">
-              <Play className="w-4 h-4 text-text-secondary fill-text-secondary" />
+            <button className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-sm px-6 py-3.5 rounded-lg shadow-sm transition-all duration-150 flex items-center justify-center gap-2 w-full sm:w-auto">
+              <Play className="w-4 h-4 text-slate-400 fill-slate-400" />
               Watch Demo
             </button>
           </div>
         </div>
 
-        {/* Right Dashboard Mockup Column */}
-        <div className="lg:col-span-7 w-full">
-          {/* Main Browser Mockup Container */}
-          <div className="w-full bg-white border border-border rounded-lg shadow-xl overflow-hidden animate-fade-in-up duration-300">
-            {/* Header / Title Bar */}
-            <div className="bg-slate-50 border-b border-border px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-danger/60" />
-                <span className="w-3 h-3 rounded-full bg-warning/60" />
-                <span className="w-3 h-3 rounded-full bg-success/60" />
-              </div>
-              <div className="text-xs text-text-secondary font-medium bg-white px-6 py-1 rounded-md border border-border/60">
-                app.careerlens.io/dashboard
-              </div>
-              <div className="w-12" />
-            </div>
+        {/* Right 3D Parallax Visual Column */}
+        <div className="lg:col-span-7 w-full flex items-center justify-center h-[460px] md:h-[500px]">
+          <div 
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="relative w-full max-w-[500px] h-full flex items-center justify-center cursor-default"
+            style={{ perspective: '1200px' }}
+          >
+            {/* The 3D container that tilts */}
+            <div 
+              className="relative w-full h-[400px] transition-transform duration-200 ease-out flex items-center justify-center"
+              style={{ 
+                transformStyle: 'preserve-3d',
+                transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`
+              }}
+            >
+              
+              {/* Backglow decoration */}
+              <div className="absolute w-[280px] h-[280px] rounded-full bg-gradient-to-tr from-indigo-500/20 to-violet-500/10 blur-[60px] -z-10 transform translate-z-[-50px]" />
 
-            {/* Mockup Dashboard Content */}
-            <div className="p-6 bg-slate-50/50 grid grid-cols-1 md:grid-cols-2 gap-4">
-
-              {/* 1. Resume Score Card */}
-              <div className="bg-white p-4 border border-border rounded-lg shadow-subtle flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Resume Score</span>
-                  <span className="text-xs text-success bg-success/10 px-2 py-0.5 rounded-full font-medium">ATS Approved</span>
-                </div>
-                <div className="flex items-center gap-4 py-2">
-                  <div className="relative flex items-center justify-center">
-                    {/* SVG Radial Progress */}
-                    <svg className="w-16 h-16 transform -rotate-90">
-                      <circle cx="32" cy="32" r="28" stroke="#E5E7EB" strokeWidth="6" fill="transparent" />
-                      <circle cx="32" cy="32" r="28" stroke="#2563EB" strokeWidth="6" fill="transparent" strokeDasharray="175.9" strokeDashoffset="31.6" strokeLinecap="round" />
-                    </svg>
-                    <span className="absolute text-sm font-bold text-text-primary">82%</span>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-bold text-text-primary">Resume Optimized</span>
-                    <span className="text-xs text-text-secondary">Ready to apply to 12 target roles</span>
-                  </div>
-                </div>
-                <div className="border-t border-border pt-3 mt-2 flex flex-col gap-1.5 text-left">
-                  <div className="flex items-center gap-1.5 text-[11px] text-text-secondary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-success" />
-                    Keywords matched: 8/10
-                  </div>
-                  <div className="flex items-center gap-1.5 text-[11px] text-text-secondary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-warning" />
-                    Add: React Query experience
-                  </div>
-                </div>
+              {/* 3D Connecting Core */}
+              <div 
+                className="absolute w-12 h-12 rounded-2xl bg-white border border-slate-200 shadow-lg flex items-center justify-center transition-all duration-300 z-20"
+                style={{ 
+                  transform: 'translateZ(60px)',
+                  boxShadow: '0 10px 30px -10px rgba(99, 102, 241, 0.3)'
+                }}
+              >
+                <Cpu className="w-6 h-6 text-indigo-600 animate-pulse" />
               </div>
 
-              {/* 2. LinkedIn Overview Card */}
-              <div className="bg-white p-4 border border-border rounded-lg shadow-subtle flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">LinkedIn Analytics</span>
-                  <span className="text-[11px] text-text-secondary bg-slate-100 px-2 py-0.5 rounded font-medium">7 Days</span>
+              {/* Linking dashed SVG connector lines in 3D */}
+              <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center">
+                <svg className="w-full h-full absolute" style={{ transform: 'translateZ(10px)' }}>
+                  <path 
+                    d="M 120 120 L 250 200 L 380 280" 
+                    fill="none" 
+                    stroke="url(#dash-grad)" 
+                    strokeWidth="2" 
+                    strokeDasharray="5,5"
+                    className="animate-[dash_10s_linear_infinite]"
+                  />
+                  <defs>
+                    <linearGradient id="dash-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#6366F1" />
+                      <stop offset="100%" stopColor="#8B5CF6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+
+              {/* Card 1: Resume Niche Card (Top Left - tilted forward) */}
+              <div 
+                onMouseEnter={() => setHoveredCard('resume')}
+                className={`absolute left-[5%] top-[10%] w-[230px] bg-white border rounded-xl p-4 transition-all duration-300 flex flex-col text-left justify-between shadow-[0_8px_30px_rgb(0,0,0,0.04)] ${
+                  hoveredCard === 'resume' ? 'border-indigo-500 scale-[1.03]' : 'border-slate-200'
+                }`}
+                style={{ 
+                  transform: 'translateZ(100px) rotateY(-5deg)',
+                  boxShadow: hoveredCard === 'resume' 
+                    ? '0 20px 40px -15px rgba(99, 102, 241, 0.15)' 
+                    : '0 10px 30px -10px rgba(0, 0, 0, 0.05)'
+                }}
+              >
+                <div className="flex items-center justify-between mb-3.5">
+                  <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+                    <FileText className="w-4.5 h-4.5 text-indigo-600" />
+                  </div>
+                  <span className="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-100 uppercase tracking-wide">ATS Verified</span>
                 </div>
-                <div>
-                  <span className="text-xs text-text-secondary">Total Impressions</span>
-                  <div className="flex items-baseline gap-2 mt-0.5">
-                    <span className="text-2xl font-bold text-text-primary">14.2K</span>
-                    <span className="text-xs text-success font-medium flex items-center gap-0.5">
+                
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Resume Integrity</span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-black text-slate-800">94%</span>
+                    <span className="text-[10px] text-slate-400 font-semibold">ATS Compatibility</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 border-t border-slate-100 pt-3 flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2 text-[10px] text-slate-500 font-medium">
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>Missing Skills Patched</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] text-slate-500 font-medium">
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <span>STAR Formatted Bullets</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 2: LinkedIn Niche Card (Bottom Right - tilted back) */}
+              <div 
+                onMouseEnter={() => setHoveredCard('linkedin')}
+                className={`absolute right-[5%] bottom-[10%] w-[230px] bg-slate-900 border rounded-xl p-4 transition-all duration-300 flex flex-col text-left justify-between shadow-[0_8px_30px_rgb(0,0,0,0.06)] ${
+                  hoveredCard === 'linkedin' ? 'border-violet-500 scale-[1.03]' : 'border-slate-800'
+                }`}
+                style={{ 
+                  transform: 'translateZ(40px) rotateY(5deg)',
+                  boxShadow: hoveredCard === 'linkedin' 
+                    ? '0 20px 40px -15px rgba(139, 92, 246, 0.3)' 
+                    : '0 10px 35px -10px rgba(0, 0, 0, 0.3)'
+                }}
+              >
+                <div className="flex items-center justify-between mb-3.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center">
+                    <Linkedin className="w-4.5 h-4.5 text-violet-400" />
+                  </div>
+                  <span className="text-[10px] text-violet-300 bg-violet-500/20 px-2 py-0.5 rounded font-bold border border-violet-500/30 uppercase tracking-wide">UniPile Connect</span>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">LinkedIn Impressions</span>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-black text-white">+14.2K</span>
+                    <span className="text-[10px] text-emerald-400 font-bold flex items-center gap-0.5">
                       <TrendingUp className="w-3 h-3" />
-                      +18.4%
+                      18.4%
                     </span>
                   </div>
                 </div>
-                {/* SVG Sparkline */}
-                <div className="h-10 w-full mt-2">
-                  <svg className="w-full h-full" viewBox="0 0 100 30" preserveAspectRatio="none">
-                    <path
-                      d="M0,25 Q15,22 30,18 T60,10 T90,5 L100,2"
-                      fill="none"
-                      stroke="#2563EB"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M0,25 Q15,22 30,18 T60,10 T90,5 L100,2 L100,30 L0,30 Z"
-                      fill="url(#sparkline-grad)"
-                      opacity="0.1"
-                    />
-                    <defs>
-                      <linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#2563EB" />
-                        <stop offset="100%" stopColor="#FFFFFF" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-                <div className="text-[10px] text-text-secondary text-left mt-2">
-                  Engagement rate is up 4.2% since post optimization
-                </div>
-              </div>
 
-              {/* 3. AI Suggestions Card */}
-              <div className="bg-white p-4 border border-border rounded-lg shadow-subtle text-left flex flex-col justify-between">
-                <div className="flex items-center gap-1.5 mb-3">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">AI Optimization Tasks</span>
-                </div>
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-start gap-2.5">
-                    <CheckCircle className="w-4 h-4 text-success shrink-0 mt-0.5" />
-                    <div className="flex flex-col">
-                      <span className="text-xs font-medium text-text-primary">Update Profile Headline</span>
-                      <span className="text-[10px] text-text-secondary">Matches top recruiter search queries</span>
-                    </div>
+                <div className="mt-4 border-t border-slate-800 pt-3 flex flex-col gap-1.5">
+                  <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
+                    <Layers className="w-3.5 h-3.5 text-violet-400 shrink-0" />
+                    <span>Auto Post Schedule Active</span>
                   </div>
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-4 h-4 rounded-full border-2 border-border shrink-0 mt-0.5 flex items-center justify-center" />
-                    <div className="flex flex-col">
-                      <span className="text-xs font-medium text-text-primary">Format Experience Section</span>
-                      <span className="text-[10px] text-text-secondary">Standardize achievements into bullet points</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-4 h-4 rounded-full border-2 border-border shrink-0 mt-0.5 flex items-center justify-center" />
-                    <div className="flex flex-col">
-                      <span className="text-xs font-medium text-text-primary">Publish Trend Analysis Post</span>
-                      <span className="text-[10px] text-text-secondary">Ready to post on LinkedIn Workspace</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 4. Content Calendar Card */}
-              <div className="bg-white p-4 border border-border rounded-lg shadow-subtle text-left flex flex-col justify-between">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-text-secondary" />
-                    <span className="text-xs font-semibold uppercase tracking-wider text-text-secondary">Content Schedule</span>
-                  </div>
-                  <span className="text-[10px] bg-slate-100 text-text-secondary px-1.5 py-0.5 rounded font-semibold">Weekly</span>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="bg-slate-50 border border-border/60 p-2 rounded flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-bold text-text-secondary block">MON 09:00 AM</span>
-                      <span className="text-xs font-medium text-text-primary">Building in Public: React Router v7</span>
-                    </div>
-                    <span className="text-[10px] text-primary bg-primary/10 px-1.5 py-0.5 rounded font-medium">Ready</span>
-                  </div>
-                  <div className="bg-slate-50 border border-border/60 p-2 rounded flex items-center justify-between opacity-70">
-                    <div>
-                      <span className="text-[10px] font-bold text-text-secondary block">WED 02:30 PM</span>
-                      <span className="text-xs font-medium text-text-primary">ATS Optimization Strategies</span>
-                    </div>
-                    <span className="text-[10px] text-text-secondary bg-slate-200 px-1.5 py-0.5 rounded font-medium">Draft</span>
+                  <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                    <span>Magic Post Draft Ready</span>
                   </div>
                 </div>
               </div>
@@ -197,7 +196,9 @@ export default function Hero() {
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );
 }
+

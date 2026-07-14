@@ -8,8 +8,8 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2563EB',
-          hover: '#1D4ED8',
+          DEFAULT: '#6366F1', // Indigo-500
+          hover: '#4F46E5',   // Indigo-600
         },
         background: '#F8FAFC',
         card: '#FFFFFF',
