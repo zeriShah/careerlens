@@ -6,7 +6,7 @@ const SMTP_USER = process.env.SMTP_USER || '';
 const SMTP_PASS = process.env.SMTP_PASS || '';
 
 export const sendOtpEmail = async (email: string, otp: string, name: string): Promise<void> => {
-  const loginUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/login?email=${encodeURIComponent(email)}&otp=${otp}`;
+  const loginUrl = `${process.env.FRONTEND_URL || 'http://localhost:5174'}/login?email=${encodeURIComponent(email)}&otp=${otp}`;
 
   // Fallback to console logs if SMTP credentials are not configured (free testing out of the box)
   if (!SMTP_USER || !SMTP_PASS) {

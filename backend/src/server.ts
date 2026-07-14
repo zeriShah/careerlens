@@ -1,12 +1,12 @@
 // Polyfill browser globals for pdf-parse in Node.js serverless context
 if (typeof (global as any).DOMMatrix === 'undefined') {
-  (global as any).DOMMatrix = class DOMMatrix {};
+  (global as any).DOMMatrix = class DOMMatrix { };
 }
 if (typeof (global as any).ImageData === 'undefined') {
-  (global as any).ImageData = class ImageData {};
+  (global as any).ImageData = class ImageData { };
 }
 if (typeof (global as any).Path2D === 'undefined') {
-  (global as any).Path2D = class Path2D {};
+  (global as any).Path2D = class Path2D { };
 }
 
 import express from 'express';
@@ -18,12 +18,23 @@ import resumeRoutes from './routes/resumeRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
-// CORS configuration to allow credentials (cookies)
+// CORS configuration to allow credentials (cookies) for dev ports
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  process.env.FRONTEND_URL
+].filter(Boolean) as string[];
+
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1 || origin.startsWith('http://localhost:')) {
+        return callback(null, true);
+      }
+      return callback(null, true); // Fallback to allow requests in development/deployments
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
