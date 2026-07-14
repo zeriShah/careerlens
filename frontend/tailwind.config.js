@@ -8,44 +8,45 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#FFBB00', // Gold Yellow
-          hover: '#E8A800',
+          DEFAULT: '#6750A4', // Purple Seed
+          hover: '#5A4393',
         },
-        background: '#ffffff', // canvas
-        dark: {
-          DEFAULT: '#0D0D0D', // ink / marketing-bg
-          section: '#1A1A1A',
-        },
-        card: '#ffffff',
-        border: '#E5E5E5',
+        background: '#FFFBFE', // Warm Surface
+        card: '#F3EDF7',       // Surface Container
+        border: '#E7E0EC',     // Surface Container Low / Recessed border
         text: {
-          primary: '#0D0D0D',
-          secondary: '#6B7280',
+          primary: '#1C1B1F',   // On Surface
+          secondary: '#49454F', // On Surface Variant
         },
-        accent: '#FFBB00',
         success: '#22C55E',
+        warning: '#F59E0B',
         danger: '#EF4444',
-        
-        // Exact names from downloads config
-        "on-primary": "#0D0D0D",
-        "primary-hover": "#E8A800",
-        "ink": "#0D0D0D",
-        "ink-muted": "#6B7280",
-        "canvas": "#ffffff",
-        "surface-1": "#F9F9F9",
-        "surface-2": "#F0F0F0",
-        "marketing-bg": "#0D0D0D",
-        "marketing-ink": "#F5F5F5",
-        "marketing-muted": "#888888",
+
+        // Material Design 3 Core tokens
+        "md-background": "#FFFBFE",
+        "md-on-background": "#1C1B1F",
+        "md-primary": "#6750A4",
+        "md-on-primary": "#FFFFFF",
+        "md-secondary-container": "#E8DEF8",
+        "md-on-secondary-container": "#1D192B",
+        "md-tertiary": "#7D5260",
+        "md-surface-container": "#F3EDF7",
+        "md-surface-container-low": "#E7E0EC",
+        "md-outline": "#79747E",
+        "md-on-surface-variant": "#49454F",
       },
       backgroundImage: {
-        'gradient-accent': 'linear-gradient(to right, #FFBB00, #FFD254, #E8A800)',
+        'gradient-accent': 'linear-gradient(to right, #6750A4, #7D5260, #E8DEF8)',
       },
       borderRadius: {
         'lg': '12px',
+        'xl': '16px',
+        '2xl': '24px', // MD3 Large (Standard Card)
+        '3xl': '32px', // MD3 Extra Large (Dialogs, Sheets)
+        '4xl': '48px', // MD3 Extra Extra Large (Hero)
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Roboto', 'Inter', 'sans-serif'],
       },
       boxShadow: {
         subtle: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',

@@ -17,25 +17,25 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
   return (
     <>
       {/* Welcome Header Hero */}
-      <div className="bg-white border border-border rounded-xl p-6 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 relative overflow-hidden">
+      <div className="bg-[#F3EDF7] border border-[#E7E0EC] rounded-3xl p-6 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 relative overflow-hidden">
         {/* Top-edge decorative gradient line */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-accent" />
-        <div className="absolute inset-0 bg-[radial-gradient(#e5ded2_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(#e7e0ec_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" />
         
         <div className="space-y-1 relative z-10">
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-primary/10 rounded-full text-[10px] font-bold text-primary uppercase tracking-wide">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#6750A4]/10 rounded-full text-[10px] font-bold text-[#6750A4] uppercase tracking-wider border border-[#6750A4]/20">
             Workspace Panel
           </span>
-          <h2 className="text-xl font-extrabold text-text-primary tracking-tight leading-tight pt-1">
+          <h2 className="text-xl font-bold text-[#1C1B1F] tracking-tight leading-tight pt-1 font-sans">
             Welcome back, {currentUser.fullName.split(' ')[0]}!
           </h2>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs text-[#49454F]">
             Your AI Career workspace has updated analysis matrices. Ensure your resume and LinkedIn keywords are synced.
           </p>
         </div>
         <button
           onClick={() => setActiveTab('resume-analyzer')}
-          className="px-4 py-2.5 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-lg shadow-sm flex items-center gap-1.5 shrink-0 transition-all active:scale-[0.98]"
+          className="px-5 py-3 bg-[#6750A4] hover:bg-[#6750A4]/90 text-white text-xs font-bold rounded-full shadow-sm flex items-center gap-1.5 shrink-0 transition-all active:scale-95"
         >
           <Plus className="w-4 h-4" />
           Upload New Resume
@@ -46,40 +46,40 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Resume Overview Widget Card */}
-        <div className="bg-white border border-border rounded-xl p-5 shadow-sm flex flex-col justify-between gap-5">
+        <div className="bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-sm flex flex-col justify-between gap-5 transition-all hover:scale-[1.01] hover:shadow-md">
           <div className="flex justify-between items-start">
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
-                <FileText className="w-4.5 h-4.5 text-primary" />
-                <h3 className="font-bold text-sm text-text-primary">Resume Intelligence</h3>
+                <FileText className="w-4.5 h-4.5 text-[#6750A4]" />
+                <h3 className="font-bold text-sm text-[#1C1B1F]">Resume Intelligence</h3>
               </div>
-              <p className="text-xs text-text-secondary block">
-                Current Status: <span className="font-semibold text-text-primary">{analysisResult ? 'CV Scanned & Cached' : 'No CV Uploaded'}</span>
+              <p className="text-xs text-[#49454F] block">
+                Current Status: <span className="font-semibold text-[#1C1B1F]">{analysisResult ? 'CV Scanned & Cached' : 'No CV Uploaded'}</span>
               </p>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-0.5 bg-slate-50 border border-border/60 rounded text-[10px] font-bold text-text-secondary">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-[#E7E0EC] rounded-full text-[9px] font-bold text-[#49454F]">
+              <Clock className="w-3.5 h-3.5 text-[#49454F]/80" />
               <span>Cached Locally</span>
             </div>
           </div>
 
           {/* Circular ATS Score Graph */}
-          <div className="flex items-center gap-6 py-2 bg-slate-50/40 p-4 rounded-lg border border-border/50">
+          <div className="flex items-center gap-6 py-2 bg-[#E7E0EC]/40 p-4 rounded-xl border border-[#E7E0EC]/50">
             <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
               <svg className="w-16 h-16 transform -rotate-90">
-                <circle cx="32" cy="32" r="28" className="stroke-slate-200 fill-none" strokeWidth="4.5" />
-                <circle cx="32" cy="32" r="28" className={`${analysisResult && analysisResult.ats_score >= 75 ? 'stroke-success' : 'stroke-primary'} fill-none`} strokeWidth="4.5" strokeDasharray="175.9" strokeDashoffset={dashOffset} strokeLinecap="round" />
+                <circle cx="32" cy="32" r="28" className="stroke-[#E7E0EC] fill-none" strokeWidth="4.5" />
+                <circle cx="32" cy="32" r="28" className={`${analysisResult && analysisResult.ats_score >= 75 ? 'stroke-[#22C55E]' : 'stroke-[#6750A4]'} fill-none`} strokeWidth="4.5" strokeDasharray="175.9" strokeDashoffset={dashOffset} strokeLinecap="round" />
               </svg>
-              <span className="absolute font-sans font-extrabold text-sm text-text-primary">{analysisResult ? `${analysisResult.ats_score}%` : '0%'}</span>
+              <span className="absolute font-sans font-extrabold text-sm text-[#1C1B1F]">{analysisResult ? `${analysisResult.ats_score}%` : '0%'}</span>
             </div>
             
             <div className="space-y-1 text-left">
-              <span className="text-xs font-bold text-text-primary block">
+              <span className="text-xs font-bold text-[#1C1B1F] block">
                 {analysisResult 
                   ? (analysisResult.ats_score >= 75 ? 'Excellent ATS compatibility' : 'Moderate ATS compatibility')
                   : 'No Active Resume Audit'}
               </span>
-              <p className="text-[11px] text-text-secondary leading-relaxed">
+              <p className="text-[11px] text-[#49454F] leading-relaxed">
                 {analysisResult
                   ? `Keyword optimizations align with ${analysisResult.jd_title} job requirements.`
                   : 'Upload your CV and target positions to evaluate and audit formatting alignment.'}
@@ -89,15 +89,15 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
 
           {/* Metrics Details */}
           <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="border border-border rounded-lg p-3 text-left">
-              <span className="text-text-secondary block mb-0.5 text-[10px] font-bold uppercase tracking-wider">Active job matches</span>
-              <span className="font-extrabold text-lg text-text-primary tracking-tight">
+            <div className="border border-[#E7E0EC] rounded-xl p-3.5 text-left bg-[#E7E0EC]/30">
+              <span className="text-[#49454F] block mb-0.5 text-[9px] font-bold uppercase tracking-wider">Active job matches</span>
+              <span className="font-extrabold text-lg text-[#1C1B1F] tracking-tight">
                 {listingsCount}
               </span>
             </div>
-            <div className="border border-border rounded-lg p-3 text-left">
-              <span className="text-text-secondary block mb-0.5 text-[10px] font-bold uppercase tracking-wider">Key feedback points</span>
-              <span className="font-extrabold text-lg text-text-primary tracking-tight">
+            <div className="border border-[#E7E0EC] rounded-xl p-3.5 text-left bg-[#E7E0EC]/30">
+              <span className="text-[#49454F] block mb-0.5 text-[9px] font-bold uppercase tracking-wider">Key feedback points</span>
+              <span className="font-extrabold text-lg text-[#1C1B1F] tracking-tight">
                 {feedbackCount}
               </span>
             </div>
@@ -106,7 +106,7 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
           {/* Go to Analyzer Link */}
           <button
             onClick={() => setActiveTab('resume-analyzer')}
-            className="w-full text-center py-2 bg-slate-50 hover:bg-slate-100 rounded-lg text-xs font-bold text-text-primary transition-colors flex items-center justify-center gap-1.5 border border-border"
+            className="w-full text-center py-2.5 bg-[#E7E0EC]/50 hover:bg-[#E7E0EC] rounded-full text-xs font-bold text-[#1C1B1F] transition-all flex items-center justify-center gap-1.5 border border-[#E7E0EC] active:scale-95"
           >
             <span>{analysisResult ? 'View CV feedback details' : 'Audit your resume now'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -114,31 +114,31 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
         </div>
 
         {/* LinkedIn Overview Widget Card */}
-        <div className="bg-white border border-border rounded-xl p-5 shadow-sm flex flex-col justify-between gap-5">
+        <div className="bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-sm flex flex-col justify-between gap-5 transition-all hover:scale-[1.01] hover:shadow-md">
           <div className="flex justify-between items-start">
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
-                <Linkedin className="w-4.5 h-4.5 text-primary" />
-                <h3 className="font-bold text-sm text-text-primary">LinkedIn Workspace</h3>
+                <Linkedin className="w-4.5 h-4.5 text-[#6750A4]" />
+                <h3 className="font-bold text-sm text-[#1C1B1F]">LinkedIn Workspace</h3>
               </div>
-              <p className="text-xs text-text-secondary block">
-                Sync account: <span className="font-semibold text-text-primary">{currentUser.fullName}</span>
+              <p className="text-xs text-[#49454F] block">
+                Sync account: <span className="font-semibold text-[#1C1B1F]">{currentUser.fullName}</span>
               </p>
             </div>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-success/15 rounded text-[10px] font-bold text-success border border-success/10">
-              <span className="w-1 h-1 rounded-full bg-success" />
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#22C55E]/10 rounded-full text-[9px] font-bold text-[#22C55E] border border-[#22C55E]/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E]" />
               Synced
             </span>
           </div>
 
           {/* Mini Sparkline Graph with Peach-Purple-Orange Gradient */}
-          <div className="bg-slate-50/40 p-4 rounded-lg border border-border/50 space-y-2">
+          <div className="bg-[#E7E0EC]/40 p-4 rounded-xl border border-[#E7E0EC]/50 space-y-2">
             <div className="flex justify-between items-center text-xs text-left">
               <div>
-                <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider block">Weekly profile impressions</span>
-                <span className="font-extrabold text-lg text-text-primary tracking-tight">4,820</span>
+                <span className="text-[10px] font-bold text-[#49454F] uppercase tracking-wider block">Weekly profile impressions</span>
+                <span className="font-extrabold text-lg text-[#1C1B1F] tracking-tight">4,820</span>
               </div>
-              <span className="text-[10px] font-bold text-success bg-success/10 px-2 py-0.5 rounded border border-success/10">
+              <span className="text-[9px] font-bold text-[#22C55E] bg-[#22C55E]/10 px-2.5 py-0.5 rounded-full border border-[#22C55E]/20">
                 +12.4%
               </span>
             </div>
@@ -154,9 +154,9 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
                 />
                 <defs>
                   <linearGradient id="sparkline-grad-tab" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#B56CFF" />
-                    <stop offset="50%" stopColor="#FFB37A" />
-                    <stop offset="100%" stopColor="#FF9A3C" />
+                    <stop offset="0%" stopColor="#6750A4" />
+                    <stop offset="50%" stopColor="#7D5260" />
+                    <stop offset="100%" stopColor="#E8DEF8" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -165,19 +165,19 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
 
           {/* Metrics Details */}
           <div className="grid grid-cols-2 gap-4 text-xs">
-            <div className="border border-border rounded-lg p-3 text-left">
-              <span className="text-text-secondary block mb-0.5 text-[10px] font-bold uppercase tracking-wider">Scheduled posts</span>
-              <span className="font-extrabold text-lg text-text-primary tracking-tight">2 Active</span>
+            <div className="border border-[#E7E0EC] rounded-xl p-3.5 text-left bg-[#E7E0EC]/30">
+              <span className="text-[#49454F] block mb-0.5 text-[9px] font-bold uppercase tracking-wider">Scheduled posts</span>
+              <span className="font-extrabold text-lg text-[#1C1B1F] tracking-tight">2 Active</span>
             </div>
-            <div className="border border-border rounded-lg p-3 text-left">
-              <span className="text-text-secondary block mb-0.5 text-[10px] font-bold uppercase tracking-wider">Followers grow</span>
-              <span className="font-extrabold text-lg text-text-primary tracking-tight">+84 new</span>
+            <div className="border border-[#E7E0EC] rounded-xl p-3.5 text-left bg-[#E7E0EC]/30">
+              <span className="text-[#49454F] block mb-0.5 text-[9px] font-bold uppercase tracking-wider">Followers grow</span>
+              <span className="font-extrabold text-lg text-[#1C1B1F] tracking-tight">+84 new</span>
             </div>
           </div>
 
           <button
             onClick={() => setActiveTab('linkedin-enhancer')}
-            className="w-full text-center py-2 bg-slate-50 hover:bg-slate-100 rounded-lg text-xs font-bold text-text-primary transition-colors flex items-center justify-center gap-1.5 border border-border"
+            className="w-full text-center py-2.5 bg-[#E7E0EC]/50 hover:bg-[#E7E0EC] rounded-full text-xs font-bold text-[#1C1B1F] transition-all flex items-center justify-center gap-1.5 border border-[#E7E0EC] active:scale-95"
           >
             <span>Manage scheduled updates</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -190,99 +190,99 @@ export default function OverviewTab({ currentUser, analysisResult, setActiveTab 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Recent Activity */}
-        <div className="lg:col-span-2 bg-white border border-border rounded-xl p-5 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-            <History className="w-4.5 h-4.5 text-text-secondary" />
-            <h3 className="font-bold text-sm text-text-primary">Recent Workspace Activity</h3>
+        <div className="lg:col-span-2 bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-sm space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#E7E0EC]/60 pb-3">
+            <History className="w-4.5 h-4.5 text-[#49454F]" />
+            <h3 className="font-bold text-sm text-[#1C1B1F]">Recent Workspace Activity</h3>
           </div>
 
-          <div className="divide-y divide-slate-100 text-xs">
+          <div className="divide-y divide-[#E7E0EC]/60 text-xs">
             
             <div className="py-3 flex justify-between items-center gap-4 text-left">
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded bg-primary/10 flex items-center justify-center text-primary shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-[#6750A4]/10 flex items-center justify-center text-[#6750A4] shrink-0 mt-0.5">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="font-bold text-text-primary block">Resume upload optimized</span>
-                  <p className="text-[11px] text-text-secondary leading-normal">
+                  <span className="font-bold text-[#1C1B1F] block">Resume upload optimized</span>
+                  <p className="text-[11px] text-[#49454F] leading-normal">
                     Added missing keywords to target job description audit matrices.
                   </p>
                 </div>
               </div>
-              <span className="text-[10px] text-text-secondary shrink-0 font-semibold">Recently updated</span>
+              <span className="text-[10px] text-[#49454F] shrink-0 font-semibold">Recently updated</span>
             </div>
 
             <div className="py-3 flex justify-between items-center gap-4 text-left">
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded bg-violet-500/10 flex items-center justify-center text-violet-500 shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-[#7D5260]/10 flex items-center justify-center text-[#7D5260] shrink-0 mt-0.5">
                   <Linkedin className="w-4 h-4" />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="font-bold text-text-primary block">LinkedIn scheduled post configured</span>
-                  <p className="text-[11px] text-text-secondary leading-normal">
+                  <span className="font-bold text-[#1C1B1F] block">LinkedIn scheduled post configured</span>
+                  <p className="text-[11px] text-[#49454F] leading-normal">
                     Post regarding React compiler features scheduled for Tuesday morning.
                   </p>
                 </div>
               </div>
-              <span className="text-[10px] text-text-secondary shrink-0 font-semibold">Yesterday</span>
+              <span className="text-[10px] text-[#49454F] shrink-0 font-semibold">Yesterday</span>
             </div>
 
             <div className="py-3 flex justify-between items-center gap-4 text-left">
               <div className="flex items-start gap-3">
-                <div className="w-7 h-7 rounded bg-success/10 flex items-center justify-center text-success shrink-0 mt-0.5">
+                <div className="w-7 h-7 rounded-lg bg-[#22C55E]/10 flex items-center justify-center text-[#22C55E] shrink-0 mt-0.5">
                   <BarChart2 className="w-4 h-4" />
                 </div>
                 <div className="space-y-0.5">
-                  <span className="font-bold text-text-primary block">LinkedIn Profile scan generated</span>
-                  <p className="text-[11px] text-text-secondary leading-normal">
+                  <span className="font-bold text-[#1C1B1F] block">LinkedIn Profile scan generated</span>
+                  <p className="text-[11px] text-[#49454F] leading-normal">
                     Analyzed bio structure; recommended highlighting Staff engineer experiences.
                   </p>
                 </div>
               </div>
-              <span className="text-[10px] text-text-secondary shrink-0 font-semibold">2 days ago</span>
+              <span className="text-[10px] text-[#49454F] shrink-0 font-semibold">2 days ago</span>
             </div>
 
           </div>
         </div>
 
         {/* AI Recommendations Panel */}
-        <div className="bg-white border border-border rounded-xl p-5 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-            <Sparkles className="w-4.5 h-4.5 text-primary animate-pulse" />
-            <h3 className="font-bold text-sm text-text-primary">AI Optimization Tasks</h3>
+        <div className="bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-sm space-y-4">
+          <div className="flex items-center gap-2 border-b border-[#E7E0EC]/60 pb-3">
+            <Sparkles className="w-4.5 h-4.5 text-[#6750A4] animate-pulse" />
+            <h3 className="font-bold text-sm text-[#1C1B1F]">AI Optimization Tasks</h3>
           </div>
 
           <div className="space-y-3.5 text-xs text-left">
             
-            <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg space-y-2">
+            <div className="p-3 bg-[#E7E0EC]/40 border border-[#E7E0EC] rounded-xl space-y-2">
               <div className="flex justify-between items-start gap-2">
-                <span className="font-bold text-text-primary text-[11px] leading-tight">Missing Keyword Detect</span>
-                <span className="px-1.5 py-0.5 bg-danger/10 text-danger text-[9px] font-extrabold rounded">Critical</span>
+                <span className="font-bold text-[#1C1B1F] text-[11px] leading-tight">Missing Keyword Detect</span>
+                <span className="px-1.5 py-0.5 bg-[#EF4444]/10 text-[#EF4444] text-[9px] font-extrabold rounded-md">Critical</span>
               </div>
-              <p className="text-[11px] text-text-secondary leading-normal">
+              <p className="text-[11px] text-[#49454F] leading-normal">
                 Some target position skills are missing from your experience text.
               </p>
               <button
-                onClick={() => setActiveTab('resume-feedback')}
-                className="text-[10px] text-primary font-bold hover:underline flex items-center gap-1"
+                onClick={() => setActiveTab('resume-analyzer')}
+                className="text-[10px] text-[#6750A4] font-bold hover:underline flex items-center gap-1 active:scale-95"
               >
                 <span>Fix in Resume Workspace</span>
                 <ArrowRight className="w-3 h-3" />
               </button>
             </div>
 
-            <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg space-y-2">
+            <div className="p-3 bg-[#E7E0EC]/40 border border-[#E7E0EC] rounded-xl space-y-2">
               <div className="flex justify-between items-start gap-2">
-                <span className="font-bold text-text-primary text-[11px] leading-tight">LinkedIn Engagement Tips</span>
-                <span className="px-1.5 py-0.5 bg-primary/10 text-primary text-[9px] font-extrabold rounded">Suggested</span>
+                <span className="font-bold text-[#1C1B1F] text-[11px] leading-tight">LinkedIn Engagement Tips</span>
+                <span className="px-1.5 py-0.5 bg-[#6750A4]/10 text-[#6750A4] text-[9px] font-extrabold rounded-md">Suggested</span>
               </div>
-              <p className="text-[11px] text-text-secondary leading-normal">
+              <p className="text-[11px] text-[#49454F] leading-normal">
                 You haven't posted in 5 days. Draft a short update to maintain impressions momentum.
               </p>
               <button
                 onClick={() => setActiveTab('linkedin-generator')}
-                className="text-[10px] text-primary font-bold hover:underline flex items-center gap-1"
+                className="text-[10px] text-[#6750A4] font-bold hover:underline flex items-center gap-1 active:scale-95"
               >
                 <span>Draft LinkedIn Post</span>
                 <ArrowRight className="w-3 h-3" />

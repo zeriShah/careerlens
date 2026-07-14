@@ -24,36 +24,36 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden pt-12 pb-20 md:pt-16 md:pb-28 px-6 bg-background">
       {/* Subtle Background Accent Grid */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#e5ded2_1px,transparent_1px),linear-gradient(to_bottom,#e5ded2_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#E7E0EC_1px,transparent_1px),linear-gradient(to_bottom,#E7E0EC_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         
         {/* Left Text Column */}
         <div className="lg:col-span-5 flex flex-col items-start text-left z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full text-[11px] font-bold tracking-wide uppercase text-primary mb-6 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-primary" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#6750A4]/10 border border-[#6750A4]/20 rounded-full text-[11px] font-bold tracking-wider uppercase text-[#6750A4] mb-6 shadow-xs font-sans">
+            <Sparkles className="w-3.5 h-3.5 text-[#6750A4]" />
             Next-Gen Profile Operating System
           </div>
 
-          <h1 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[44px] xl:text-[54px] leading-[1.1] tracking-tight text-text-primary mb-6">
+          <h1 className="font-sans font-bold text-4xl sm:text-5xl lg:text-[44px] xl:text-[54px] leading-[1.1] tracking-tight text-[#1C1B1F] mb-6">
             Optimize Your Professional <br />
             <span className="text-transparent bg-clip-text bg-gradient-accent">Identity with AI</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-text-secondary mb-8 leading-relaxed max-w-lg">
+          <p className="text-base sm:text-lg text-[#49454F] mb-8 leading-relaxed max-w-lg">
             Profiling is a premium workspace that connects your offline resume and online professional presence. Analyze resume scores, tailor CVs dynamically, and schedule AI content for LinkedIn from a single dashboard.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <button
               onClick={() => navigate('/register')}
-              className="bg-primary hover:bg-primary-hover text-white font-semibold text-sm px-6 py-3.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 flex items-center justify-center gap-2 active:scale-[0.98] w-full sm:w-auto"
+              className="bg-[#6750A4] hover:bg-[#6750A4]/90 text-white font-bold text-sm px-6 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 w-full sm:w-auto"
             >
               Get Started Free
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="bg-white border border-border hover:bg-slate-50 text-text-primary font-semibold text-sm px-6 py-3.5 rounded-lg shadow-sm transition-all duration-150 flex items-center justify-center gap-2 w-full sm:w-auto">
-              <Play className="w-4 h-4 text-text-secondary fill-text-secondary" />
+            <button className="bg-transparent border border-[#79747E] hover:bg-[#6750A4]/8 text-[#6750A4] font-bold text-sm px-6 py-3.5 rounded-full shadow-xs transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 w-full sm:w-auto">
+              <Play className="w-4 h-4 text-[#6750A4] fill-[#6750A4]" />
               Watch Demo
             </button>
           </div>
@@ -76,20 +76,21 @@ export default function Hero() {
               }}
             >
               
-              {/* Backglow decoration */}
-              <div className="absolute w-[280px] h-[280px] rounded-full bg-gradient-to-tr from-primary/20 to-violet-500/10 blur-[60px] -z-10 transform translate-z-[-50px]" />
-
+              {/* Backglow decoration - Organic MD3 Blur Shapes */}
+              <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-[#6750A4]/20 to-[#7D5260]/10 blur-[70px] -z-10 transform translate-z-[-60px]" />
+              <div className="absolute w-[200px] h-[200px] rounded-full bg-[#E8DEF8]/30 blur-[50px] -z-10 transform translate-x-20 -translate-y-20 translate-z-[-80px]" />
+ 
               {/* 3D Connecting Core */}
               <div 
-                className="absolute w-12 h-12 rounded-2xl bg-white border border-border shadow-lg flex items-center justify-center transition-all duration-300 z-20"
+                className="absolute w-12 h-12 rounded-2xl bg-[#F3EDF7] border border-[#E7E0EC] shadow-md flex items-center justify-center transition-all duration-300 z-20"
                 style={{ 
                   transform: 'translateZ(60px)',
-                  boxShadow: '0 10px 30px -10px rgba(164, 122, 140, 0.3)'
+                  boxShadow: '0 10px 30px -10px rgba(103, 80, 164, 0.2)'
                 }}
               >
-                <Cpu className="w-6 h-6 text-primary animate-pulse" />
+                <Cpu className="w-6 h-6 text-[#6750A4] animate-pulse" />
               </div>
-
+ 
               {/* Linking dashed SVG connector lines in 3D */}
               <div className="absolute inset-0 pointer-events-none -z-10 flex items-center justify-center">
                 <svg className="w-full h-full absolute" style={{ transform: 'translateZ(10px)' }}>
@@ -103,8 +104,8 @@ export default function Hero() {
                   />
                   <defs>
                     <linearGradient id="dash-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#B56CFF" />
-                      <stop offset="100%" stopColor="#FFB37A" />
+                      <stop offset="0%" stopColor="#6750A4" />
+                      <stop offset="100%" stopColor="#7D5260" />
                     </linearGradient>
                   </defs>
                 </svg>
