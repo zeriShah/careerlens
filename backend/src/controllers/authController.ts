@@ -103,29 +103,53 @@ export const login = async (
       return next(error);
     }
 
-    // Generate a 6-digit random code
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiration
+    // Check if user is verified
+    if (!user.isVerified) {
+      // If not verified, they must verify via OTP (which is required once after signup)
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiration
 
-    // Save OTP to user database record
-    await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        otpCode: otp,
-        otpExpiresAt: expires
-      }
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          otpCode: otp,
+          otpExpiresAt: expires
+        }
+      });
+
+      await sendOtpEmail(user.email, otp, user.fullName);
+
+      return res.status(200).json({
+        success: true,
+        require2FA: true,
+        message: 'Your account is not verified. A verification code has been sent to your email address.',
+        data: {
+          email: user.email
+        }
+      });
+    }
+
+    // Generate JWT
+    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+      expiresIn: '7d',
     });
 
-    // Dispatch Nodemailer Email (falls back to console log if SMTP is unconfigured)
-    await sendOtpEmail(user.email, otp, user.fullName);
+    // Set cookie
+    res.cookie('token', token, cookieOptions);
 
     res.status(200).json({
       success: true,
-      require2FA: true,
-      message: 'Verification code has been sent to your email address.',
+      require2FA: false,
+      message: 'Logged in successfully',
       data: {
-        email: user.email
-      }
+        token, // fallback for localStorage
+        user: {
+          id: user.id,
+          fullName: user.fullName,
+          email: user.email,
+          createdAt: user.createdAt,
+        },
+      },
     });
   } catch (err) {
     next(err);
@@ -229,7 +253,13 @@ export const googleLogin = async (
           fullName,
           email,
           password: null, // Password is optional in database schema
+          isVerified: true, // Google login accounts are verified
         },
+      });
+    } else if (!user.isVerified) {
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: { isVerified: true },
       });
     }
 
@@ -295,12 +325,13 @@ export const verify2FA = async (
       return next(error);
     }
 
-    // OTP is valid! Clear OTP codes in database
+    // OTP is valid! Clear OTP codes in database and mark user as verified
     await prisma.user.update({
       where: { id: user.id },
       data: {
         otpCode: null,
-        otpExpiresAt: null
+        otpExpiresAt: null,
+        isVerified: true,
       }
     });
 
