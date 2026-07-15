@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #FFFFFF; }
+  a { color: #121212; text-decoration: none; }
+  a:hover { color: #121212; }
+  ::selection { background: #1DB954; color: #FFFFFF; }
+  @keyframes clUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  @keyframes clFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  @keyframes clRing { from { stroke-dashoffset: 327; } to { stroke-dashoffset: 22; } }
+  @keyframes clBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes clDraw { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+  .clbar { transform-origin: left; animation: clBar 1s cubic-bezier(.2,.7,.2,1) both; }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#FFFFFF;font-family:'DM Sans',system-ui,sans-serif;color:#121212;position:relative;overflow:hidden;">
+
+  <div style="position:absolute;top:-320px;left:50%;transform:translateX(-50%);width:1200px;height:680px;background:radial-gradient(ellipse at center,rgba(29,185,84,.10),transparent 66%);pointer-events:none;"></div>
+
+  <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 40px;">
+
+    <!-- NAV -->
+    <nav style="display:flex;align-items:center;justify-content:space-between;padding:24px 0;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <div style="width:30px;height:30px;border-radius:9999px;background:#1DB954;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" stroke-linecap="round"/></svg></div>
+        <span style="font-size:19px;font-weight:800;letter-spacing:-.5px;">CareerLens</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:34px;font-size:14px;color:#5B5B5B;font-weight:700;">
+        <a href="#" style="color:#5B5B5B;">Product</a><a href="#" style="color:#5B5B5B;">Features</a><a href="#" style="color:#5B5B5B;">Pricing</a><a href="#" style="color:#5B5B5B;">Resources</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px;">
+        <a href="#" style="font-size:14px;color:#5B5B5B;font-weight:700;">Sign in</a>
+        <a href="#" style="font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:#1DB954;padding:11px 22px;border-radius:9999px;">Get started</a>
+      </div>
+    </nav>
+
+    <div style="height:1px;background:#EBEBEB;"></div>
+
+    <!-- HERO -->
+    <div style="display:grid;grid-template-columns:1.04fr 1fr;gap:56px;align-items:center;padding:76px 0 68px;">
+
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:9px;background:#F4F5F3;border:1px solid #E6E7E4;border-radius:9999px;padding:6px 13px;animation:clUp .6s both;">
+          <span style="width:6px;height:6px;border-radius:9999px;background:#1DB954;"></span>
+          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#5B5B5B;text-transform:uppercase;">AI résumé &amp; LinkedIn optimization</span>
+        </div>
+
+        <h1 style="font-weight:800;font-size:64px;line-height:1.06;letter-spacing:-.03em;color:#121212;margin:22px 0 0;text-wrap:balance;animation:clUp .6s .05s both;">Your résumé, matched to the job that wants it.</h1>
+
+        <p style="font-size:16px;line-height:1.6;color:#5B5B5B;margin:22px 0 0;max-width:508px;animation:clUp .6s .12s both;">CareerLens reads the ten most relevant openings for your role, scores your fit against each one, and rewrites your CV and cover letter to close the gap — then keeps your LinkedIn growing on a schedule.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;animation:clUp .6s .18s both;">
+          <a href="#" style="display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:#1DB954;padding:15px 26px;border-radius:9999px;box-shadow:0 10px 26px rgba(29,185,84,.28);">Analyze my résumé <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#" style="display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#121212;background:transparent;border:1px solid #CFCFCF;padding:15px 24px;border-radius:9999px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="#121212"><path d="M8 5v14l11-7z"/></svg>How it works</a>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:15px;margin-top:34px;animation:clUp .6s .24s both;">
+          <div style="display:flex;">
+            <div style="width:33px;height:33px;border-radius:9999px;background:#E4E4E4;border:2px solid #FFFFFF;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#5B5B5B;">JK</div>
+            <div style="width:33px;height:33px;border-radius:9999px;background:#1DB954;border:2px solid #FFFFFF;margin-left:-10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#FFFFFF;">SM</div>
+            <div style="width:33px;height:33px;border-radius:9999px;background:#E4E4E4;border:2px solid #FFFFFF;margin-left:-10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#5B5B5B;">RA</div>
+          </div>
+          <div style="font-size:13px;color:#767676;line-height:1.4;">Joined by <b style="color:#121212;">12,000+</b> engineers, designers &amp; PMs<br>No credit card to start.</div>
+        </div>
+      </div>
+
+      <!-- PRODUCT PANEL -->
+      <div style="position:relative;animation:clUp .7s .2s both;">
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;box-shadow:0 24px 60px rgba(18,18,18,.10);overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #F0F0F0;">
+            <div style="display:flex;align-items:center;gap:11px;">
+              <div style="width:30px;height:38px;border-radius:4px;background:#F3F3F3;border:1px solid #E6E6E6;position:relative;"><div style="position:absolute;top:7px;left:6px;right:6px;height:2px;background:#D6D6D6;border-radius:2px;"></div><div style="position:absolute;top:12px;left:6px;right:10px;height:2px;background:#D6D6D6;border-radius:2px;"></div><div style="position:absolute;top:17px;left:6px;right:8px;height:2px;background:#D6D6D6;border-radius:2px;"></div></div>
+              <div><div style="font-size:14px;font-weight:700;color:#121212;">Résumé analysis</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8A8A8A;margin-top:2px;">resume_v4.pdf · Senior Product Designer</div></div>
+            </div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;background:rgba(29,185,84,.12);padding:5px 10px;border-radius:9999px;">ATS-ready</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:22px;padding:20px;">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div style="position:relative;width:118px;height:118px;">
+                <svg width="118" height="118" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#EDEDED" stroke-width="11"/><circle cx="60" cy="60" r="52" fill="none" stroke="#1DB954" stroke-width="11" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="22" transform="rotate(-90 60 60)" style="animation:clRing 1.4s cubic-bezier(.2,.7,.2,1) .4s both;"/></svg>
+                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;"><span style="font-weight:800;font-size:36px;color:#121212;line-height:1;letter-spacing:-.02em;">94</span><span style="font-size:9px;font-weight:700;letter-spacing:.1em;color:#8A8A8A;margin-top:2px;">MATCH</span></div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#0E9E48;margin-top:12px;">Strong match</div>
+              <div style="font-size:11px;color:#8A8A8A;">Top 6% for this role</div>
+            </div>
+
+            <div>
+              <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;margin-bottom:11px;">Keyword coverage</div>
+              <div style="display:flex;flex-direction:column;gap:9px;">
+                <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#121212;font-weight:500;"><span style="width:17px;height:17px;border-radius:4px;background:rgba(29,185,84,.14);display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Design systems</div>
+                <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#121212;font-weight:500;"><span style="width:17px;height:17px;border-radius:4px;background:rgba(29,185,84,.14);display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>Prototyping &amp; user research</div>
+                <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#8A8A8A;font-weight:500;"><span style="width:17px;height:17px;border-radius:4px;background:#FBEAEA;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E22134" stroke-width="3.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>TypeScript <span style="font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#E22134;background:#FBEAEA;padding:2px 7px;border-radius:9999px;">gap</span></div>
+                <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#8A8A8A;font-weight:500;"><span style="width:17px;height:17px;border-radius:4px;background:#FBEAEA;display:flex;align-items:center;justify-content:center;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E22134" stroke-width="3.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Design tokens <span style="font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#E22134;background:#FBEAEA;padding:2px 7px;border-radius:9999px;">gap</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:0 20px 20px;">
+            <div style="height:1px;background:#F0F0F0;margin-bottom:14px;"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"><span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;">10 matched roles</span><span style="font-size:12px;font-weight:700;color:#0E9E48;">View all</span></div>
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:6px;background:#F3F3F3;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#5B5B5B;">N</div><div style="flex:1;font-size:12.5px;font-weight:600;color:#121212;">Sr. Product Designer · Northwind</div><div style="width:84px;height:6px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:96%;background:#1DB954;animation-delay:.6s;"></div></div><span style="font-size:12px;font-weight:800;color:#121212;width:26px;text-align:right;">96</span></div>
+              <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:6px;background:#F3F3F3;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#5B5B5B;">H</div><div style="flex:1;font-size:12.5px;font-weight:600;color:#121212;">Product Designer · Halcyon</div><div style="width:84px;height:6px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:88%;background:#1DB954;animation-delay:.72s;"></div></div><span style="font-size:12px;font-weight:800;color:#121212;width:26px;text-align:right;">88</span></div>
+              <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:6px;background:#F3F3F3;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#5B5B5B;">V</div><div style="flex:1;font-size:12.5px;font-weight:600;color:#121212;">Lead UX Designer · Vertex</div><div style="width:84px;height:6px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:82%;background:#1DB954;animation-delay:.84s;"></div></div><span style="font-size:12px;font-weight:800;color:#121212;width:26px;text-align:right;">82</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- floating LinkedIn card -->
+        <div style="position:absolute;right:-26px;bottom:-30px;width:224px;background:#121212;border-radius:12px;padding:16px;box-shadow:0 24px 50px rgba(18,18,18,.28);animation:clFloat 5.4s ease-in-out infinite;">
+          <div style="display:flex;align-items:center;gap:9px;"><div style="width:26px;height:26px;border-radius:6px;background:#0A66C2;display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-weight:800;font-size:14px;">in</span></div><div style="font-size:12px;font-weight:700;color:#FFFFFF;">LinkedIn growth</div></div>
+          <div style="font-weight:800;font-size:26px;color:#FFFFFF;margin-top:12px;letter-spacing:-.02em;">+212%<span style="font-size:11px;color:#A7A7A7;font-weight:500;"> impressions</span></div>
+          <svg width="192" height="42" viewBox="0 0 204 46" style="margin-top:8px;"><polyline points="0,40 26,34 52,36 78,24 104,26 130,14 156,17 182,6 204,3" fill="none" stroke="#1DB954" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="260" style="animation:clDraw 1.6s ease-out .7s both;"/></svg>
+          <div style="display:flex;gap:6px;margin-top:8px;"><span style="font-size:10px;font-weight:500;color:#B3B3B3;background:#282828;padding:4px 9px;border-radius:9999px;">3 scheduled</span><span style="font-size:10px;font-weight:500;color:#B3B3B3;background:#282828;padding:4px 9px;border-radius:9999px;">+48 connects</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTCOME STRIP (no enterprise logos — we're new) -->
+    <div style="border-top:1px solid #EBEBEB;padding:30px 0;display:flex;flex-wrap:wrap;gap:20px 56px;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:11px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span style="font-size:14px;color:#5B5B5B;">Works with LinkedIn, Indeed &amp; Wellfound job posts</span></div>
+      <div style="display:flex;align-items:center;gap:11px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.2"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg><span style="font-size:14px;color:#5B5B5B;">Your data stays private &amp; encrypted</span></div>
+      <div style="display:flex;align-items:center;gap:11px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg><span style="font-size:14px;color:#5B5B5B;">Results in under 60 seconds</span></div>
+    </div>
+  </div>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <div style="background:#F7F8F7;border-top:1px solid #EBEBEB;">
+    <div style="max-width:1240px;margin:0 auto;padding:82px 40px;">
+      <div style="text-align:center;max-width:640px;margin:0 auto;">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;">How it works</span>
+        <h2 style="font-weight:800;font-size:40px;letter-spacing:-.02em;color:#121212;margin:14px 0 0;line-height:1.1;">From upload to tailored application in three steps.</h2>
+        <p style="font-size:16px;color:#5B5B5B;margin:16px 0 0;line-height:1.6;">No forms, no guesswork. Give us your CV and the role you want — we handle the rest.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px;">
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:26px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><div style="width:42px;height:42px;border-radius:10px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#C4C4C4;">01</span></div>
+          <h3 style="font-size:18px;font-weight:700;color:#121212;margin:18px 0 0;">Upload your CV &amp; target role</h3>
+          <p style="font-size:14px;color:#5B5B5B;line-height:1.6;margin:9px 0 0;">Drop your résumé, tell us the role and location. That's all the setup there is.</p>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:26px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><div style="width:42px;height:42px;border-radius:10px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#C4C4C4;">02</span></div>
+          <h3 style="font-size:18px;font-weight:700;color:#121212;margin:18px 0 0;">We fetch &amp; score 10 live roles</h3>
+          <p style="font-size:14px;color:#5B5B5B;line-height:1.6;margin:9px 0 0;">CareerLens pulls the most relevant openings and rates your fit, keyword by keyword.</p>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:26px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><div style="width:42px;height:42px;border-radius:10px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M14 4v5h5M8 14h8M8 17h5"/></svg></div><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:#C4C4C4;">03</span></div>
+          <h3 style="font-size:18px;font-weight:700;color:#121212;margin:18px 0 0;">Get a tailored CV &amp; cover letter</h3>
+          <p style="font-size:14px;color:#5B5B5B;line-height:1.6;margin:9px 0 0;">One click rewrites your CV and drafts a cover letter for each role — ready to send.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FEATURE: RESUME ANALYZER ===================== -->
+  <div style="max-width:1240px;margin:0 auto;padding:88px 40px;">
+    <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center;">
+      <div>
+        <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;">Résumé analyzer</span>
+        <h2 style="font-weight:800;font-size:38px;letter-spacing:-.02em;color:#121212;margin:14px 0 0;line-height:1.12;">See exactly why you match — and what's missing.</h2>
+        <p style="font-size:16px;color:#5B5B5B;margin:16px 0 0;line-height:1.6;">Every role gets a fit score, a keyword breakdown, and the precise gaps holding you back. Then we close them for you.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-top:28px;">
+          <div style="display:flex;gap:13px;"><div style="width:34px;height:34px;flex-shrink:0;border-radius:9px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="4"/></svg></div><div><div style="font-size:15px;font-weight:700;color:#121212;">Match &amp; ATS score</div><div style="font-size:13.5px;color:#5B5B5B;line-height:1.55;">A single number for fit, plus an ATS readability check.</div></div></div>
+          <div style="display:flex;gap:13px;"><div style="width:34px;height:34px;flex-shrink:0;border-radius:9px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M4 12h16M4 17h7"/></svg></div><div><div style="font-size:15px;font-weight:700;color:#121212;">Keywords &amp; gaps</div><div style="font-size:13.5px;color:#5B5B5B;line-height:1.55;">Which terms you cover, which you're missing, and how much each matters.</div></div></div>
+          <div style="display:flex;gap:13px;"><div style="width:34px;height:34px;flex-shrink:0;border-radius:9px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M14 4v5h5"/></svg></div><div><div style="font-size:15px;font-weight:700;color:#121212;">Tailored CV per role</div><div style="font-size:13.5px;color:#5B5B5B;line-height:1.55;">A rewritten, role-specific version of your résumé in one click.</div></div></div>
+          <div style="display:flex;gap:13px;"><div style="width:34px;height:34px;flex-shrink:0;border-radius:9px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></div><div><div style="font-size:15px;font-weight:700;color:#121212;">Cover letters</div><div style="font-size:13.5px;color:#5B5B5B;line-height:1.55;">A tailored draft for every job, matched to its tone and requirements.</div></div></div>
+        </div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;box-shadow:0 24px 60px rgba(18,18,18,.08);padding:22px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;"><div style="font-size:13px;font-weight:700;color:#121212;">Gap analysis · Northwind</div><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;background:rgba(29,185,84,.12);padding:4px 9px;border-radius:9999px;">96 match</div></div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;"><span style="color:#121212;font-weight:600;">Design systems</span><span style="color:#0E9E48;font-weight:700;">Strong</span></div><div style="height:7px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:94%;background:#1DB954;animation-delay:.1s;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;"><span style="color:#121212;font-weight:600;">User research</span><span style="color:#0E9E48;font-weight:700;">Strong</span></div><div style="height:7px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:86%;background:#1DB954;animation-delay:.2s;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;"><span style="color:#5B5B5B;font-weight:600;">TypeScript</span><span style="color:#E22134;font-weight:700;">Missing</span></div><div style="height:7px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:38%;background:#E7A6AD;animation-delay:.3s;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;"><span style="color:#5B5B5B;font-weight:600;">Design tokens</span><span style="color:#E22134;font-weight:700;">Missing</span></div><div style="height:7px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div class="clbar" style="height:100%;width:30%;background:#E7A6AD;animation-delay:.4s;"></div></div></div>
+        </div>
+        <div style="margin-top:18px;background:#F7F8F7;border:1px solid #EBEBEB;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#1DB954;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 .5-4 3.5 1.5 5-4.5-3-4.5 3 1.5-5-4-3.5 5-.5z"/></svg></div>
+          <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#121212;">Add 2 keywords to reach 98</div><div style="font-size:12px;color:#5B5B5B;">CareerLens can rewrite these bullets for you.</div></div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:#1DB954;padding:8px 13px;border-radius:9999px;white-space:nowrap;">Fix</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FEATURE: LINKEDIN ===================== -->
+  <div style="background:#F7F8F7;border-top:1px solid #EBEBEB;border-bottom:1px solid #EBEBEB;">
+    <div style="max-width:1240px;margin:0 auto;padding:88px 40px;">
+      <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:60px;align-items:center;">
+        <div style="background:#121212;border-radius:14px;padding:24px;box-shadow:0 24px 60px rgba(18,18,18,.18);order:2;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;align-items:center;gap:9px;"><div style="width:28px;height:28px;border-radius:7px;background:#0A66C2;display:flex;align-items:center;justify-content:center;"><span style="color:#fff;font-weight:800;font-size:15px;">in</span></div><span style="font-size:14px;font-weight:700;color:#FFFFFF;">Your LinkedIn</span></div><span style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1DB954;">This week</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;">
+            <div style="background:#181818;border-radius:10px;padding:14px;"><div style="font-size:11px;color:#A7A7A7;">Impressions</div><div style="font-weight:800;font-size:24px;color:#FFFFFF;margin-top:4px;">18.4k <span style="font-size:12px;color:#1DB954;font-weight:700;">+212%</span></div></div>
+            <div style="background:#181818;border-radius:10px;padding:14px;"><div style="font-size:11px;color:#A7A7A7;">New connects</div><div style="font-weight:800;font-size:24px;color:#FFFFFF;margin-top:4px;">+48 <span style="font-size:12px;color:#1DB954;font-weight:700;">this wk</span></div></div>
+          </div>
+          <div style="background:#181818;border-radius:10px;padding:14px;margin-top:12px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:11px;color:#A7A7A7;">Scheduled posts</span><span style="font-size:11px;font-weight:700;color:#1DB954;">3 queued</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:11px;">
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;border-radius:9999px;background:#1DB954;"></div><span style="font-size:12.5px;color:#FFFFFF;flex:1;">"5 lessons from shipping a design system"</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A7A7A7;">Tue 9:00</span></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;border-radius:9999px;background:#535353;"></div><span style="font-size:12.5px;color:#B3B3B3;flex:1;">"Why I stopped chasing pixel-perfect"</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A7A7A7;">Thu 12:30</span></div>
+              <div style="display:flex;align-items:center;gap:10px;"><div style="width:8px;height:8px;border-radius:9999px;background:#535353;"></div><span style="font-size:12.5px;color:#B3B3B3;flex:1;">"Portfolio teardown: before &amp; after"</span><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#A7A7A7;">Fri 17:00</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="order:1;">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;">LinkedIn growth</span>
+          <h2 style="font-weight:800;font-size:38px;letter-spacing:-.02em;color:#121212;margin:14px 0 0;line-height:1.12;">Show up consistently — without the daily effort.</h2>
+          <p style="font-size:16px;color:#5B5B5B;margin:16px 0 0;line-height:1.6;">Draft posts, schedule them for peak hours, and track what's actually working. Connected securely through Unipile.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;">
+            <div style="display:flex;gap:11px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><div><div style="font-size:14.5px;font-weight:700;color:#121212;">AI post drafts</div><div style="font-size:13px;color:#5B5B5B;">In your voice, from your wins.</div></div></div>
+            <div style="display:flex;gap:11px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg><div><div style="font-size:14.5px;font-weight:700;color:#121212;">Scheduling</div><div style="font-size:13px;color:#5B5B5B;">Queue for peak-time reach.</div></div></div>
+            <div style="display:flex;gap:11px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.9"/></svg><div><div style="font-size:14.5px;font-weight:700;color:#121212;">Connects</div><div style="font-size:13px;color:#5B5B5B;">Grow the right network.</div></div></div>
+            <div style="display:flex;gap:11px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M4 19V10M10 19V5M16 19v-7M22 19V8"/></svg><div><div style="font-size:14.5px;font-weight:700;color:#121212;">Impressions</div><div style="font-size:13px;color:#5B5B5B;">Know what's landing.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PRICING ===================== -->
+  <div style="max-width:1240px;margin:0 auto;padding:88px 40px;">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;">Pricing</span>
+      <h2 style="font-weight:800;font-size:40px;letter-spacing:-.02em;color:#121212;margin:14px 0 0;line-height:1.1;">Start free. Upgrade when it lands you interviews.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:840px;margin:48px auto 0;">
+      <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:14px;padding:30px;">
+        <div style="font-size:14px;font-weight:700;color:#121212;">Free</div>
+        <div style="margin:12px 0 4px;"><span style="font-weight:800;font-size:44px;letter-spacing:-.03em;color:#121212;">$0</span><span style="font-size:15px;color:#8A8A8A;">/forever</span></div>
+        <div style="font-size:13.5px;color:#5B5B5B;">For a first pass on your résumé.</div>
+        <a href="#" style="display:block;text-align:center;margin-top:22px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#121212;background:transparent;border:1px solid #CFCFCF;padding:13px;border-radius:9999px;">Get started</a>
+        <div style="height:1px;background:#F0F0F0;margin:24px 0;"></div>
+        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;color:#5B5B5B;">
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>3 résumé analyses / month</div>
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Match score &amp; keyword gaps</div>
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>1 tailored CV</div>
+        </div>
+      </div>
+      <div style="background:#121212;border-radius:14px;padding:30px;position:relative;box-shadow:0 24px 60px rgba(18,18,18,.22);">
+        <div style="position:absolute;top:24px;right:26px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#121212;background:#1DB954;padding:5px 11px;border-radius:9999px;">Popular</div>
+        <div style="font-size:14px;font-weight:700;color:#FFFFFF;">Pro</div>
+        <div style="margin:12px 0 4px;"><span style="font-weight:800;font-size:44px;letter-spacing:-.03em;color:#FFFFFF;">$12</span><span style="font-size:15px;color:#A7A7A7;">/month</span></div>
+        <div style="font-size:13.5px;color:#B3B3B3;">For an active, serious job search.</div>
+        <a href="#" style="display:block;text-align:center;margin-top:22px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:#1DB954;padding:13px;border-radius:9999px;">Start Pro</a>
+        <div style="height:1px;background:#282828;margin:24px 0;"></div>
+        <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;color:#B3B3B3;">
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span style="color:#FFFFFF;">Unlimited analyses &amp; tailored CVs</span></div>
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Cover letters for every role</div>
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>LinkedIn posting &amp; scheduling</div>
+          <div style="display:flex;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Impressions &amp; connects analytics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FAQ ===================== -->
+  <div style="background:#F7F8F7;border-top:1px solid #EBEBEB;">
+    <div style="max-width:820px;margin:0 auto;padding:82px 40px;">
+      <div style="text-align:center;"><span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0E9E48;">FAQ</span><h2 style="font-weight:800;font-size:36px;letter-spacing:-.02em;color:#121212;margin:14px 0 0;">Questions, answered.</h2></div>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:12px;">
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:20px 22px;"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15.5px;font-weight:700;color:#121212;">How does the match score work?</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.2" stroke-linecap="round"><path d="M6 15l6-6 6 6"/></svg></div><p style="font-size:14px;color:#5B5B5B;line-height:1.6;margin:12px 0 0;">We compare your résumé against each job's requirements — skills, keywords, seniority, and phrasing — and weight them by how important they are to that specific role.</p></div>
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:20px 22px;"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15.5px;font-weight:700;color:#121212;">Is it safe to connect my LinkedIn?</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:20px 22px;"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15.5px;font-weight:700;color:#121212;">What résumé formats can I upload?</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:20px 22px;"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15.5px;font-weight:700;color:#121212;">Can I schedule posts in advance?</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+        <div style="background:#FFFFFF;border:1px solid #EBEBEB;border-radius:12px;padding:20px 22px;"><div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15.5px;font-weight:700;color:#121212;">Is there a free trial?</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <div style="max-width:1240px;margin:0 auto;padding:88px 40px;">
+    <div style="background:#121212;border-radius:20px;padding:64px 40px;text-align:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse at center,rgba(29,185,84,.28),transparent 66%);"></div>
+      <div style="position:relative;">
+        <h2 style="font-weight:800;font-size:44px;letter-spacing:-.03em;color:#FFFFFF;margin:0;line-height:1.08;">Ready to grow your career?</h2>
+        <p style="font-size:16px;color:#B3B3B3;margin:16px auto 0;max-width:480px;line-height:1.6;">Analyze your résumé, tailor every application, and keep your LinkedIn working while you sleep.</p>
+        <div style="display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap;">
+          <a href="#" style="display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:#1DB954;padding:15px 28px;border-radius:9999px;">Start free <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="#" style="display:inline-flex;align-items:center;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:transparent;border:1px solid #535353;padding:15px 26px;border-radius:9999px;">Schedule a demo</a>
+        </div>
+        <div style="font-size:12px;color:#767676;margin-top:20px;">No credit card required · 1-day trial of premium features</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <div style="border-top:1px solid #EBEBEB;">
+    <div style="max-width:1240px;margin:0 auto;padding:52px 40px 36px;">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:9999px;background:#1DB954;display:flex;align-items:center;justify-content:center;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" stroke-linecap="round"/></svg></div><span style="font-size:17px;font-weight:800;letter-spacing:-.4px;">CareerLens</span></div>
+          <p style="font-size:13.5px;color:#8A8A8A;line-height:1.6;margin:14px 0 0;max-width:280px;">The AI career platform for résumé analysis and LinkedIn growth.</p>
+        </div>
+        <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;">Product</div><div style="display:flex;flex-direction:column;gap:11px;margin-top:16px;font-size:14px;color:#5B5B5B;"><a href="#" style="color:#5B5B5B;">Résumé analyzer</a><a href="#" style="color:#5B5B5B;">LinkedIn growth</a><a href="#" style="color:#5B5B5B;">Pricing</a></div></div>
+        <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;">Company</div><div style="display:flex;flex-direction:column;gap:11px;margin-top:16px;font-size:14px;color:#5B5B5B;"><a href="#" style="color:#5B5B5B;">About</a><a href="#" style="color:#5B5B5B;">Careers</a><a href="#" style="color:#5B5B5B;">Contact</a></div></div>
+        <div><div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;">Legal</div><div style="display:flex;flex-direction:column;gap:11px;margin-top:16px;font-size:14px;color:#5B5B5B;"><a href="#" style="color:#5B5B5B;">Privacy</a><a href="#" style="color:#5B5B5B;">Terms</a><a href="#" style="color:#5B5B5B;">Security</a></div></div>
+      </div>
+      <div style="height:1px;background:#EBEBEB;margin:36px 0 20px;"></div>
+      <div style="font-size:13px;color:#9A9A9A;">© 2026 CareerLens. All rights reserved.</div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

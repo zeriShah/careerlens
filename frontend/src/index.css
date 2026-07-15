@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,9 +6,9 @@
 
 
 body {
-  font-family: 'Roboto', 'Inter', sans-serif;
-  background-color: #FFFBFE;
-  color: #1C1B1F;
+  font-family: 'DM Sans', 'Inter', sans-serif;
+  background-color: #FFFFFF;
+  color: #121212;
 }
 
 /* Custom Scrollbar for premium feel */
@@ -17,14 +17,14 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FFFBFE;
+  background: #FFFFFF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #E7E0EC;
+  background: #EBEBEB;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #6750A4;
+  background: #1DB954;
 }
 
 @keyframes float {

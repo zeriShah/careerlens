@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Play, Sparkles, Cpu } from 'lucide-react';
+import { ArrowRight, Play, Cpu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Hero() {
@@ -18,44 +18,59 @@ export default function Hero() {
 
   const handleMouseLeave = () => {
     setTilt({ x: 0, y: 0 });
-    setHoveredCard(null);
   };
 
   return (
-    <section className="relative overflow-hidden pt-4 pb-12 md:pt-6 md:pb-16 px-6 bg-background">
+    <section className="relative overflow-hidden pt-6 pb-14 md:pt-10 md:pb-20 px-6 bg-background">
       {/* Subtle Background Accent Grid */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#E7E0EC_1px,transparent_1px),linear-gradient(to_bottom,#E7E0EC_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#EBEBEB_1px,transparent_1px),linear-gradient(to_bottom,#EBEBEB_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35" />
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center text-left">
         
         {/* Left Text Column */}
-        <div className="lg:col-span-5 flex flex-col items-start text-left z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#6750A4]/10 border border-[#6750A4]/20 rounded-full text-[11px] font-bold tracking-wider uppercase text-[#6750A4] mb-6 shadow-xs font-sans">
-            <Sparkles className="w-3.5 h-3.5 text-[#6750A4]" />
-            Next-Gen Profile Operating System
+        <div className="lg:col-span-5 flex flex-col items-start z-10">
+          <div className="inline-flex items-center gap-2 bg-[#F4F5F3] border border-[#E6E7E4] rounded-full px-3 py-1.5 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1DB954] animate-pulse"></span>
+            <span className="text-[10px] font-bold tracking-wider text-[#5B5B5B] uppercase font-sans">AI résumé &amp; LinkedIn optimization</span>
           </div>
 
-          <h1 className="font-sans font-bold text-4xl sm:text-5xl lg:text-[44px] xl:text-[54px] leading-[1.1] tracking-tight text-[#1C1B1F] mb-6">
-            Optimize Your Professional <br />
-            <span className="text-transparent bg-clip-text bg-gradient-accent">Identity with AI</span>
+          <h1 className="font-sans font-extrabold text-4xl sm:text-5xl lg:text-[46px] xl:text-[56px] leading-[1.08] tracking-tight text-[#121212] mb-6">
+            Your résumé, matched to the job that wants it.
           </h1>
 
-          <p className="text-base sm:text-lg text-[#49454F] mb-8 leading-relaxed max-w-lg">
-            Profiling is a premium workspace that connects your offline resume and online professional presence. Analyze resume scores, tailor CVs dynamically, and schedule AI content for LinkedIn from a single dashboard.
+          <p className="text-sm sm:text-base text-[#5B5B5B] mb-8 leading-relaxed max-w-lg">
+            Profiling reads the ten most relevant openings for your role, scores your fit against each one, and rewrites your CV and cover letter to close the gap — then keeps your LinkedIn growing on a schedule.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <button
               onClick={() => navigate('/register')}
-              className="bg-[#6750A4] hover:bg-[#6750A4]/90 text-white font-bold text-sm px-6 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 w-full sm:w-auto"
+              className="bg-[#1DB954] hover:bg-[#1aa34a] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 w-full sm:w-auto"
+              style={{ boxShadow: '0 10px 26px rgba(29,185,84,.28)' }}
             >
-              Get Started Free
+              Analyze my résumé
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="bg-transparent border border-[#79747E] hover:bg-[#6750A4]/8 text-[#6750A4] font-bold text-sm px-6 py-3.5 rounded-full shadow-xs transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 w-full sm:w-auto">
-              <Play className="w-4 h-4 text-[#6750A4] fill-[#6750A4]" />
-              Watch Demo
-            </button>
+            <a 
+              href="#about"
+              className="bg-transparent border border-[#CFCFCF] hover:bg-[#F3F3F3] text-[#121212] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full shadow-xs transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 w-full sm:w-auto"
+            >
+              <Play className="w-3.5 h-3.5 text-[#121212] fill-[#121212]" />
+              How it works
+            </a>
+          </div>
+
+          {/* Social Proof Segment */}
+          <div className="flex items-center gap-3.5 mt-8 select-none">
+            <div className="flex -space-x-2">
+              <div className="w-8 h-8 rounded-full bg-[#EBEBEB] border-2 border-white flex items-center justify-center font-bold text-[9px] text-[#5B5B5B] font-sans">JK</div>
+              <div className="w-8 h-8 rounded-full bg-[#1DB954] border-2 border-white flex items-center justify-center font-bold text-[9px] text-white font-sans">SM</div>
+              <div className="w-8 h-8 rounded-full bg-[#EBEBEB] border-2 border-white flex items-center justify-center font-bold text-[9px] text-[#5B5B5B] font-sans">RA</div>
+            </div>
+            <div className="text-xs text-[#5B5B5B] leading-snug">
+              Joined by <strong className="text-[#121212]">12,000+</strong> engineers, designers &amp; PMs<br />
+              <span className="text-[10px] text-[#8A8A8A]">No credit card to start.</span>
+            </div>
           </div>
         </div>
 
@@ -76,19 +91,18 @@ export default function Hero() {
               }}
             >
               
-              {/* Backglow decoration - Organic MD3 Blur Shapes */}
-              <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-[#6750A4]/20 to-[#7D5260]/10 blur-[70px] -z-10 transform translate-z-[-60px]" />
-              <div className="absolute w-[200px] h-[200px] rounded-full bg-[#E8DEF8]/30 blur-[50px] -z-10 transform translate-x-20 -translate-y-20 translate-z-[-80px]" />
+              {/* Backglow decoration - Organic Green Blur Shapes */}
+              <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-[#1DB954]/15 to-[#5B5B5B]/5 blur-[70px] -z-10 transform translate-z-[-60px]" />
  
               {/* 3D Connecting Core */}
               <div 
-                className="absolute w-12 h-12 rounded-2xl bg-[#F3EDF7] border border-[#E7E0EC] shadow-md flex items-center justify-center transition-all duration-300 z-20"
+                className="absolute w-12 h-12 rounded-2xl bg-white border border-[#EBEBEB] shadow-md flex items-center justify-center transition-all duration-300 z-20"
                 style={{ 
                   transform: 'translateZ(60px)',
-                  boxShadow: '0 10px 30px -10px rgba(103, 80, 164, 0.2)'
+                  boxShadow: '0 10px 30px -10px rgba(29, 185, 84, 0.2)'
                 }}
               >
-                <Cpu className="w-6 h-6 text-[#6750A4] animate-pulse" />
+                <Cpu className="w-6 h-6 text-[#1DB954] animate-pulse" />
               </div>
  
               {/* Linking dashed SVG connector lines in 3D */}
@@ -104,13 +118,12 @@ export default function Hero() {
                   />
                   <defs>
                     <linearGradient id="dash-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#6750A4" />
-                      <stop offset="100%" stopColor="#7D5260" />
+                      <stop offset="0%" stopColor="#1DB954" />
+                      <stop offset="100%" stopColor="#121212" />
                     </linearGradient>
                   </defs>
                 </svg>
               </div>
-
               {/* Styles for continuous 3D turn around animations */}
               <style dangerouslySetInnerHTML={{__html: `
                 @keyframes rotateCV {

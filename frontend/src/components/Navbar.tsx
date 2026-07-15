@@ -25,11 +25,11 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-white font-extrabold text-lg">P</span>
+        <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate('/')}>
+          <div className="w-[30px] h-[30px] rounded-full bg-[#1DB954] flex items-center justify-center">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.8"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" strokeLinecap="round"/></svg>
           </div>
-          <span className="font-sans font-bold text-xl text-text-primary tracking-tight">
+          <span className="font-sans font-extrabold text-lg text-[#121212] tracking-tight leading-none">
             Profiling
           </span>
         </div>
@@ -38,47 +38,41 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-8">
           <a
             href="#home"
-            className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-150"
+            className="text-xs font-bold text-[#5B5B5B] hover:text-[#121212] transition-colors"
           >
             Home
           </a>
           <a
             href="#features"
-            className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-150"
+            className="text-xs font-bold text-[#5B5B5B] hover:text-[#121212] transition-colors"
           >
             Features
           </a>
           <a
             href="#pricing"
-            className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-150"
+            className="text-xs font-bold text-[#5B5B5B] hover:text-[#121212] transition-colors"
           >
             Pricing
           </a>
           <a
             href="#about"
-            className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-150"
+            className="text-xs font-bold text-[#5B5B5B] hover:text-[#121212] transition-colors"
           >
             About
-          </a>
-          <a
-            href="#resources"
-            className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-150"
-          >
-            Resources
           </a>
         </nav>
 
         {/* Right side actions */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-6">
           <button
             onClick={() => navigate('/login')}
-            className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-150 px-4 py-2"
+            className="text-xs font-bold text-[#5B5B5B] hover:text-[#121212] transition-colors"
           >
-            Login
+            Sign in
           </button>
           <button
             onClick={() => navigate('/register')}
-            className="bg-primary text-white hover:bg-primary-hover text-sm font-medium px-5 py-2.5 rounded-lg shadow-subtle transition-all duration-150 flex items-center gap-1.5 active:scale-[0.98]"
+            className="bg-[#1DB954] text-white hover:bg-[#1aa34a] text-[11px] font-bold tracking-wider uppercase px-5 py-2.5 rounded-full shadow-subtle transition-all duration-150 flex items-center gap-1.5 active:scale-95"
           >
             Get Started
             <ArrowRight className="w-4 h-4" />

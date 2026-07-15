@@ -25,7 +25,7 @@ export default function ProductPreview() {
   }, []);
 
   return (
-    <section id="preview" className="py-20 md:py-28 px-6 bg-slate-50 border-b border-border">
+    <section id="preview" className="py-14 md:py-20 px-6 bg-white border-b border-[#EBEBEB]">
       
       {/* Styles for continuous keyframe animations */}
       <style dangerouslySetInnerHTML={{__html: `
@@ -59,38 +59,38 @@ export default function ProductPreview() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs font-bold text-primary tracking-wider uppercase bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+          <span className="text-xs font-bold text-[#0E9E48] tracking-wider uppercase bg-[#1DB954]/10 px-3 py-1 rounded-full border border-[#1DB954]/20">
             Platform Demo
           </span>
-          <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-text-primary mt-4 mb-4 tracking-tight">
+          <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-[#121212] mt-4 mb-4 tracking-tight">
             See the Profile Sync Engine in Action
           </h2>
-          <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
+          <p className="text-[#5B5B5B] text-base sm:text-lg leading-relaxed">
             Profiling connects your offline documents with your online presence. Watch our live scanner audit keywords and update your LinkedIn profile continuously.
           </p>
         </div>
 
         {/* Outer Interface Frame */}
-        <div className="mx-auto max-w-5xl bg-white border border-border rounded-2xl p-4 md:p-8 shadow-subtle relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(#e5e5e5_1px,transparent_1px)] [background-size:20px_20px] opacity-30 pointer-events-none" />
+        <div className="mx-auto max-w-5xl bg-white border border-[#EBEBEB] rounded-2xl p-4 md:p-8 shadow-card relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(#dcdcdc_1px,transparent_1px)] [background-size:20px_20px] opacity-35 pointer-events-none" />
 
           {/* Sync Engine Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             
             {/* Left Column: The Resume Scanner (Light Theme card) */}
-            <div className="lg:col-span-5 bg-[#F9F9F9] border border-border rounded-xl p-5 shadow-sm relative overflow-hidden min-h-[380px] flex flex-col justify-between">
+            <div className="lg:col-span-5 bg-[#FBFBFB] border border-[#EBEBEB] rounded-xl p-5 shadow-sm relative overflow-hidden min-h-[380px] flex flex-col justify-between">
               
               {/* Animated scan beam line */}
-              <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FFBB00] to-transparent shadow-[0_0_10px_#FFBB00] animate-scan-beam" />
+              <div className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#1DB954] to-transparent shadow-[0_0_10px_#1DB954] animate-scan-beam" />
               
               {/* Resume Header */}
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-primary" />
-                    <span className="font-bold text-xs text-text-primary uppercase tracking-wide">Resume Parser</span>
+                    <FileText className="w-5 h-5 text-[#1DB954]" />
+                    <span className="font-bold text-xs text-[#121212] uppercase tracking-wide">Resume Parser</span>
                   </div>
-                  <span className="text-[10px] text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded font-bold uppercase tracking-wide">
+                  <span className="text-[10px] text-[#0E9E48] bg-[#1DB954]/10 border border-[#1DB954]/20 px-2 py-0.5 rounded font-bold uppercase tracking-wide">
                     Live Score: {atsScore}%
                   </span>
                 </div>
@@ -98,27 +98,27 @@ export default function ProductPreview() {
                 <div className="space-y-4 text-left">
                   {/* Dummy Resume Details */}
                   <div className="space-y-1">
-                    <h4 className="font-black text-sm text-text-primary leading-tight">Alex Mercer</h4>
-                    <p className="text-[10px] text-text-secondary">Senior Software Engineer · San Francisco, CA</p>
+                    <h4 className="font-black text-sm text-[#121212] leading-tight">Alex Mercer</h4>
+                    <p className="text-[10px] text-[#5B5B5B]">Senior Software Engineer · San Francisco, CA</p>
                   </div>
 
-                  <hr className="border-border" />
+                  <hr className="border-[#EBEBEB]" />
 
                   {/* Experience Section */}
                   <div className="space-y-2">
-                    <span className="text-[9px] font-bold text-text-secondary uppercase tracking-wider block">Professional Experience</span>
+                    <span className="text-[9px] font-bold text-[#5B5B5B] uppercase tracking-wider block">Professional Experience</span>
                     
                     <div className="space-y-1">
                       <div className="flex justify-between items-center text-[10px]">
-                        <span className="font-bold text-text-primary">Software Engineer III @ Vercel</span>
-                        <span className="text-text-secondary">2024 - Present</span>
+                        <span className="font-bold text-[#121212]">Software Engineer III @ Vercel</span>
+                        <span className="text-[#5B5B5B]">2024 - Present</span>
                       </div>
-                      <p className="text-[9px] text-text-secondary leading-normal">
+                      <p className="text-[9px] text-[#5B5B5B] leading-normal">
                         Spearheaded developer relations tools and build systems optimization. 
                         Integrated TypeScript strict validation checks to reduce pipeline failures.
                       </p>
                       {/* Live scanned keyword badge pointer */}
-                      <span className="inline-flex items-center gap-1 text-[8px] font-semibold text-primary bg-primary/10 px-1.5 py-0.5 rounded border border-primary/20 mt-1">
+                      <span className="inline-flex items-center gap-1 text-[8px] font-semibold text-[#0E9E48] bg-[#1DB954]/10 px-1.5 py-0.5 rounded border border-[#1DB954]/20 mt-1">
                         <Sparkles className="w-2.5 h-2.5" />
                         Scanned: TypeScript & Build Systems detected
                       </span>
@@ -128,12 +128,12 @@ export default function ProductPreview() {
               </div>
 
               {/* Bullet optimization panel */}
-              <div className="mt-4 pt-3 border-t border-border space-y-2 text-left">
-                <span className="text-[9px] font-bold text-text-secondary uppercase tracking-wider block">AI Formatting Suggestions</span>
-                <div className="p-2 bg-white rounded border border-border/80 text-[9px] text-text-secondary flex items-start gap-2 shadow-xs">
-                  <CheckCircle className="w-3.5 h-3.5 text-success shrink-0 mt-0.5 animate-pulse" />
+              <div className="mt-4 pt-3 border-t border-[#EBEBEB] space-y-2 text-left">
+                <span className="text-[9px] font-bold text-[#5B5B5B] uppercase tracking-wider block">AI Formatting Suggestions</span>
+                <div className="p-2 bg-white rounded border border-[#EBEBEB] text-[9px] text-[#5B5B5B] flex items-start gap-2 shadow-xs">
+                  <CheckCircle className="w-3.5 h-3.5 text-[#1DB954] shrink-0 mt-0.5 animate-pulse" />
                   <div>
-                    <span className="font-bold text-text-primary block">STAR Formula Match</span>
+                    <span className="font-bold text-[#121212] block">STAR Formula Match</span>
                     <span>Action verb "Spearheaded" has strong metric density compatibility.</span>
                   </div>
                 </div>
@@ -145,9 +145,9 @@ export default function ProductPreview() {
             <div className="lg:col-span-2 flex lg:flex-col justify-center items-center gap-2 h-12 lg:h-full py-4 lg:py-0">
               
               {/* CPU Center processing hub */}
-              <div className="w-10 h-10 rounded-xl bg-slate-900 text-white border border-neutral-800 shadow-md flex items-center justify-center relative shrink-0">
-                <Cpu className="w-5 h-5 text-primary animate-pulse" />
-                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-primary animate-ping" />
+              <div className="w-10 h-10 rounded-xl bg-[#121212] text-white border border-[#282828] shadow-md flex items-center justify-center relative shrink-0">
+                <Cpu className="w-5 h-5 text-[#1DB954] animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#1DB954] animate-ping" />
               </div>
 
               {/* Connecting Line (Desktop) */}
@@ -156,28 +156,28 @@ export default function ProductPreview() {
                   <line x1="0" y1="0" x2="0" y2="110" stroke="url(#line-grad-preview)" strokeWidth="2.5" strokeDasharray="6,4" className="animate-flow-stream" />
                   <defs>
                     <linearGradient id="line-grad-preview" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#FFBB00" />
-                      <stop offset="100%" stopColor="#FFD254" />
+                      <stop offset="0%" stopColor="#1DB954" />
+                      <stop offset="100%" stopColor="#121212" />
                     </linearGradient>
                   </defs>
                 </svg>
               </div>
 
               {/* Desktop horizontal flow arrow */}
-              <div className="hidden lg:block text-text-secondary text-[10px] font-bold uppercase tracking-widest text-center rotate-90 my-2">
+              <div className="hidden lg:block text-[#5B5B5B] text-[10px] font-bold uppercase tracking-widest text-center rotate-90 my-2">
                 Syncing
               </div>
 
             </div>
 
             {/* Right Column: The LinkedIn Dashboard (Dark Theme card) */}
-            <div className="lg:col-span-5 bg-slate-900 border border-neutral-800 rounded-xl p-5 shadow-sm relative min-h-[380px] flex flex-col justify-between text-white">
+            <div className="lg:col-span-5 bg-[#121212] border border-[#282828] rounded-xl p-5 shadow-sm relative min-h-[380px] flex flex-col justify-between text-white">
               
               {/* LinkedIn Header */}
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
-                    <Linkedin className="w-5 h-5 text-primary" />
+                    <Linkedin className="w-5 h-5 text-[#1DB954]" />
                     <span className="font-bold text-xs text-neutral-400 uppercase tracking-wide">LinkedIn Sync Panel</span>
                   </div>
                   <span className="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded font-bold uppercase tracking-wide flex items-center gap-1">
@@ -189,7 +189,7 @@ export default function ProductPreview() {
                 {/* Dummy LinkedIn Profile details */}
                 <div className="space-y-4 text-left">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center font-bold text-primary text-sm">
+                    <div className="w-9 h-9 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center font-bold text-[#1DB954] text-sm">
                       A
                     </div>
                     <div>
@@ -224,8 +224,8 @@ export default function ProductPreview() {
                         />
                         <defs>
                           <linearGradient id="sparkline-grad-preview" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#FFBB00" />
-                            <stop offset="100%" stopColor="#FFD254" />
+                            <stop offset="0%" stopColor="#1DB954" />
+                            <stop offset="100%" stopColor="#121212" />
                           </linearGradient>
                         </defs>
                       </svg>

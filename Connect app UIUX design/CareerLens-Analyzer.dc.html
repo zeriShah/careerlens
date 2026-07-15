@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #E8E9E8; }
+  a { color: #121212; text-decoration: none; }
+  ::selection { background: #1DB954; color: #FFFFFF; }
+  @keyframes clRing { from { stroke-dashoffset: 327; } to { stroke-dashoffset: 22; } }
+  @keyframes clScan { 0% { left: -40%; } 100% { left: 100%; } }
+  @keyframes clPulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+  @keyframes clUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .clrow { animation: clUp .4s both; }
+</style>
+</helmet>
+
+<div style="min-height:100%;background:#E8E9E8;font-family:'DM Sans',system-ui,sans-serif;padding:44px 46px 80px;">
+  <div style="max-width:1560px;margin:0 auto;">
+    <div style="margin-bottom:26px;"><div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:2px;color:#8A8A8A;text-transform:uppercase;">CareerLens · Screen 4</div><h1 style="font-weight:800;font-size:28px;color:#121212;margin:10px 0 0;letter-spacing:-.02em;">Résumé Analyzer flow <span style="font-size:14px;font-weight:600;color:#8A8A8A;">— interactive: use the stepper, sidebar &amp; buttons</span></h1></div>
+
+    <div style="display:grid;grid-template-columns:248px 1fr;background:#FFFFFF;border-radius:18px;overflow:hidden;box-shadow:0 30px 70px rgba(18,18,18,.14);height:980px;">
+
+      <!-- SIDEBAR -->
+      <div style="background:#FBFBFB;border-right:1px solid #EEEEEE;display:flex;flex-direction:column;padding:22px 16px;">
+        <div style="display:flex;align-items:center;gap:11px;padding:0 8px;"><div style="width:30px;height:30px;border-radius:9999px;background:#1DB954;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" stroke-linecap="round"/></svg></div><span style="font-size:18px;font-weight:800;letter-spacing:-.5px;">CareerLens</span></div>
+
+        <div style="margin-top:28px;display:flex;flex-direction:column;gap:3px;">
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;font-size:14px;font-weight:600;color:#5B5B5B;cursor:pointer;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1H10v-5h4v5h3.5a1 1 0 0 0 1-1V9.5"/></svg>Home</div>
+
+          <div onClick="{{ toggleResume }}" style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;font-size:14px;font-weight:700;color:#121212;cursor:pointer;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9"/><path d="M13 3v5h5"/><circle cx="10.5" cy="13" r="2.4"/><path d="M13 15.5l2 2"/></svg><span style="flex:1;">Résumé analyzer</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;transform:{{ resumeChev }};"><path d="M9 6l6 6-6 6"/></svg></div>
+          <sc-if value="{{ resumeOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="margin:2px 0 4px 21px;padding-left:12px;border-left:1.5px solid #ECECEC;display:flex;flex-direction:column;gap:2px;">
+              <div onClick="{{ nav.upload }}" style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;background:{{ sty.upload.bg }};font-size:13px;font-weight:{{ sty.upload.w }};color:{{ sty.upload.c }};cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ sty.upload.ic }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>Upload CV</div>
+              <div onClick="{{ nav.matches }}" style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;background:{{ sty.matches.bg }};font-size:13px;font-weight:{{ sty.matches.w }};color:{{ sty.matches.c }};cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ sty.matches.ic }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>Job matches<span style="margin-left:auto;font-size:10px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.12);padding:2px 7px;border-radius:9999px;">10</span></div>
+              <div onClick="{{ nav.gaps }}" style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;background:{{ sty.gaps.bg }};font-size:13px;font-weight:{{ sty.gaps.w }};color:{{ sty.gaps.c }};cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ sty.gaps.ic }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h9"/></svg>Gaps &amp; keywords</div>
+              <div onClick="{{ nav.cv }}" style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;background:{{ sty.cv.bg }};font-size:13px;font-weight:{{ sty.cv.w }};color:{{ sty.cv.c }};cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ sty.cv.ic }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h9l5 5v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M13 4v5h5M8 14h6M8 17h4"/></svg>Tailored CV</div>
+              <div onClick="{{ nav.cover }}" style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;background:{{ sty.cover.bg }};font-size:13px;font-weight:{{ sty.cover.w }};color:{{ sty.cover.c }};cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ sty.cover.ic }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>Cover letters</div>
+            </div>
+          </sc-if>
+
+          <div onClick="{{ toggleLinkedin }}" style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;font-size:14px;font-weight:700;color:#3A3A3A;cursor:pointer;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#3A3A3A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7.02V7M11 17v-4a2 2 0 0 1 4 0v4"/></svg><span style="flex:1;">LinkedIn</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;transform:{{ linkedinChev }};"><path d="M9 6l6 6-6 6"/></svg></div>
+          <sc-if value="{{ linkedinOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="margin:2px 0 4px 21px;padding-left:12px;border-left:1.5px solid #ECECEC;display:flex;flex-direction:column;gap:2px;">
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;font-size:13px;font-weight:600;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Posts</div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;font-size:13px;font-weight:600;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Scheduling</div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;font-size:13px;font-weight:600;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.9"/></svg>Connects</div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;font-size:13px;font-weight:600;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-7M22 19V8"/></svg>Impressions</div>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;font-size:14px;font-weight:600;color:#5B5B5B;cursor:pointer;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>My documents</div>
+        </div>
+
+        <div style="margin-top:auto;display:flex;align-items:center;gap:11px;padding:0 4px;"><div style="width:36px;height:36px;border-radius:9999px;background:#1DB954;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#FFFFFF;">AR</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:700;color:#121212;">Alex Rivera</div><div style="font-size:11.5px;color:#8A8A8A;">Free plan</div></div></div>
+      </div>
+
+      <!-- MAIN -->
+      <div style="display:flex;flex-direction:column;overflow:hidden;">
+        <!-- STEPPER -->
+        <div style="padding:22px 32px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;gap:0;">
+          <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:9999px;background:{{ s1.bg }};color:{{ s1.fg }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">1</div><span style="font-size:13.5px;font-weight:700;color:{{ s1.tc }};">Upload CV</span></div>
+          <div style="flex:1;height:2px;background:{{ s2.line }};margin:0 16px;"></div>
+          <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:9999px;background:{{ s2.bg }};color:{{ s2.fg }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">2</div><span style="font-size:13.5px;font-weight:700;color:{{ s2.tc }};">Target role</span></div>
+          <div style="flex:1;height:2px;background:{{ s3.line }};margin:0 16px;"></div>
+          <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:9999px;background:{{ s3.bg }};color:{{ s3.fg }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">3</div><span style="font-size:13.5px;font-weight:700;color:{{ s3.tc }};">Matches</span></div>
+          <div style="flex:1;height:2px;background:{{ s4.line }};margin:0 16px;"></div>
+          <div style="display:flex;align-items:center;gap:11px;"><div style="width:28px;height:28px;border-radius:9999px;background:{{ s4.bg }};color:{{ s4.fg }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;">4</div><span style="font-size:13.5px;font-weight:700;color:{{ s4.tc }};">Tailor &amp; apply</span></div>
+        </div>
+
+        <div style="flex:1;overflow:auto;padding:34px 32px;">
+
+          <!-- STEP: UPLOAD -->
+          <sc-if value="{{ showUpload }}" hint-placeholder-val="{{ true }}">
+            <div style="max-width:620px;margin:14px auto 0;">
+              <h2 style="font-weight:800;font-size:26px;letter-spacing:-.02em;color:#121212;text-align:center;">Upload your résumé</h2>
+              <p style="font-size:14.5px;color:#5B5B5B;text-align:center;margin:8px 0 0;">PDF, DOCX or TXT · up to 5 MB. We'll parse it in seconds.</p>
+              <div style="margin-top:26px;border:2px dashed #D6D6D6;border-radius:16px;background:#FAFAFA;padding:44px;text-align:center;">
+                <div style="width:60px;height:60px;border-radius:16px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;margin:0 auto;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg></div>
+                <div style="font-size:16px;font-weight:700;color:#121212;margin-top:16px;">Drop your résumé here</div>
+                <div style="font-size:13px;color:#8A8A8A;margin-top:4px;">or</div>
+                <div style="display:inline-flex;margin-top:10px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;background:#121212;padding:11px 20px;border-radius:9999px;cursor:pointer;">Choose file</div>
+              </div>
+              <div style="margin-top:16px;display:flex;align-items:center;gap:14px;background:#FFFFFF;border:1px solid #E6E6E6;border-radius:12px;padding:14px 16px;">
+                <div style="width:38px;height:46px;border-radius:6px;background:#FBEAEA;display:flex;align-items:center;justify-content:center;"><span style="font-size:9px;font-weight:800;color:#E22134;">PDF</span></div>
+                <div style="flex:1;"><div style="font-size:14px;font-weight:700;color:#121212;">resume_v4.pdf</div><div style="font-size:12px;color:#8A8A8A;">248 KB · parsed ✓ · Senior Product Designer detected</div></div>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+              </div>
+              <button onClick="{{ nav.role }}" style="border:none;cursor:pointer;width:100%;margin-top:22px;height:50px;border-radius:9999px;background:#1DB954;color:#FFFFFF;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;">Continue <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            </div>
+          </sc-if>
+
+          <!-- STEP: ROLE -->
+          <sc-if value="{{ showRole }}" hint-placeholder-val="{{ true }}">
+            <div style="max-width:620px;margin:14px auto 0;">
+              <h2 style="font-weight:800;font-size:26px;letter-spacing:-.02em;color:#121212;text-align:center;">What role are you targeting?</h2>
+              <p style="font-size:14.5px;color:#5B5B5B;text-align:center;margin:8px 0 0;">We'll pull the 10 most relevant live openings and score your fit.</p>
+              <div style="margin-top:26px;display:flex;flex-direction:column;gap:16px;">
+                <div><label style="font-size:12px;font-weight:700;color:#5B5B5B;">Target role</label><div style="height:48px;border-radius:10px;background:#F3F3F3;display:flex;align-items:center;padding:0 14px;gap:10px;margin-top:7px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg><span style="font-size:14.5px;color:#121212;">Senior Product Designer</span></div></div>
+                <div><label style="font-size:12px;font-weight:700;color:#5B5B5B;">Location</label><div style="height:48px;border-radius:10px;background:#F3F3F3;display:flex;align-items:center;padding:0 14px;gap:10px;margin-top:7px;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span style="font-size:14.5px;color:#121212;">London, UK</span></div></div>
+                <div><label style="font-size:12px;font-weight:700;color:#5B5B5B;">Seniority</label><div style="display:flex;gap:9px;margin-top:9px;flex-wrap:wrap;"><span style="font-size:13px;font-weight:600;color:#8A8A8A;background:#F3F3F3;padding:9px 15px;border-radius:9999px;">Mid</span><span style="font-size:13px;font-weight:700;color:#FFFFFF;background:#121212;padding:9px 15px;border-radius:9999px;">Senior</span><span style="font-size:13px;font-weight:600;color:#8A8A8A;background:#F3F3F3;padding:9px 15px;border-radius:9999px;">Lead</span><span style="font-size:13px;font-weight:600;color:#8A8A8A;background:#F3F3F3;padding:9px 15px;border-radius:9999px;">Staff</span></div></div>
+                <div><label style="font-size:12px;font-weight:700;color:#5B5B5B;">Work type</label><div style="display:flex;gap:9px;margin-top:9px;flex-wrap:wrap;"><span style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.12);padding:9px 15px;border-radius:9999px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Remote</span><span style="font-size:13px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.12);padding:9px 15px;border-radius:9999px;">Hybrid</span><span style="font-size:13px;font-weight:600;color:#8A8A8A;background:#F3F3F3;padding:9px 15px;border-radius:9999px;">On-site</span></div></div>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:24px;">
+                <button onClick="{{ nav.upload }}" style="border:1px solid #CFCFCF;background:transparent;cursor:pointer;height:50px;padding:0 22px;border-radius:9999px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:inherit;color:#121212;">Back</button>
+                <button onClick="{{ nav.loading }}" style="border:none;cursor:pointer;flex:1;height:50px;border-radius:9999px;background:#1DB954;color:#FFFFFF;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:9px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>Find matching roles</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- STEP: LOADING -->
+          <sc-if value="{{ showLoading }}" hint-placeholder-val="{{ true }}">
+            <div style="max-width:560px;margin:60px auto 0;text-align:center;">
+              <div style="width:70px;height:70px;border-radius:20px;background:rgba(29,185,84,.12);display:flex;align-items:center;justify-content:center;margin:0 auto;"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
+              <h2 style="font-weight:800;font-size:24px;letter-spacing:-.02em;color:#121212;margin:22px 0 0;">Scanning live job posts…</h2>
+              <p style="font-size:14px;color:#8A8A8A;margin:8px 0 0;">Matching <b style="color:#121212;">Senior Product Designer · London</b> against thousands of openings.</p>
+              <div style="position:relative;height:8px;border-radius:9999px;background:#EDEDED;overflow:hidden;margin-top:26px;"><div style="position:absolute;top:0;bottom:0;width:40%;border-radius:9999px;background:linear-gradient(90deg,transparent,#1DB954,transparent);animation:clScan 1.3s ease-in-out infinite;"></div></div>
+              <div style="margin-top:26px;display:flex;flex-direction:column;gap:10px;text-align:left;">
+                <div style="display:flex;align-items:center;gap:11px;font-size:13.5px;color:#121212;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Parsed résumé &amp; extracted 34 skills</div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:13.5px;color:#121212;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1DB954" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Pulled 240 live postings</div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:13.5px;color:#5B5B5B;animation:clPulse 1.2s ease-in-out infinite;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg>Scoring fit &amp; ranking top 10…</div>
+              </div>
+              <button onClick="{{ nav.matches }}" style="border:none;cursor:pointer;margin-top:30px;height:48px;padding:0 28px;border-radius:9999px;background:#121212;color:#FFFFFF;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:inherit;">View 10 matches</button>
+            </div>
+          </sc-if>
+
+          <!-- STEP: MATCHES -->
+          <sc-if value="{{ showMatches }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+                <div><h2 style="font-weight:800;font-size:24px;letter-spacing:-.02em;color:#121212;margin:0;">10 roles matched</h2><p style="font-size:13.5px;color:#8A8A8A;margin:6px 0 0;">Senior Product Designer · London · sorted by fit</p></div>
+                <div style="display:flex;gap:8px;"><span style="font-size:12.5px;font-weight:700;color:#FFFFFF;background:#121212;padding:8px 14px;border-radius:9999px;">All 10</span><span style="font-size:12.5px;font-weight:600;color:#5B5B5B;background:#F3F3F3;padding:8px 14px;border-radius:9999px;">Remote</span><span style="font-size:12.5px;font-weight:600;color:#5B5B5B;background:#F3F3F3;padding:8px 14px;border-radius:9999px;">90%+</span></div>
+              </div>
+              <div style="margin-top:20px;display:flex;flex-direction:column;gap:11px;">
+                <sc-for list="{{ jobs }}" as="job" hint-placeholder-count="6">
+                  <div onClick="{{ job.open }}" class="clrow" style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;cursor:pointer;">
+                    <div style="width:44px;height:44px;border-radius:10px;background:#F3F3F3;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#5B5B5B;flex-shrink:0;">{{ job.initial }}</div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-size:15px;font-weight:700;color:#121212;">{{ job.role }}</div>
+                      <div style="font-size:12.5px;color:#8A8A8A;margin-top:2px;">{{ job.company }} · {{ job.loc }}</div>
+                      <div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;">
+                        <sc-for list="{{ job.matched }}" as="kw" hint-placeholder-count="3"><span style="font-size:10.5px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.12);padding:3px 9px;border-radius:9999px;">{{ kw }}</span></sc-for>
+                        <sc-for list="{{ job.missing }}" as="kw" hint-placeholder-count="1"><span style="font-size:10.5px;font-weight:700;color:#C0432A;background:#FBEAEA;padding:3px 9px;border-radius:9999px;">− {{ kw }}</span></sc-for>
+                      </div>
+                    </div>
+                    <div style="width:130px;"><div style="height:7px;border-radius:9999px;background:#EDEDED;overflow:hidden;"><div style="height:100%;width:{{ job.bar }};background:{{ job.barColor }};border-radius:9999px;"></div></div></div>
+                    <div style="text-align:right;width:48px;"><div style="font-weight:800;font-size:20px;color:#121212;line-height:1;">{{ job.score }}</div><div style="font-size:10px;color:#8A8A8A;">match</div></div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4C4C4" stroke-width="2.2" stroke-linecap="round" style="flex-shrink:0;"><path d="M9 6l6 6-6 6"/></svg>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- STEP: GAPS -->
+          <sc-if value="{{ showGaps }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div onClick="{{ nav.matches }}" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B5B5B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>Back to matches</div>
+              <div style="margin-top:14px;display:flex;align-items:center;gap:16px;background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:18px 20px;">
+                <div style="width:48px;height:48px;border-radius:11px;background:#F3F3F3;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#5B5B5B;">{{ sel.initial }}</div>
+                <div style="flex:1;"><div style="font-size:17px;font-weight:800;color:#121212;">{{ sel.role }}</div><div style="font-size:13px;color:#8A8A8A;">{{ sel.company }} · {{ sel.loc }}</div></div>
+                <div style="position:relative;width:64px;height:64px;"><svg width="64" height="64" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#EDEDED" stroke-width="12"/><circle cx="60" cy="60" r="52" fill="none" stroke="#1DB954" stroke-width="12" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="{{ sel.dash }}" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset .8s;"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#121212;">{{ sel.score }}</div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+                <div style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:18px;">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#0E9E48;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>Keywords you cover</div>
+                  <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;">
+                    <sc-for list="{{ sel.matched }}" as="kw" hint-placeholder-count="4"><div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:#121212;"><span style="display:flex;align-items:center;gap:9px;"><span style="width:16px;height:16px;border-radius:5px;background:rgba(29,185,84,.14);display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>{{ kw }}</span><span style="font-size:11px;font-weight:700;color:#0E9E48;">Strong</span></div></sc-for>
+                  </div>
+                </div>
+                <div style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:18px;">
+                  <div style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#C0432A;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C0432A" stroke-width="2.2" stroke-linecap="round"><path d="M12 8v5M12 16v.5"/><circle cx="12" cy="12" r="9"/></svg>Gaps to close</div>
+                  <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;">
+                    <sc-for list="{{ sel.missing }}" as="kw" hint-placeholder-count="2"><div style="display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:#121212;"><span style="display:flex;align-items:center;gap:9px;"><span style="width:16px;height:16px;border-radius:5px;background:#FBEAEA;display:flex;align-items:center;justify-content:center;"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#C0432A" stroke-width="3.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>{{ kw }}</span><span style="font-size:11px;font-weight:700;color:#C0432A;">Missing</span></div></sc-for>
+                    <div style="font-size:12px;color:#8A8A8A;line-height:1.5;margin-top:4px;">Adding these could lift your score by up to <b style="color:#121212;">+{{ sel.lift }} points</b>.</div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:16px;background:#121212;border-radius:14px;padding:20px 22px;display:flex;align-items:center;gap:16px;">
+                <div style="width:40px;height:40px;border-radius:11px;background:#1DB954;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 .5-4 3.5 1.5 5-4.5-3-4.5 3 1.5-5-4-3.5 5-.5z"/></svg></div>
+                <div style="flex:1;"><div style="font-size:15px;font-weight:800;color:#FFFFFF;">Let CareerLens close these gaps</div><div style="font-size:13px;color:#A7A7A7;margin-top:2px;">Rewrite your CV for {{ sel.company }} and draft a matching cover letter.</div></div>
+                <button onClick="{{ nav.cv }}" style="border:none;cursor:pointer;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#121212;background:#1DB954;padding:12px 18px;border-radius:9999px;font-family:inherit;white-space:nowrap;">Tailor my CV</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- STEP: TAILORED CV (Resume Tailor editor) -->
+          <sc-if value="{{ showCv }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <div onClick="{{ nav.gaps }}" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B5B5B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>Back</div>
+                  <h2 style="font-weight:800;font-size:20px;letter-spacing:-.02em;color:#121212;margin:0;">Resume Tailor</h2>
+                  <span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.12);padding:5px 11px;border-radius:9999px;"><span style="width:7px;height:7px;border-radius:9999px;background:#1DB954;"></span>Workspace Sync Active</span>
+                </div>
+                <button onClick="{{ nav.cover }}" style="border:none;background:#1DB954;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.03em;color:#FFFFFF;padding:12px 20px;border-radius:9999px;font-family:inherit;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M8 11l4 4 4-4"/><path d="M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>Download Tailored Resume (PDF)</button>
+              </div>
+
+              <!-- controls row -->
+              <div style="margin-top:16px;background:#FBFBFB;border:1px solid #EDEDED;border-radius:12px;padding:16px 18px;display:flex;align-items:flex-end;gap:30px;flex-wrap:wrap;">
+                <div>
+                  <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;">Accent color theme</div>
+                  <div style="display:flex;align-items:center;gap:12px;margin-top:9px;background:#FFFFFF;border:1px solid #E6E6E6;border-radius:9999px;padding:7px 12px;">
+                    <div style="display:flex;gap:9px;align-items:center;">
+                      <div style="width:20px;height:20px;border-radius:9999px;background:#2563EB;"></div>
+                      <div style="width:22px;height:22px;border-radius:9999px;background:#1DB954;box-shadow:0 0 0 2px #FFFFFF,0 0 0 4px #1DB954;"></div>
+                      <div style="width:20px;height:20px;border-radius:9999px;background:#475569;"></div>
+                      <div style="width:20px;height:20px;border-radius:9999px;background:#9B1C1C;"></div>
+                      <div style="width:20px;height:20px;border-radius:5px;background:#0F172A;"></div>
+                    </div>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8A8A8A;border-left:1px solid #EDEDED;padding-left:12px;">#1DB954</span>
+                  </div>
+                </div>
+                <div style="min-width:280px;">
+                  <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#8A8A8A;">Typography style</div>
+                  <div style="margin-top:9px;height:42px;background:#FFFFFF;border:1px solid #E6E6E6;border-radius:9px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:14px;color:#121212;">Helvetica (Sans-Serif Classic)</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+                </div>
+              </div>
+
+              <!-- editor + live preview -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px;align-items:start;">
+
+                <!-- LEFT: editable form -->
+                <div style="max-height:560px;overflow:auto;padding-right:6px;display:flex;flex-direction:column;gap:18px;">
+                  <!-- 1. Contact -->
+                  <div style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:20px;">
+                    <div style="display:flex;align-items:center;gap:10px;"><span style="width:4px;height:16px;border-radius:2px;background:#1DB954;"></span><span style="font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#121212;">1. Contact Information</span></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;">
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Full name</div><div style="margin-top:6px;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 13px;font-size:14px;color:#121212;">S M UZAIR SHAH</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Professional title</div><div style="margin-top:6px;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 13px;font-size:14px;color:#121212;">Data Engineer</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Email address</div><div style="margin-top:6px;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 13px;font-size:14px;color:#121212;">uzishah708@gmail.com</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Phone number</div><div style="margin-top:6px;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 13px;font-size:14px;color:#121212;">03122752986</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Location</div><div style="margin-top:6px;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 13px;font-size:14px;color:#121212;">Karachi, Pakistan</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Website / LinkedIn</div><div style="margin-top:6px;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 13px;font-size:14px;color:#121212;">github.com/zeriShah</div></div>
+                    </div>
+                  </div>
+                  <!-- 2. Summary -->
+                  <div style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:20px;">
+                    <div style="display:flex;align-items:center;gap:10px;"><span style="width:4px;height:16px;border-radius:2px;background:#1DB954;"></span><span style="font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#121212;">2. Professional Summary</span></div>
+                    <div style="margin-top:14px;border:1px solid #E6E6E6;border-radius:8px;padding:13px;font-size:13.5px;color:#3A3A3A;line-height:1.65;">Results-driven Data Engineer with 3+ years of experience in designing, building, and maintaining scalable analytics solutions, leveraging expertise in <mark style="background:rgba(29,185,84,.18);color:#0A5A2E;padding:0 3px;border-radius:3px;">data engineering</mark>, <mark style="background:rgba(29,185,84,.18);color:#0A5A2E;padding:0 3px;border-radius:3px;">ETL technologies</mark>, and <mark style="background:rgba(29,185,84,.18);color:#0A5A2E;padding:0 3px;border-radius:3px;">AWS</mark> services to drive business growth through data-driven insights.</div>
+                  </div>
+                  <!-- 3. Work Experience -->
+                  <div style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:14px;padding:20px;">
+                    <div style="display:flex;align-items:center;gap:10px;"><span style="width:4px;height:16px;border-radius:2px;background:#1DB954;"></span><span style="font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#121212;">3. Work Experience</span></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px;">
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Role title</div><div style="margin-top:6px;height:40px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#121212;">Cloud Data Engineer</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Company name</div><div style="margin-top:6px;height:40px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#121212;">Sebko Solution</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Dates employed</div><div style="margin-top:6px;height:40px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#121212;">2 Years - present</div></div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;"><span style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Achievements &amp; responsibilities</span><span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#0E9E48;cursor:pointer;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add Achievement</span></div>
+                    <div style="display:flex;flex-direction:column;gap:10px;margin-top:11px;">
+                      <div style="display:flex;align-items:center;gap:9px;"><div style="flex:1;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:12.5px;color:#3A3A3A;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">Designed and implemented data pipelines to evaluate business needs and objectives…</div><span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.10);border:1px solid rgba(29,185,84,.28);padding:8px 11px;border-radius:8px;cursor:pointer;white-space:nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#0E9E48"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>Optimize</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/></svg></div>
+                      <div style="display:flex;align-items:center;gap:9px;"><div style="flex:1;height:42px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:12.5px;color:#3A3A3A;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">Developed and automated ETL workflows using Apache Airflow to combine raw information…</div><span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#0E9E48;background:rgba(29,185,84,.10);border:1px solid rgba(29,185,84,.28);padding:8px 11px;border-radius:8px;cursor:pointer;white-space:nowrap;"><svg width="12" height="12" viewBox="0 0 24 24" fill="#0E9E48"><path d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg>Optimize</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B0B0B0" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="cursor:pointer;"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/></svg></div>
+                    </div>
+                    <div style="height:1px;background:#F0F0F0;margin:16px 0;"></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Role title</div><div style="margin-top:6px;height:40px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#121212;">Data Engineer</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Company name</div><div style="margin-top:6px;height:40px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#121212;">SMIT</div></div>
+                      <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9A9A9A;">Dates employed</div><div style="margin-top:6px;height:40px;border:1px solid #E6E6E6;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:13.5px;color:#121212;">1.5 Year</div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- RIGHT: A4 live template -->
+                <div style="position:sticky;top:0;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;"><span style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9A9A9A;">A4 Live Template</span><span style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;color:#0E9E48;"><span style="width:7px;height:7px;border-radius:9999px;background:#1DB954;"></span>Real-Time Sync</span></div>
+                  <div style="background:#FFFFFF;border:1px solid #E6E6E6;border-radius:6px;box-shadow:0 16px 40px rgba(18,18,18,.08);padding:34px 36px;">
+                    <div style="text-align:center;">
+                      <div style="font-weight:800;font-size:24px;letter-spacing:-.01em;color:#121212;">S M UZAIR SHAH</div>
+                      <div style="font-size:12px;font-weight:700;letter-spacing:.14em;color:#3A3A3A;margin-top:5px;">DATA ENGINEER</div>
+                      <div style="font-size:10.5px;color:#0E9E48;margin-top:8px;line-height:1.5;">Karachi, Pakistan | uzishah708@gmail.com | 03122752986 |<br>github.com/zeriShah</div>
+                    </div>
+                    <div style="height:2px;background:#121212;margin:14px 0;"></div>
+                    <div style="font-size:11px;font-weight:800;letter-spacing:.04em;color:#121212;">PROFESSIONAL SUMMARY</div>
+                    <p style="font-size:10.5px;color:#4A4A4A;line-height:1.6;margin:6px 0 0;text-align:justify;">Results-driven Data Engineer with 3+ years of experience in designing, building, and maintaining scalable analytics solutions, leveraging expertise in data engineering, ETL technologies, and AWS services to drive business growth through data-driven insights.</p>
+                    <div style="font-size:11px;font-weight:800;letter-spacing:.04em;color:#121212;margin-top:16px;">WORK EXPERIENCE</div>
+                    <div style="margin-top:8px;">
+                      <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-size:11px;font-weight:700;color:#121212;">Cloud Data Engineer</span><span style="font-size:10px;color:#6A6A6A;">2 Years - present</span></div>
+                      <div style="font-size:10px;font-style:italic;color:#6A6A6A;">Sebko Solution</div>
+                      <ul style="margin:5px 0 0;padding-left:15px;font-size:10px;color:#4A4A4A;line-height:1.6;">
+                        <li>Designed and implemented data pipelines to evaluate business needs and objectives, interpreting trends and patterns to inform prescriptive and predictive modeling</li>
+                        <li>Developed and automated ETL workflows using Apache Airflow to combine raw information from different sources, ensuring high-quality and reliable data for analytics</li>
+                      </ul>
+                    </div>
+                    <div style="margin-top:12px;">
+                      <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-size:11px;font-weight:700;color:#121212;">Data Engineer</span><span style="font-size:10px;color:#6A6A6A;">1.5 Year</span></div>
+                      <div style="font-size:10px;font-style:italic;color:#6A6A6A;">SMIT</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- STEP: COVER LETTER -->
+          <sc-if value="{{ showCover }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                <div onClick="{{ nav.cv }}" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#5B5B5B;cursor:pointer;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5B5B5B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>Back to tailored CV</div>
+                <div style="display:flex;gap:10px;"><button style="border:1px solid #CFCFCF;background:transparent;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#121212;padding:10px 16px;border-radius:9999px;font-family:inherit;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button><button style="border:none;background:#1DB954;cursor:pointer;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#FFFFFF;padding:10px 18px;border-radius:9999px;font-family:inherit;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M8 11l4 4 4-4"/><path d="M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>Download</button></div>
+              </div>
+              <h2 style="font-weight:800;font-size:22px;letter-spacing:-.02em;color:#121212;margin:14px 0 0;">Cover letter — {{ sel.company }}</h2>
+              <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-top:18px;">
+                <div style="background:#FFFFFF;border:1px solid #E6E6E6;border-radius:12px;box-shadow:0 16px 40px rgba(18,18,18,.06);padding:36px 40px;font-size:13.5px;color:#3A3A3A;line-height:1.85;">
+                  <div style="color:#8A8A8A;">Dear Hiring Team at {{ sel.company }},</div>
+                  <p style="margin:16px 0 0;">I was excited to see your opening for a <b style="color:#121212;">{{ sel.role }}</b>. Over the past seven years I've specialised in exactly the work your team is scaling — building <b style="color:#121212;">design systems</b> and running <b style="color:#121212;">user research</b> that ties design decisions to measurable outcomes.</p>
+                  <p style="margin:14px 0 0;">At Loomly I led our design-token rollout across four product teams, working shoulder-to-shoulder with engineers in a TypeScript codebase — the same collaboration model your role describes.</p>
+                  <p style="margin:14px 0 0;">I'd love to bring that momentum to {{ sel.company }}. Thank you for your consideration.</p>
+                  <div style="margin-top:18px;">Warm regards,<br><b style="color:#121212;">Alex Rivera</b></div>
+                </div>
+                <div>
+                  <div style="background:#FFFFFF;border:1px solid #EDEDED;border-radius:12px;padding:18px;">
+                    <div style="font-size:13px;font-weight:800;color:#121212;">Tone</div>
+                    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"><span style="font-size:12px;font-weight:700;color:#FFFFFF;background:#121212;padding:8px 13px;border-radius:9999px;">Warm</span><span style="font-size:12px;font-weight:600;color:#5B5B5B;background:#F3F3F3;padding:8px 13px;border-radius:9999px;">Formal</span><span style="font-size:12px;font-weight:600;color:#5B5B5B;background:#F3F3F3;padding:8px 13px;border-radius:9999px;">Direct</span></div>
+                    <div style="font-size:13px;font-weight:800;color:#121212;margin-top:18px;">Length</div>
+                    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"><span style="font-size:12px;font-weight:600;color:#5B5B5B;background:#F3F3F3;padding:8px 13px;border-radius:9999px;">Short</span><span style="font-size:12px;font-weight:700;color:#FFFFFF;background:#121212;padding:8px 13px;border-radius:9999px;">Standard</span></div>
+                    <div style="margin-top:18px;background:#F7F8F7;border-radius:10px;padding:13px;display:flex;align-items:center;gap:10px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0E9E48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 5 5 .5-4 3.5 1.5 5-4.5-3-4.5 3 1.5-5-4-3.5 5-.5z"/></svg><div style="font-size:12px;color:#5B5B5B;">Pulled from your tailored CV &amp; the job description.</div></div>
+                  </div>
+                  <button onClick="{{ nav.matches }}" style="border:1px solid #CFCFCF;background:transparent;cursor:pointer;width:100%;margin-top:14px;height:46px;border-radius:9999px;color:#121212;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:inherit;">Back to all matches</button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { open: { resume: true, linkedin: false }, step: 'upload', sel: 0 };
+
+  jobsRaw() {
+    return [
+      ['Northwind','N','Sr. Product Designer','Remote · US',96,['Design systems','Prototyping','User research'],['TypeScript']],
+      ['Halcyon','H','Product Designer','London, UK',92,['Design systems','Figma','UX'],['Design tokens']],
+      ['Vertex','V','Lead UX Designer','Berlin, DE',88,['User research','Prototyping'],['Motion','Design tokens']],
+      ['Lumen','L','Senior UX Designer','Remote · EU',85,['Design systems','Accessibility'],['TypeScript']],
+      ['Cobalt','C','Product Designer II','Amsterdam, NL',83,['Figma','User research'],['Data viz']],
+      ['Aster','A','Senior Product Designer','Remote · UK',81,['Prototyping','UX writing'],['Design tokens','React']],
+      ['Beacon','B','UX/UI Designer','Manchester, UK',78,['Figma','Wireframing'],['Design systems']],
+      ['Pilot','P','Product Designer','Dublin, IE',75,['User research'],['Prototyping','Motion']],
+      ['Quill','Q','Senior UX Designer','Remote · Global',72,['Accessibility','UX'],['Design systems','Data viz']],
+      ['Reef','R','Product Designer','Lisbon, PT',69,['Figma','UX'],['TypeScript','Design tokens']],
+    ];
+  }
+
+  renderVals() {
+    const o = this.state.open;
+    const step = this.state.step;
+    const toggle = k => () => this.setState(s => ({ open: { ...s.open, [k]: !s.open[k] } }));
+    const chev = v => (v ? 'rotate(90deg)' : 'rotate(0deg)');
+
+    const go = k => () => this.setState(s => ({ step: k, open: { ...s.open, resume: true } }));
+    const openJob = i => () => this.setState(s => ({ sel: i, step: 'gaps', open: { ...s.open, resume: true } }));
+
+    const nav = {
+      upload: go('upload'), role: go('role'), loading: go('loading'),
+      matches: go('matches'), gaps: go('gaps'), cv: go('cv'), cover: go('cover'),
+    };
+
+    // active sub-item key by step
+    const activeKey = ({ upload: 'upload', role: 'upload', loading: 'upload', matches: 'matches', gaps: 'gaps', cv: 'cv', cover: 'cover' })[step];
+    const mk = k => (activeKey === k
+      ? { bg: '#F0F1F0', c: '#121212', ic: '#1DB954', w: 700 }
+      : { bg: 'transparent', c: '#5B5B5B', ic: '#8A8A8A', w: 600 });
+    const sty = {};
+    ['upload','matches','gaps','cv','cover'].forEach(k => { sty[k] = mk(k); });
+
+    // stepper: groups upload(0) / role(1) / matches(2) / tailor(3)
+    const cur = ({ upload: 0, role: 1, loading: 1, matches: 2, gaps: 2, cv: 3, cover: 3 })[step];
+    const node = i => {
+      if (i < cur) return { bg: '#1DB954', fg: '#FFFFFF', tc: '#121212', line: '#1DB954' };
+      if (i === cur) return { bg: '#121212', fg: '#FFFFFF', tc: '#121212', line: '#EDEDED' };
+      return { bg: '#EDEDED', fg: '#A7A7A7', tc: '#A7A7A7', line: '#EDEDED' };
+    };
+    const s1 = node(0), s2 = node(1), s3 = node(2), s4 = node(3);
+
+    const jobs = this.jobsRaw().map((j, i) => ({
+      initial: j[1], role: j[2], company: j[0], loc: j[3], score: j[4],
+      matched: j[5], missing: j[6],
+      bar: j[4] + '%',
+      barColor: j[4] >= 85 ? '#1DB954' : (j[4] >= 75 ? '#7BD3A6' : '#C9C9C9'),
+      open: openJob(i),
+    }));
+
+    const selData = jobs[this.state.sel] || jobs[0];
+    const sel = {
+      ...selData,
+      dash: Math.round(327 * (1 - selData.score / 100)),
+      lift: 4,
+      after: Math.min(99, selData.score + 4),
+    };
+
+    return {
+      resumeOpen: o.resume, linkedinOpen: o.linkedin,
+      toggleResume: toggle('resume'), toggleLinkedin: toggle('linkedin'),
+      resumeChev: chev(o.resume), linkedinChev: chev(o.linkedin),
+      nav, sty, s1, s2, s3, s4, jobs, sel,
+      showUpload: step === 'upload', showRole: step === 'role', showLoading: step === 'loading',
+      showMatches: step === 'matches', showGaps: step === 'gaps', showCv: step === 'cv', showCover: step === 'cover',
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+
+
+
+Recall
+Smart Networking & Digital Business Card Platform
+
+
+
+SOFTWARE REQUIREMENTS SPECIFICATION (SRS)
+Version 1.0  |  May 2026  |  IEEE 830 Standard
+
+Version
+Date
+Description
+Author
+1.0
+May 2026
+Initial SRS — Recall (renamed from TapConnect)
+Product Team
+
+1.  Introduction
+1.1  Purpose
+This Software Requirements Specification (SRS) defines the complete functional and non-functional requirements for Recall — a cross-platform networking application comprising a mobile app (iOS & Android) and a browser extension (Chrome & Safari). Recall lets professionals create a rich Digital Business Card (DBC), exchange it instantly via NFC tap, QR code, Airdrop, or link, and automatically logs every contact exchange with contextual metadata — when, where, and how they met. An AI-powered chat assistant lets users query their contact history in plain language.
+1.2  Product Name & Tagline
+
+Product Name
+Recall
+Tagline
+Never forget who you met.
+Category
+Professional Networking / Digital Identity / AI-Assisted Contact Management
+Platforms
+iOS 15+, Android 12+, Chrome 110+, Safari 16+
+1.3  Scope
+Recall consists of three deliverables: (1) Recall Mobile App — primary networking tool for iOS and Android; (2) Recall Browser Extension — desktop companion for Chrome and Safari; (3) Recall Cloud Backend — REST API, real-time sync, AI search, and analytics.
+
+Out of scope for v1.0: physical NFC card manufacturing, payment processing, CRM integrations (v2.0), video calling.
+1.4  Definitions & Acronyms
+
+Term
+Definition
+DBC
+Digital Business Card — the shareable contact profile created by a user in Recall
+NFC
+Near Field Communication — short-range wireless standard for tap-to-share
+QR Code
+Quick Response code for sharing DBCs without NFC
+Airdrop
+Apple peer-to-peer share (iOS/macOS)
+Nearby Share
+Google peer-to-peer share (Android)
+Contact Log
+Timestamped record of when/where/how a contact was added
+AI Chat
+Recall's natural language contact search assistant
+MFA
+Multi-Factor Authentication
+GDPR
+General Data Protection Regulation (EU)
+Vector Store
+Database of numerical embeddings used for semantic AI search
+
+2.  Overall Description
+2.1  Product Perspective
+Recall is a standalone SaaS product replacing physical business cards and passive contact apps. It combines identity sharing, contextual logging, and AI-powered recall into a single platform. The name 'Recall' reflects the core promise: every person you meet is instantly findable — by name, face, location, role, or even a vague memory.
+2.2  User Classes
+
+User Class
+Characteristics
+Primary Goals
+Professional
+Conferences, sales meetings; high contact volume
+Instant share, rich log, AI retrieval, CRM export
+Casual User
+Occasional networking; values simplicity
+One-tap share, easy card, reminders
+Enterprise Team
+Multiple employees sharing a brand card
+Brand consistency, team analytics
+Admin
+IT admin managing enterprise account
+Provisioning, analytics, compliance
+2.3  Design Constraints
+NFC tap requires NFC-capable hardware — graceful fallback to QR on unsupported devices.
+Airdrop is Apple-only; Nearby Share is Android-only; QR/link is universal cross-platform.
+Browser extension cannot access device NFC; uses QR and link sharing only.
+All personal data must comply with GDPR and PDPA Pakistan 2023.
+Offline mode required — full contact access and DBC display with no internet connection.
+
+3.  System Features & Functional Requirements
+3.1  User Onboarding & Authentication
+
+ID
+Priority
+Requirement
+FR-AU-01
+Must Have
+Registration via email/password, Google OAuth, Apple Sign-In, and LinkedIn OAuth.
+FR-AU-02
+Must Have
+Email verification required before DBC creation.
+FR-AU-03
+Must Have
+Multi-Factor Authentication (MFA) via TOTP or SMS.
+FR-AU-04
+Must Have
+Passwords hashed with bcrypt (cost factor ≥ 12); plaintext never stored.
+FR-AU-05
+Should Have
+Biometric login (Face ID / fingerprint) as a shortcut after initial authentication.
+FR-AU-06
+Should Have
+Sessions expire after 30 days of inactivity (user-configurable 7–90 days).
+
+3.2  Digital Business Card (DBC) Creation
+
+ID
+Priority
+Requirement
+FR-DBC-01
+Must Have
+DBC fields: full name, title, company, email(s), phone(s), website, LinkedIn / Twitter / GitHub / Instagram handles, and profile photo.
+FR-DBC-02
+Must Have
+Up to 5 distinct card profiles (e.g. personal, professional, startup).
+FR-DBC-03
+Must Have
+Each DBC gets a unique shareable URL (e.g. recall.app/u/username).
+FR-DBC-04
+Must Have
+Auto-generated QR code for each DBC encoding its shareable URL.
+FR-DBC-05
+Must Have
+Card theme selector — at least 12 presets (colour, layout, font).
+FR-DBC-06
+Should Have
+Custom logo / background image upload (max 5 MB, JPEG/PNG/WebP).
+FR-DBC-07
+Should Have
+Per-field visibility toggle per card profile.
+FR-DBC-08
+Should Have
+Short bio/tagline up to 200 characters.
+FR-DBC-09
+Should Have
+Custom fields (Calendly link, WhatsApp, portfolio URL, etc.).
+FR-DBC-10
+Nice to Have
+Short looping video intro (max 30 sec) attachable to DBC.
+
+3.3  Contact Exchange Methods
+
+ID
+Priority
+Requirement
+FR-EX-01
+Must Have
+NFC Tap: mobile app detects incoming NFC tap and presents sender's DBC to receiver for one-tap accept/save. iOS (CoreNFC) and Android (HCE) both supported.
+FR-EX-02
+Must Have
+QR Code: full-screen DBC QR scannable by any camera — TapConnect app not required to view the web preview.
+FR-EX-03
+Must Have
+Link Share: one-time or persistent shareable URL copyable to clipboard or sent via any messaging app.
+FR-EX-04
+Must Have
+Non-app receiver flow: QR/link opens a web preview where any user can save the contact as a .vcf vCard without installing Recall.
+FR-EX-05
+Should Have
+Airdrop (iOS): native Airdrop sheet shares DBC URL to nearby Apple devices.
+FR-EX-06
+Should Have
+Nearby Share (Android): Android Nearby Share API transmits DBC URL to nearby Android devices.
+FR-EX-07
+Should Have
+Mutual exchange: simultaneous bidirectional exchange so both users receive each other's card in one interaction.
+
+3.4  Contextual Contact Logging
+Every exchange is automatically enriched with metadata — the feature that gives Recall its name.
+
+ID
+Priority
+Requirement
+FR-CL-01
+Must Have
+Automatic timestamp (date and time) on every contact exchange.
+FR-CL-02
+Must Have
+GPS coordinates at time of exchange, reverse-geocoded to a human-readable location name (with user permission).
+FR-CL-03
+Must Have
+Exchange method recorded (NFC / QR / Link / Airdrop / Nearby Share).
+FR-CL-04
+Must Have
+Freetext note on any contact entry (max 500 characters) — addable immediately or later.
+FR-CL-05
+Must Have
+Contact log browsable as a chronological timeline in app and extension.
+FR-CL-06
+Should Have
+Custom tags per contact (e.g. Conference, Client, Investor, Friend).
+FR-CL-07
+Should Have
+Automatic venue detection using Google Places / Foursquare; venue name auto-suggested.
+FR-CL-08
+Should Have
+Search contacts by name, company, tag, date range, or location.
+FR-CL-09
+Should Have
+Optional follow-up reminder 24 hours after new contact added (push or email).
+FR-CL-10
+Nice to Have
+Map view showing all contacts as pins at the locations where they were met.
+
+Privacy: Location data is encrypted at rest, never sold, and fully deletable. Location logging requires explicit opt-in per GDPR Article 7.
+
+3.5  AI Contact Intelligence (Chat Search)
+Users open a chat interface and describe who they are looking for in plain language. The AI searches all contact metadata and returns ranked, contextually explained results.
+
+3.5.1  Sample Interaction
+
+You   Who did I meet at the startup expo in Karachi last month?
+
+Recall AI   I found 4 contacts from an event near Expo Centre Karachi on April 8–9, 2026: (1) Sara Malik, Head of Product @ Airlift — met via NFC, note: 'discuss API partnership'; (2) Usman Qureshi, CTO @ Bykea — QR scan; (3) Farhan Ahmed, VC @ Sarmayacar — tagged Investor; (4) Nadia Hussain, UX Lead @ Systems Ltd. Want to filter by role?
+
+You   Show me only the investors
+
+Recall AI   1 investor from that event: Farhan Ahmed, VC @ Sarmayacar — met April 9, Karachi. Tagged Investor, no follow-up note recorded. Want me to draft a follow-up message?
+
+3.5.2  AI Feature Requirements
+
+ID
+Priority
+Requirement
+FR-AI-01
+Must Have
+Dedicated 'Ask' chat tab in mobile app and 'Search' panel in browser extension accepting natural language queries.
+FR-AI-02
+Must Have
+AI understands queries by: name (full/partial), company, job title/industry, location, date range, exchange method, tags, and note content.
+FR-AI-03
+Must Have
+Results returned within 3 seconds for up to 5,000 contacts.
+FR-AI-04
+Must Have
+Results ranked by: semantic similarity, recency, tag match, note match, and location proximity.
+FR-AI-05
+Must Have
+Each result card shows: name, company, role, date met, location met, method, and matched reason.
+FR-AI-06
+Must Have
+Multi-turn conversation — users refine queries without repeating full context.
+FR-AI-07
+Must Have
+Contact data never sent to third-party AI providers in raw PII form; embeddings only, within user's encrypted partition.
+FR-AI-08
+Should Have
+Voice input on mobile using device native speech-to-text.
+FR-AI-09
+Should Have
+'Follow Up Suggestions' daily feed — proactively lists contacts worth reaching out to.
+FR-AI-10
+Should Have
+Browser extension injects contact suggestions in email compose (Gmail/Outlook) based on recipient domain.
+FR-AI-11
+Should Have
+Compound queries: 'find investors I met in Dubai OR Abu Dhabi in 2026'.
+FR-AI-12
+Should Have
+Actions from chat: open profile, compose message, add tag, export filtered list.
+FR-AI-13
+Nice to Have
+Proactive duplicate detection: 'You may have two entries for Ahmed Khan — merge them?'
+FR-AI-14
+Nice to Have
+Multilingual queries — English and Urdu as launch languages.
+
+3.6  Browser Extension
+
+ID
+Priority
+Requirement
+FR-EXT-01
+Must Have
+Toolbar popup displaying active DBC with QR code and copy-link button.
+FR-EXT-02
+Must Have
+View and search contact log from the popup.
+FR-EXT-03
+Must Have
+'Save to Recall' button injected on LinkedIn profile pages.
+FR-EXT-04
+Should Have
+Contextual card-share widget on supported event platforms (Hopin, Eventbrite, Luma).
+FR-EXT-05
+Should Have
+Manual contact log entry from popup (name, company, note) without a DBC exchange.
+FR-EXT-06
+Should Have
+Real-time sync between extension and mobile app via cloud backend.
+FR-EXT-07
+Should Have
+AI chat panel ('Ask') in the extension popup for querying contacts from desktop.
+
+4.  Non-Functional Requirements
+4.1  Performance
+
+Metric
+Target
+Notes
+App cold start
+< 2 seconds
+iPhone 12+ / Pixel 5+
+NFC exchange latency
+< 1.5 seconds
+End-to-end, both in range
+QR scan to profile load
+< 2 seconds
+On 4G network
+API p95 response time
+< 300 ms
+Under normal load
+AI chat response
+< 3 seconds
+Up to 5,000 contacts
+Offline sync on reconnect
+< 5 seconds
+After returning online
+Concurrent users (v1.0)
+50,000
+Auto-scaling above this
+4.2  Security
+All data in transit: TLS 1.3; HSTS enforced on all web endpoints.
+All data at rest: AES-256 (cloud), device keychain/keystore (local).
+API rate limiting: 100 requests/min per authenticated user.
+OWASP Top 10 addressed and verified via penetration testing before launch.
+Contact data never shared with third parties or used for advertising.
+4.3  Privacy & Compliance
+GDPR-compliant: consent management, right to erasure, data portability (Article 20).
+PDPA Pakistan 2023 compliance for Pakistani users.
+Location data: explicit opt-in per session; retroactively disablable.
+AI embeddings stored only in the user's encrypted partition; raw PII never sent externally.
+4.4  Reliability
+Backend API target uptime: 99.9% (< 8.7 hours downtime/year).
+Full offline mode: contacts and DBC cached locally.
+Daily automated backups; 30-day point-in-time recovery.
+AI feature degrades gracefully to keyword search if AI service is unavailable.
+
+5.  System Architecture Overview
+5.1  Component Summary
+
+Layer
+Components
+Mobile App
+React Native + Expo; local SQLite; NFC module; biometric; offline cache
+Browser Extension
+Plasmo Framework (React); Manifest V3; Chrome + Safari
+Web Preview
+Next.js 14 SSR — public DBC viewer, no auth required
+API Gateway
+AWS API Gateway; rate limiting, auth routing
+Auth Service
+JWT + refresh tokens; OAuth proxy; MFA
+Card Service
+DBC CRUD; QR generation; vCard export
+Exchange Service
+NFC relay (WebSockets); bidirectional session management
+Contact Log Service
+Metadata storage; location reverse-geocoding; search index
+AI Service
+Query parser (LLM); pgvector embedding search; re-ranking; response generator
+Notification Service
+APNs + FCM push; SendGrid email
+Analytics
+PostHog self-hosted; event ingestion; dashboards
+Storage
+PostgreSQL 16 + pgvector; Redis 7; AWS S3 + CloudFront CDN
+5.2  AI Architecture — Recall Search
+Step 1 — Index: On every contact add/edit, the Index Sync Worker generates an embedding from a sanitised contact text string and stores it in pgvector.
+Step 2 — Query: User submits natural language query via chat UI.
+Step 3 — Parse: LLM extracts structured filters {name, company, location, dateRange, tags, industry} from the raw query.
+Step 4 — Search: Hybrid search — pgvector ANN (semantic) + PostgreSQL FTS (keyword) run in parallel, results merged.
+Step 5 — Re-rank: Top 20 candidates scored by a cross-encoder against the original query.
+Step 6 — Generate: Top results + query passed to response LLM → conversational reply with inline contact cards.
+
+Embedding schema: '[Name] [Title] at [Company]. Met via [Method] on [Date] at [Location]. Tags: [Tags]. Note: [Note].' — this is the only text sent to external embedding APIs.
+
+6.  User Stories
+
+ID
+As a…
+I want to…
+Priority
+US-01
+Professional
+Tap my phone against a contact's to share my Recall card without saying a word
+Must Have
+US-02
+Any User
+See exactly where and when I met every contact — on a timeline
+Must Have
+US-03
+Any User
+Type 'who did I meet at the Karachi expo?' and instantly see the right people
+Must Have
+US-04
+Any User
+Share my card via QR without needing the recipient to install Recall
+Must Have
+US-05
+Any User
+Add a note right after meeting someone to remember what we discussed
+Must Have
+US-06
+Any User
+Get a reminder 24 hours later to follow up with new contacts
+Should Have
+US-07
+Remote Worker
+Share my Recall card from my laptop browser extension during a Zoom call
+Should Have
+US-08
+Enterprise Admin
+Set a branded card template all my employees must use
+Should Have
+US-09
+Any User
+Ask 'find me VCs in my network' and get a ranked list instantly
+Must Have
+US-10
+Power User
+See a map of every place I've made connections
+Nice to Have
+
+7.  Recommended Technology Stack
+
+Layer
+Technology
+Rationale
+Mobile App
+React Native + Expo
+Cross-platform iOS & Android; large NFC/biometric library ecosystem
+NFC
+react-native-nfc-manager
+Supports iOS CoreNFC & Android HCE
+Extension
+Plasmo Framework (React)
+Unified Chrome/Safari MV3 boilerplate
+Web Preview
+Next.js 14 App Router
+SSR for fast DBC loads; excellent SEO
+Backend
+Node.js + NestJS
+Typed, modular; native WebSocket for NFC relay
+Database
+PostgreSQL 16 + Prisma ORM
+Relational integrity + type-safe migrations
+Vector Search
+pgvector extension
+Semantic contact search; cosine similarity; same DB as primary data
+Cache
+Redis 7
+Session storage; pub/sub for real-time exchange
+File Storage
+AWS S3 + CloudFront
+Scalable media; global CDN for profile photos
+AI — Embeddings
+OpenAI text-embedding-3-small
+High accuracy; low cost; GDPR-DPA available
+AI — LLM
+Claude claude-sonnet-4-20250514 (Anthropic)
+Query parsing & response generation
+Push
+Firebase Cloud Messaging
+Unified Android + iOS push notifications
+Analytics
+PostHog (self-hosted)
+Privacy-first; event tracking + funnels
+CI/CD
+GitHub Actions + Fastlane
+Automated testing, building, App Store / Play Store delivery
+
+8.  Project Milestones & Phased Delivery
+
+Phase
+Timeline
+Name
+Deliverables
+0
+Weeks 1–2
+Discovery & Design
+Wireframes, design system, API contracts, repo + CI/CD setup
+1
+Weeks 3–8
+MVP Core Exchange
+Auth, DBC creation, QR/link share, contact log, basic address book
+2
+Weeks 9–14
+NFC + Extension
+NFC tap (iOS + Android), browser extension v1, Airdrop/Nearby Share, vCard export
+3
+Weeks 15–18
+AI Contact Search
+pgvector indexing, AI chat UI, hybrid search, multi-turn conversation, follow-up suggestions
+4
+Weeks 19–22
+Polish + Analytics
+Themes, custom fields, analytics dashboard, duplicate detection, AI voice input
+5
+Weeks 23–26
+Enterprise + Scale
+Team accounts, branded templates, admin dashboard, load testing, penetration test
+6
+Week 27+
+Public Launch
+App Store / Play Store, marketing site, beta feedback, v2 roadmap
+
+Phases 0–3 form the v1.0 public release. Phases 4–6 are iterative improvements. Timeline assumes: 2 backend, 2 mobile, 1 frontend (extension/web), 1 AI/ML engineer, 1 designer, 1 QA.
+
+9.  Risks & Mitigations
+
+ID
+Risk
+Severity
+Mitigation
+R-01
+iOS CoreNFC limits restrict background NFC reading
+High
+Use foreground reader mode; document UX clearly; test on real devices only
+R-02
+App Store may flag extension content injection without clear user consent
+High
+Implement explicit permission prompts; follow App Store Review Guidelines §4.5
+R-03
+Location permission denial reduces contextual logging value
+Medium
+Opt-in with clear value explanation; graceful manual-location fallback
+R-04
+AI embedding accuracy may be low for short or incomplete contact records
+Medium
+Require minimum fields for embedding; blend with keyword search; A/B test thresholds
+R-05
+External LLM API downtime breaks AI chat
+Medium
+Keyword search fallback activates within 3 seconds; user shown clear status
+R-06
+GDPR / AI Act changes may require architecture updates
+Low
+Design for data portability and erasure from day 1; appoint DPO before EU launch
+
+
+
+
+End of Document  —  Recall SRS v1.0  |  Never forget who you met.
