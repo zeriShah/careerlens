@@ -147,11 +147,11 @@ export default function ResumeSkills() {
   return (
     <div className="space-y-8 max-w-5xl mx-auto py-2 text-left">
       <div className="space-y-1">
-        <h2 className="text-xl font-semibold text-slate-800 flex items-center space-x-2">
-          <Award className="w-5.5 h-5.5 text-blue-500" />
-          <span>Gaps & Matching Skills Audit</span>
+        <h2 className="text-xl font-extrabold text-[#121212] flex items-center gap-2">
+          <Award className="w-5.5 h-5.5 text-[#1DB954]" />
+          <span>Gaps &amp; Matching Skills Audit</span>
         </h2>
-        <p className="text-sm text-slate-500">
+        <p className="text-xs text-[#5B5B5B]">
           Identify matching capabilities and critical gaps dynamically. Build advanced projects to fulfill outstanding requirements.
         </p>
       </div>
@@ -160,19 +160,19 @@ export default function ResumeSkills() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         
         {/* SVG Circular Match Gauge Card */}
-        <div className="border border-slate-100 bg-white p-5 rounded-2xl shadow-sm flex items-center justify-between">
+        <div className="border border-[#EBEBEB] bg-white p-5 rounded-2xl shadow-xs flex items-center justify-between">
           <div className="space-y-1.5">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Skill Alignment</span>
-            <h3 className="text-2xl font-extrabold text-slate-800">{matchRate}%</h3>
-            <span className="text-[10px] font-medium text-slate-400">Matched density score</span>
+            <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider block">Skill Alignment</span>
+            <h3 className="text-2xl font-extrabold text-[#121212]">{matchRate}%</h3>
+            <span className="text-[10px] font-medium text-[#8A8A8A]">Matched density score</span>
           </div>
 
           <div className="relative w-20 h-20">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
               <defs>
                 <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#10b981" />
-                  <stop offset="100%" stopColor="#047857" />
+                  <stop offset="0%" stopColor="#1DB954" />
+                  <stop offset="100%" stopColor="#0E9E48" />
                 </linearGradient>
                 <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#f59e0b" />
@@ -200,32 +200,32 @@ export default function ResumeSkills() {
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xs font-bold text-slate-700">{presentKeywords.length}/{keywords.length}</span>
+              <span className="text-xs font-bold text-[#121212]">{presentKeywords.length}/{keywords.length}</span>
             </div>
           </div>
         </div>
 
         {/* Matched Stats Card */}
-        <div className="border border-slate-100 bg-white p-5 rounded-2xl shadow-sm flex items-center space-x-4">
-          <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+        <div className="border border-[#EBEBEB] bg-white p-5 rounded-2xl shadow-xs flex items-center space-x-4">
+          <div className="w-11 h-11 rounded-xl bg-[#1DB954]/10 text-[#0E9E48] flex items-center justify-center shrink-0">
             <CheckCircle2 className="w-5.5 h-5.5" />
           </div>
           <div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Matched in CV</span>
-            <p className="text-lg font-extrabold text-slate-800 mt-0.5">{presentKeywords.length} Keywords</p>
-            <span className="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded">Optimal Profile Presence</span>
+            <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider">Matched in CV</span>
+            <p className="text-lg font-extrabold text-[#121212] mt-0.5">{presentKeywords.length} Keywords</p>
+            <span className="text-[10px] text-[#0E9E48] font-bold bg-[#1DB954]/10 border border-[#1DB954]/20 px-1.5 py-0.5 rounded uppercase">Optimal</span>
           </div>
         </div>
 
         {/* Missing Stats Card */}
-        <div className="border border-slate-100 bg-white p-5 rounded-2xl shadow-sm flex items-center space-x-4">
-          <div className="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+        <div className="border border-[#EBEBEB] bg-white p-5 rounded-2xl shadow-xs flex items-center space-x-4">
+          <div className="w-11 h-11 rounded-xl bg-[#FBEAEA] text-[#C0432A] flex items-center justify-center shrink-0">
             <AlertCircle className="w-5.5 h-5.5" />
           </div>
           <div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Missing Gaps</span>
-            <p className="text-lg font-extrabold text-slate-800 mt-0.5">{missingKeywords.length} Gaps</p>
-            <span className="text-[10px] text-red-600 font-semibold bg-red-50 px-1.5 py-0.5 rounded">Actionable Gaps Identified</span>
+            <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider">Missing Gaps</span>
+            <p className="text-lg font-extrabold text-[#121212] mt-0.5">{missingKeywords.length} Gaps</p>
+            <span className="text-[10px] text-[#C0432A] font-bold bg-[#FBEAEA] border border-rose-100/60 px-1.5 py-0.5 rounded uppercase">Actionable</span>
           </div>
         </div>
       </div>
@@ -233,31 +233,31 @@ export default function ResumeSkills() {
       {/* Main Grid View */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* Left Side: Premium side-by-side Gaps & Matching Layout */}
-        <div className="lg:col-span-2 border border-slate-100 bg-white rounded-2xl shadow-sm p-5 space-y-4 flex flex-col h-[480px]">
+        {/* Left Side: side-by-side Gaps & Matching Layout */}
+        <div className="lg:col-span-2 border border-[#EBEBEB] bg-white rounded-2xl shadow-xs p-5 space-y-4 flex flex-col h-[480px]">
           
           {/* Filters Bar & View Mode Selector */}
           <div className="flex flex-col sm:flex-row gap-3 justify-between items-stretch sm:items-center shrink-0">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-2.5 w-4 h-4 text-[#8A8A8A]" />
               <input
                 type="text"
                 placeholder="Search keywords/skills..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-xl text-xs bg-slate-50/50 focus:outline-none focus:bg-white focus:border-blue-500 transition-all text-slate-700"
+                className="w-full pl-9 pr-4 py-2 border border-[#EBEBEB] rounded-xl text-xs bg-[#FBFBFB] focus:outline-none focus:bg-white focus:border-[#1DB954] transition-all text-[#121212] placeholder-[#8A8A8A]"
               />
             </div>
 
             <div className="flex items-center gap-3">
               {/* Type Filter */}
-              <div className="flex bg-slate-100 p-0.5 rounded-xl border border-slate-200">
+              <div className="flex bg-[#F3F3F3] p-0.5 rounded-full">
                 {(['all', 'matched', 'missing'] as const).map(type => (
                   <button
                     key={type}
                     onClick={() => setFilterType(type)}
-                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all capitalize ${
-                      filterType === type ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+                    className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold transition-all capitalize ${
+                      filterType === type ? 'bg-white text-[#121212] shadow-xs' : 'text-[#5B5B5B] hover:text-[#121212]'
                     }`}
                   >
                     {type === 'missing' ? 'Gaps' : type}
@@ -266,11 +266,11 @@ export default function ResumeSkills() {
               </div>
 
               {/* View Toggle */}
-              <div className="flex bg-slate-100 p-0.5 rounded-xl border border-slate-200">
+              <div className="flex bg-[#F3F3F3] p-0.5 rounded-xl">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`p-1.5 rounded-lg transition-all ${
-                    viewMode === 'grid' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+                    viewMode === 'grid' ? 'bg-white text-[#121212] shadow-xs' : 'text-[#5B5B5B] hover:text-[#121212]'
                   }`}
                   title="Grid View"
                 >
@@ -422,10 +422,10 @@ export default function ResumeSkills() {
                 </div>
 
                 {!selectedSkill.in_cv && (
-                  <div className="space-y-2 p-3.5 bg-slate-50 border border-slate-100 rounded-xl relative group animate-fadeIn">
-                    <div className="flex items-center justify-between text-blue-700">
+                  <div className="space-y-2 p-3.5 bg-[#FBFBFB] border border-[#EBEBEB] rounded-xl relative group animate-fadeIn">
+                    <div className="flex items-center justify-between text-[#0E9E48]">
                       <div className="flex items-center space-x-1.5">
-                        <Sparkles className="w-3.5 h-3.5 text-blue-500" />
+                        <Sparkles className="w-3.5 h-3.5 text-[#1DB954]" />
                         <span className="text-[10px] font-bold uppercase tracking-wider">Example Integration Bullet</span>
                       </div>
                       <button
@@ -435,12 +435,12 @@ export default function ResumeSkills() {
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
                         }}
-                        className="text-[10px] font-bold hover:underline flex items-center gap-1 text-slate-500 hover:text-slate-800 transition-colors"
+                        className="text-[10px] font-bold hover:underline flex items-center gap-1 text-[#5B5B5B] hover:text-[#121212] transition-colors"
                       >
                         {copied ? 'Copied!' : 'Copy Example'}
                       </button>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed italic">
+                    <p className="text-xs text-[#5B5B5B] font-medium leading-relaxed italic">
                       "{getExampleBullet(selectedSkill.word)}"
                     </p>
                   </div>
@@ -448,8 +448,8 @@ export default function ResumeSkills() {
               </div>
 
               {!selectedSkill.in_cv && (
-                <div className="pt-2 border-t border-slate-50">
-                  <div className="flex items-center space-x-1 text-[10px] text-slate-400 font-medium">
+                <div className="pt-2 border-t border-[#EBEBEB]">
+                  <div className="flex items-center space-x-1 text-[10px] text-[#5B5B5B] font-medium">
                     <span>Use the <strong>Resume Tailor</strong> tab to weave this skill in contextually.</span>
                   </div>
                 </div>
@@ -467,18 +467,18 @@ export default function ResumeSkills() {
 
       {/* NEW: Bridge Your Skills Gaps with Advanced Projects Section */}
       {missingKeywords.length > 0 && (
-        <div className="border border-slate-100 bg-white p-6 rounded-2xl shadow-sm space-y-4">
-          <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+        <div className="border border-[#EBEBEB] bg-white p-6 rounded-2xl shadow-xs space-y-4">
+          <div className="flex justify-between items-center pb-2 border-b border-[#EBEBEB]">
             <div className="flex items-center space-x-2">
-              <Sparkles className="w-5 h-5 text-blue-500 animate-pulse" />
-              <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Bridge Gaps via Advanced Project-Based Learning</h3>
+              <Sparkles className="w-5 h-5 text-[#1DB954] animate-pulse" />
+              <h3 className="text-xs font-bold text-[#121212] uppercase tracking-wider">Bridge Gaps via Advanced Project-Based Learning</h3>
             </div>
-            <span className="text-[10px] font-bold text-slate-400">Enterprise scalability roadmaps bridging 3-3 gaps</span>
+            <span className="text-[10px] font-bold text-[#8A8A8A]">Enterprise scalability roadmaps bridging skill gaps</span>
           </div>
 
           {projectsLoading ? (
-            <div className="py-10 flex flex-col items-center justify-center space-y-2 text-slate-400">
-              <Loader2 className="w-6 h-6 animate-spin text-blue-500" />
+            <div className="py-10 flex flex-col items-center justify-center space-y-2 text-[#8A8A8A]">
+              <Loader2 className="w-6 h-6 animate-spin text-[#1DB954]" />
               <p className="text-xs font-medium">Generating advanced hands-on architectures based on gaps...</p>
             </div>
           ) : suggestedProjects.length > 0 ? (
@@ -487,21 +487,21 @@ export default function ResumeSkills() {
                 const searchQ = encodeURIComponent(project.gaps_fulfilled.join(' '));
                 const githubUrl = `https://github.com/search?q=${searchQ}`;
                 return (
-                  <div key={idx} className="p-5 border border-slate-100 hover:border-blue-100 rounded-2xl bg-slate-50/20 hover:bg-blue-50/5 transition-all flex flex-col justify-between space-y-4">
+                  <div key={idx} className="p-5 border border-[#EBEBEB] hover:border-[#1DB954]/40 rounded-2xl bg-[#FBFBFB] hover:bg-[#F3F3F3]/10 transition-all flex flex-col justify-between space-y-4">
                     <div className="space-y-3">
                       <div className="space-y-1">
-                        <span className="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-50 border border-blue-100 text-blue-700">Advanced Project suggestion #{idx + 1}</span>
-                        <h4 className="text-xs font-bold text-slate-800 mt-1">{project.title}</h4>
+                        <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded bg-[#1DB954]/10 border border-[#1DB954]/20 text-[#0E9E48]">Advanced Project suggestion #{idx + 1}</span>
+                        <h4 className="text-xs font-extrabold text-[#121212] mt-1">{project.title}</h4>
                       </div>
 
-                      <p className="text-[11px] text-slate-500 leading-relaxed">
+                      <p className="text-[11px] text-[#5B5B5B] leading-relaxed">
                         {project.description}
                       </p>
 
                       {/* Fulfills gaps tags */}
                       <div className="flex flex-wrap gap-1.5">
                         {project.gaps_fulfilled.map((gap, gIdx) => (
-                          <span key={gIdx} className="text-[9px] font-bold px-2 py-0.5 rounded-md bg-amber-50 border border-amber-100 text-amber-800 flex items-center space-x-1">
+                          <span key={gIdx} className="text-[9px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-100 text-amber-800 flex items-center space-x-1">
                             <span className="w-1 h-1 rounded-full bg-amber-500 shrink-0" />
                             <span>{gap}</span>
                           </span>
@@ -513,18 +513,18 @@ export default function ResumeSkills() {
                       href={githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center space-x-2 px-4 py-2 border border-slate-200 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-700 transition-all w-full"
+                      className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 border border-[#CFCFCF] hover:bg-[#F3F3F3] rounded-full text-xs font-bold text-[#121212] transition-all w-full text-center"
                     >
-                      <Github className="w-4 h-4 text-slate-800" />
+                      <Github className="w-4 h-4 text-[#121212]" />
                       <span>Learn & View Code on GitHub</span>
-                      <ExternalLink className="w-3 h-3 text-slate-400" />
+                      <ExternalLink className="w-3 h-3 text-[#8A8A8A]" />
                     </a>
                   </div>
                 );
               })}
             </div>
           ) : (
-            <div className="py-8 text-center text-xs text-slate-400">
+            <div className="py-8 text-center text-xs text-[#8A8A8A]">
               No project suggestions generated. Try running another scan to refresh gaps.
             </div>
           )}

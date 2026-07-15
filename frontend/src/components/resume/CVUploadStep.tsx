@@ -54,25 +54,28 @@ export default function CVUploadStep({ cvText, onCVTextChange, onComplete }: CVU
   };
 
   return (
-    <div className="space-y-6 max-w-3xl mx-auto py-4">
-      <div className="space-y-1">
-        <h2 className="text-xl font-semibold text-slate-800">Submit Your Resume</h2>
-        <p className="text-sm text-slate-500">Provide your CV text by dragging a document file or pasting the text copy.</p>
+    <div className="space-y-6 max-w-xl mx-auto py-4 font-sans">
+      
+      {/* Step Header */}
+      <div className="text-center space-y-1">
+        <h2 className="font-extrabold text-2xl tracking-tight text-[#121212]">Upload your résumé</h2>
+        <p className="text-[13.5px] text-[#5B5B5B]">PDF, DOCX or TXT · up to 5 MB. We'll parse it in seconds.</p>
       </div>
 
-      <div className="flex space-x-1 bg-slate-100 p-0.5 rounded-xl max-w-xs">
+      {/* Tabs */}
+      <div className="flex space-x-1 bg-[#F3F3F3] p-0.5 rounded-full max-w-[240px] mx-auto">
         <button
           onClick={() => setUploadMode('upload')}
-          className={`flex-1 py-1.5 text-xs font-medium rounded-lg transition-all ${
-            uploadMode === 'upload' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+          className={`flex-1 py-1.5 text-xs font-bold rounded-full transition-all ${
+            uploadMode === 'upload' ? 'bg-white text-[#121212] shadow-xs' : 'text-[#5B5B5B] hover:text-[#121212]'
           }`}
         >
           Document File
         </button>
         <button
           onClick={() => setUploadMode('paste')}
-          className={`flex-1 py-1.5 text-xs font-medium rounded-lg transition-all ${
-            uploadMode === 'paste' ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-500 hover:text-slate-800'
+          className={`flex-1 py-1.5 text-xs font-bold rounded-full transition-all ${
+            uploadMode === 'paste' ? 'bg-white text-[#121212] shadow-xs' : 'text-[#5B5B5B] hover:text-[#121212]'
           }`}
         >
           Paste Text
@@ -80,7 +83,7 @@ export default function CVUploadStep({ cvText, onCVTextChange, onComplete }: CVU
       </div>
 
       {parseError && (
-        <div className="flex items-center space-x-2 p-3 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm animate-fadeIn">
+        <div className="flex items-center space-x-2 p-3.5 bg-danger/10 border border-danger/20 text-[#E22134] rounded-xl text-xs font-bold animate-fadeIn text-left">
           <AlertCircle className="w-4.5 h-4.5 shrink-0" />
           <span>{parseError}</span>
         </div>
@@ -92,10 +95,10 @@ export default function CVUploadStep({ cvText, onCVTextChange, onComplete }: CVU
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`relative border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all flex flex-col items-center justify-center min-h-[250px] ${
+          className={`relative border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-all flex flex-col items-center justify-center min-h-[240px] ${
             dragging
-              ? 'border-blue-500 bg-blue-50/30'
-              : 'border-slate-200 hover:border-blue-500 hover:bg-slate-50/50'
+              ? 'border-[#1DB954] bg-[#1DB954]/5'
+              : 'border-[#D6D6D6] bg-[#FAFAFA] hover:border-[#1DB954] hover:bg-slate-50/50'
           }`}
         >
           <input
@@ -107,51 +110,61 @@ export default function CVUploadStep({ cvText, onCVTextChange, onComplete }: CVU
           />
           {parseLoading ? (
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-9 h-9 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm font-medium text-slate-600">Extracting resume content...</p>
+              <div className="w-[34px] h-[34px] border-[3px] border-[#1DB954] border-t-transparent rounded-full animate-spin" />
+              <p className="text-xs font-bold text-[#5B5B5B]">Extracting resume content...</p>
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mx-auto text-blue-600">
-                <Upload className="w-6 h-6" />
+              <div className="w-[60px] h-[60px] rounded-xl bg-[#1DB954]/12 flex items-center justify-center mx-auto text-[#1DB954]">
+                <Upload className="w-7 h-7" />
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-semibold text-slate-800">Drag and drop your CV file here</p>
-                <p className="text-xs text-slate-400">PDF, DOCX, or TXT formats supported (Max 10MB)</p>
+                <p className="text-sm font-extrabold text-[#121212]">Drop your résumé here</p>
+                <p className="text-xs text-[#8A8A8A]">or</p>
               </div>
-              <button className="px-4 py-2 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 shadow-sm transition-all">
-                Browse File
+              <button 
+                type="button" 
+                className="inline-flex font-bold text-xs uppercase tracking-wider text-white bg-[#121212] px-5 py-2.5 rounded-full hover:bg-[#121212]/90 shadow-xs transition-all duration-150"
+              >
+                Choose file
               </button>
             </div>
           )}
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2 text-left">
           <textarea
             value={cvText}
             onChange={(e) => onCVTextChange(e.target.value)}
             placeholder="Paste the plain text transcript of your CV here..."
             rows={12}
-            className="w-full rounded-xl border border-slate-200 bg-white text-slate-700 p-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all resize-none"
+            className="w-full rounded-2xl border border-[#EBEBEB] bg-white text-[#121212] p-4 text-xs font-medium focus:outline-none focus:border-[#1DB954] focus:ring-2 focus:ring-[#1DB954]/10 transition-all resize-none placeholder:text-[#8A8A8A]"
           />
-          <p className="text-right text-xs text-slate-400">{cvText.length.toLocaleString()} characters pasted</p>
+          <p className="text-right text-[10px] font-bold text-[#8A8A8A]">{cvText.length.toLocaleString()} characters</p>
         </div>
       )}
 
+      {/* Success File parsed representation */}
       {cvText && !parseLoading && (
-        <div className="flex items-center space-x-2 p-3 bg-emerald-50 border border-emerald-100 text-emerald-800 rounded-xl text-sm">
-          <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
-          <span>Resume parsed and saved successfully ({cvText.length.toLocaleString()} characters loaded)</span>
+        <div className="flex items-center gap-3.5 bg-white border border-[#E6E6E6] rounded-xl p-3.5 text-left animate-fadeIn">
+          <div className="w-[34px] h-10 rounded bg-[#FBEAEA] flex items-center justify-center text-[8px] font-extrabold text-[#E22134] uppercase shrink-0">
+            PDF
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-[12px] font-extrabold text-[#121212] truncate">resume_extracted.pdf</div>
+            <div className="text-[10px] text-[#5B5B5B] mt-0.5">Parsed Successfully ✓ {cvText.length.toLocaleString()} characters loaded</div>
+          </div>
+          <CheckCircle className="w-5 h-5 text-[#1DB954] shrink-0" />
         </div>
       )}
 
-      <div className="flex justify-end pt-4">
+      <div className="pt-2">
         <button
           onClick={onComplete}
           disabled={!cvText.trim() || parseLoading}
-          className="flex items-center space-x-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          className="border-none cursor-pointer w-full h-[50px] rounded-full bg-[#1DB954] hover:bg-[#1aa34a] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed shadow-subtle"
         >
-          <span>Continue to Target JDs</span>
+          <span>Continue</span>
         </button>
       </div>
     </div>

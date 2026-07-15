@@ -2,7 +2,7 @@ import { Search, Sliders, RefreshCw, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function TrustedBy() {
   return (
-    <section id="about" className="py-14 md:py-18 bg-[#FFFBFE] border-y border-[#E7E0EC] px-6 relative overflow-hidden">
+    <section id="about" className="py-14 md:py-18 bg-white border-y border-[#EBEBEB] px-6 relative overflow-hidden">
       
       {/* Styles for Custom Micro-Animations */}
       <style dangerouslySetInnerHTML={{__html: `
@@ -31,20 +31,20 @@ export default function TrustedBy() {
       `}} />
 
       {/* Decorative Blur Backglows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#6750A4]/5 blur-[80px] -z-10 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#1DB954]/5 blur-[80px] -z-10 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto space-y-12">
         
         {/* Concise Header */}
         <div className="text-center max-w-2xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#6750A4]/10 border border-[#6750A4]/20 rounded-full text-[10px] font-bold text-[#6750A4] uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1DB954]/10 border border-[#1DB954]/20 rounded-full text-[10px] font-bold text-[#0E9E48] uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
             Core Philosophy
           </div>
-          <h2 className="font-sans font-bold text-3xl md:text-4xl text-[#1C1B1F] tracking-tight">
+          <h2 className="font-sans font-extrabold text-3xl md:text-4xl text-[#121212] tracking-tight">
             One Story. Two Profiles. Zero Mismatch.
           </h2>
-          <p className="text-[#49454F] text-sm md:text-base leading-relaxed">
+          <p className="text-[#5B5B5B] text-sm md:text-base leading-relaxed">
             Recruiters audit your resume. Hiring managers check your LinkedIn. If your skills, titles, or metrics don't align, you get rejected. <strong>Profiling</strong> synchronizes your professional presence in three steps.
           </p>
         </div>
@@ -53,58 +53,58 @@ export default function TrustedBy() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
           
           {/* Connector Arrows (Desktop only) */}
-          <div className="hidden md:block absolute top-[45px] left-[29%] w-[8%] h-0.5 border-t-2 border-dashed border-[#E7E0EC] z-0" />
-          <div className="hidden md:block absolute top-[45px] left-[63%] w-[8%] h-0.5 border-t-2 border-dashed border-[#E7E0EC] z-0" />
+          <div className="hidden md:block absolute top-[45px] left-[29%] w-[8%] h-0.5 border-t-2 border-dashed border-[#EBEBEB] z-0" />
+          <div className="hidden md:block absolute top-[45px] left-[63%] w-[8%] h-0.5 border-t-2 border-dashed border-[#EBEBEB] z-0" />
 
           {/* Step 1: Auditing */}
-          <div className="group bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:bg-[#F3EDF7]/90 text-left relative z-10">
+          <div className="group bg-[#FBFBFB] border border-[#EBEBEB] rounded-2xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:bg-white hover:border-[#1DB954]/40 text-left relative z-10">
             {/* Animated scan indicator */}
-            <div className="absolute right-4 top-4 w-12 h-16 border border-[#6750A4]/10 rounded bg-[#FFFBFE]/40 hidden group-hover:block overflow-hidden pointer-events-none">
-              <div className="absolute left-0 right-0 h-0.5 bg-[#6750A4] shadow-[0_0_6px_#6750A4] animate-mini-scan" />
+            <div className="absolute right-4 top-4 w-12 h-16 border border-[#1DB954]/10 rounded bg-white/40 hidden group-hover:block overflow-hidden pointer-events-none">
+              <div className="absolute left-0 right-0 h-0.5 bg-[#1DB954] shadow-[0_0_6px_#1DB954] animate-mini-scan" />
             </div>
 
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 rounded-full bg-[#FFFBFE] shadow-xs border border-[#E7E0EC] flex items-center justify-center text-[#6750A4] shrink-0">
+              <div className="w-11 h-11 rounded-full bg-white shadow-xs border border-[#EBEBEB] flex items-center justify-center text-[#1DB954] shrink-0">
                 <Search className="w-5 h-5 animate-subtle-pulse" />
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#6750A4]/75 uppercase tracking-wider block">Step 01</span>
-                <h4 className="font-bold text-sm text-[#1C1B1F]">ATS Auditing</h4>
+                <span className="text-[10px] font-bold text-[#0E9E48] uppercase tracking-wider block">Step 01</span>
+                <h4 className="font-bold text-sm text-[#121212]">ATS Auditing</h4>
               </div>
             </div>
-            <p className="text-[11px] text-[#49454F] leading-relaxed">
+            <p className="text-[11px] text-[#5B5B5B] leading-relaxed">
               Upload your resume and enter your target role. Our engine scans for critical ATS keyword gaps, formatting issues, and compliance scores.
             </p>
           </div>
 
           {/* Step 2: Optimizing */}
-          <div className="group bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:bg-[#F3EDF7]/90 text-left relative z-10">
+          <div className="group bg-[#FBFBFB] border border-[#EBEBEB] rounded-2xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:bg-white hover:border-[#1DB954]/40 text-left relative z-10">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 rounded-full bg-[#FFFBFE] shadow-xs border border-[#E7E0EC] flex items-center justify-center text-[#6750A4] shrink-0">
+              <div className="w-11 h-11 rounded-full bg-white shadow-xs border border-[#EBEBEB] flex items-center justify-center text-[#1DB954] shrink-0">
                 <Sliders className="w-5 h-5 transition-transform duration-500 group-hover:rotate-45" />
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#6750A4]/75 uppercase tracking-wider block">Step 02</span>
-                <h4 className="font-bold text-sm text-[#1C1B1F]">STAR Formatting</h4>
+                <span className="text-[10px] font-bold text-[#0E9E48] uppercase tracking-wider block">Step 02</span>
+                <h4 className="font-bold text-sm text-[#121212]">STAR Formatting</h4>
               </div>
             </div>
-            <p className="text-[11px] text-[#49454F] leading-relaxed">
+            <p className="text-[11px] text-[#5B5B5B] leading-relaxed">
               Revamp weak resume bullet points. Align experiences with the STAR method (Situation, Task, Action, Result) to maximize score density.
             </p>
           </div>
 
           {/* Step 3: Syncing */}
-          <div className="group bg-[#F3EDF7] border border-[#E7E0EC] rounded-2xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:bg-[#F3EDF7]/90 text-left relative z-10">
+          <div className="group bg-[#FBFBFB] border border-[#EBEBEB] rounded-2xl p-6 shadow-xs transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:bg-white hover:border-[#1DB954]/40 text-left relative z-10">
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 rounded-full bg-[#FFFBFE] shadow-xs border border-[#E7E0EC] flex items-center justify-center text-[#6750A4] shrink-0">
+              <div className="w-11 h-11 rounded-full bg-white shadow-xs border border-[#EBEBEB] flex items-center justify-center text-[#1DB954] shrink-0">
                 <RefreshCw className="w-5 h-5 animate-subtle-rotate" />
               </div>
               <div>
-                <span className="text-[10px] font-bold text-[#6750A4]/75 uppercase tracking-wider block">Step 03</span>
-                <h4 className="font-bold text-sm text-[#1C1B1F]">LinkedIn Sync</h4>
+                <span className="text-[10px] font-bold text-[#0E9E48] uppercase tracking-wider block">Step 03</span>
+                <h4 className="font-bold text-sm text-[#121212]">LinkedIn Sync</h4>
               </div>
             </div>
-            <p className="text-[11px] text-[#49454F] leading-relaxed">
+            <p className="text-[11px] text-[#5B5B5B] leading-relaxed">
               Deploy polished bio segments and updates directly to your LinkedIn profile. Maintain keyword alignment and engagement schedules effortlessly.
             </p>
           </div>
@@ -115,7 +115,7 @@ export default function TrustedBy() {
         <div className="pt-2 flex justify-center">
           <a
             href="#preview"
-            className="inline-flex items-center gap-2 bg-transparent border border-[#79747E] hover:bg-[#6750A4]/8 text-[#6750A4] font-bold text-xs px-6 py-3.5 rounded-full transition-all duration-200 active:scale-95 shadow-xs"
+            className="inline-flex items-center gap-2 bg-transparent border border-[#CFCFCF] hover:bg-[#F3F3F3] text-[#121212] font-bold text-xs px-6 py-3.5 rounded-full transition-all duration-200 active:scale-95 shadow-xs"
           >
             <span>See the platform in action</span>
             <ArrowRight className="w-4 h-4" />

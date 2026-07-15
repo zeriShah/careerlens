@@ -98,59 +98,70 @@ export default function ResumeAnalyzer({ onAnalysisUpdated }: ResumeAnalyzerProp
 
   return (
     <div className="space-y-6">
-      {/* Step Stepper Header */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-        <div className="flex items-center space-x-6">
+      {/* Connect UIUX Stepper Header */}
+      <div className="py-5 border-b border-[#F0F0F0] flex items-center justify-between gap-0 font-sans">
+        <div className="flex items-center flex-1 justify-start">
+          {/* Step 1: Upload CV */}
           <button
             onClick={() => setStep(0)}
-            className={`flex items-center space-x-2 text-sm font-medium transition-all ${
-              step === 0 ? 'text-blue-600' : 'text-slate-400 hover:text-slate-600'
-            }`}
+            className="flex items-center gap-3 text-left focus:outline-none"
           >
-            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs border ${
-              step === 0 ? 'border-blue-600 bg-blue-50 text-blue-600 font-bold' : 'border-slate-300 text-slate-400'
-            }`}>1</span>
-            <span>Resume Document</span>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-extrabold transition-all duration-200 ${
+              step >= 0 ? 'bg-[#1DB954] text-white' : 'bg-[#F3F3F3] text-[#8A8A8A]'
+            }`}>1</div>
+            <span className={`text-[13.5px] font-bold transition-all duration-200 ${
+              step === 0 ? 'text-[#121212]' : 'text-[#8A8A8A]'
+            }`}>Upload CV</span>
           </button>
-          <div className="h-px w-8 bg-slate-200" />
+          
+          <div className={`flex-1 h-[2px] mx-4 transition-all duration-200 ${
+            step >= 1 ? 'bg-[#1DB954]' : 'bg-[#F0F0F0]'
+          }`} />
+
+          {/* Step 2: Target JDs */}
           <button
             onClick={() => {
               if (cvText.trim()) setStep(1);
             }}
             disabled={!cvText.trim()}
-            className={`flex items-center space-x-2 text-sm font-medium transition-all ${
-              step === 1 ? 'text-blue-600' : 'text-slate-400 disabled:opacity-50 hover:enabled:text-slate-600'
-            }`}
+            className="flex items-center gap-3 text-left focus:outline-none disabled:opacity-60"
           >
-            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs border ${
-              step === 1 ? 'border-blue-600 bg-blue-50 text-blue-600 font-bold' : 'border-slate-300 text-slate-400'
-            }`}>2</span>
-            <span>Target JDs ({jds.length}/5)</span>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-extrabold transition-all duration-200 ${
+              step >= 1 ? 'bg-[#1DB954] text-white' : 'bg-[#F3F3F3] text-[#8A8A8A]'
+            }`}>2</div>
+            <span className={`text-[13.5px] font-bold transition-all duration-200 ${
+              step === 1 ? 'text-[#121212]' : 'text-[#8A8A8A]'
+            }`}>Target JDs ({jds.length})</span>
           </button>
-          <div className="h-px w-8 bg-slate-200" />
+
+          <div className={`flex-1 h-[2px] mx-4 transition-all duration-200 ${
+            step >= 2 ? 'bg-[#1DB954]' : 'bg-[#F0F0F0]'
+          }`} />
+
+          {/* Step 3: ATS Audit */}
           <button
             onClick={() => {
               if (analysis) setStep(2);
             }}
             disabled={!analysis}
-            className={`flex items-center space-x-2 text-sm font-medium transition-all ${
-              step === 2 ? 'text-blue-600' : 'text-slate-400 disabled:opacity-50 hover:enabled:text-slate-600'
-            }`}
+            className="flex items-center gap-3 text-left focus:outline-none disabled:opacity-60"
           >
-            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs border ${
-              step === 2 ? 'border-blue-600 bg-blue-50 text-blue-600 font-bold' : 'border-slate-300 text-slate-400'
-            }`}>3</span>
-            <span>ATS Audit Report</span>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-extrabold transition-all duration-200 ${
+              step >= 2 ? 'bg-[#1DB954] text-white' : 'bg-[#F3F3F3] text-[#8A8A8A]'
+            }`}>3</div>
+            <span className={`text-[13.5px] font-bold transition-all duration-200 ${
+              step === 2 ? 'text-[#121212]' : 'text-[#8A8A8A]'
+            }`}>ATS Audit Report</span>
           </button>
         </div>
 
         {step === 2 && (
           <button
             onClick={handleReset}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-500 hover:text-red-600 hover:border-red-100 hover:bg-red-50/50 transition-all font-medium"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#CFCFCF] text-xs font-bold text-[#121212] hover:bg-[#F3F3F3] hover:border-[#121212] active:scale-95 transition-all shrink-0 ml-4"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset Analysis</span>
+            <span>Reset</span>
           </button>
         )}
       </div>

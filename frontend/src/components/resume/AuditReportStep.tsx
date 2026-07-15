@@ -157,20 +157,20 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
   return (
     <div className="space-y-8 max-w-5xl mx-auto py-4 text-left font-sans">
       
-      {/* 1. SaaS Score Summary Ribbon (Light Theme) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 border border-slate-100 bg-white rounded-2xl shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden select-none">
+      {/* 1. SaaS Score Summary Ribbon */}
+      <div className="grid grid-cols-1 md:grid-cols-3 border border-[#EBEBEB] bg-white rounded-2xl shadow-xs divide-y md:divide-y-0 md:divide-x divide-[#EBEBEB] overflow-hidden select-none">
         
         {/* Metric 1: Target Alignment */}
         <div className="p-5 flex flex-col justify-between space-y-1.5">
           <div className="flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Target Alignment</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#1DB954] animate-pulse" />
+            <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider">Target Alignment</span>
           </div>
           <div className="flex items-baseline space-x-1.5 pt-1">
-            <span className="text-3xl font-extrabold text-slate-800">{analysis.match_score}</span>
-            <span className="text-sm text-slate-400 font-bold">/ 100</span>
+            <span className="text-3xl font-extrabold text-[#121212]">{analysis.match_score}</span>
+            <span className="text-sm text-[#8A8A8A] font-bold">/ 100</span>
           </div>
-          <span className="text-[10px] text-slate-400 leading-normal">
+          <span className="text-[10px] text-[#5B5B5B] leading-normal">
             Profile fit compared to target jobs
           </span>
         </div>
@@ -178,28 +178,28 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
         {/* Metric 2: ATS Score */}
         <div className="p-5 flex flex-col justify-between space-y-1.5">
           <div className="flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ATS Parse-ability</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#1DB954]" />
+            <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider">ATS Parse-ability</span>
           </div>
           <div className="flex items-baseline space-x-1.5 pt-1">
-            <span className="text-3xl font-extrabold text-slate-800">{analysis.ats_score}</span>
-            <span className="text-sm text-slate-400 font-bold">/ 100</span>
+            <span className="text-3xl font-extrabold text-[#121212]">{analysis.ats_score}</span>
+            <span className="text-sm text-[#8A8A8A] font-bold">/ 100</span>
           </div>
-          <span className="text-[10px] text-slate-400 leading-normal">
+          <span className="text-[10px] text-[#5B5B5B] leading-normal">
             Likelihood of passing screening filters
           </span>
         </div>
 
         {/* Metric 3: Best Match Target Career */}
-        <div className="p-5 flex flex-col justify-between space-y-1.5 bg-slate-50/20">
+        <div className="p-5 flex flex-col justify-between space-y-1.5 bg-[#FBFBFB]">
           <div className="flex items-center space-x-2">
-            <Sparkles className="w-4 h-4 text-blue-500 animate-pulse" />
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Best Match Career Target</span>
+            <Sparkles className="w-4 h-4 text-[#1DB954] animate-pulse" />
+            <span className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider">Best Match Career Target</span>
           </div>
-          <p className="text-xs font-extrabold text-slate-800 pt-1.5 truncate leading-tight">
+          <p className="text-xs font-extrabold text-[#121212] pt-1.5 truncate leading-tight">
             {analysis.jd_title}
           </p>
-          <span className="text-[10px] text-slate-400 leading-normal">
+          <span className="text-[10px] text-[#5B5B5B] leading-normal">
             Primary target matching JD
           </span>
         </div>
@@ -207,26 +207,26 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
       </div>
 
       {/* 1.5 Executive Verdict Summary Box */}
-      <div className="border border-slate-100 bg-white p-5 rounded-2xl shadow-sm space-y-2.5">
-        <span className="text-[9px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded uppercase tracking-wider inline-block">
+      <div className="border border-[#EBEBEB] bg-white p-5 rounded-2xl shadow-xs space-y-2.5">
+        <span className="text-[9px] font-bold text-[#0E9E48] bg-[#1DB954]/10 px-2.5 py-1 rounded uppercase tracking-wider inline-block border border-[#1DB954]/20">
           Executive Audit Summary
         </span>
-        <p className="text-xs text-slate-650 leading-relaxed font-sans mt-1">
+        <p className="text-xs text-[#5B5B5B] leading-relaxed font-sans mt-1">
           {analysis.summary}
         </p>
       </div>
 
       {/* 2. Unified Master-Detail Workspace Terminal */}
-      <div className="flex flex-col lg:flex-row border border-slate-200 bg-white rounded-2xl shadow-sm overflow-hidden h-[600px] items-stretch select-none">
+      <div className="flex flex-col lg:flex-row border border-[#EBEBEB] bg-white rounded-2xl shadow-xs overflow-hidden h-[600px] items-stretch select-none">
         
         {/* Left Master List Sidebar (40% width) */}
-        <div className="w-full lg:w-[38%] border-r border-slate-100 flex flex-col h-full bg-slate-50/30">
-          <div className="p-4 border-b border-slate-100 bg-white">
-            <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Audit Findings</h4>
-            <p className="text-[10px] text-slate-400 mt-0.5">Critical gaps and confirmed matches sorted by priority.</p>
+        <div className="w-full lg:w-[38%] border-r border-[#EBEBEB] flex flex-col h-full bg-[#FBFBFB]">
+          <div className="p-4 border-b border-[#EBEBEB] bg-white">
+            <h4 className="text-xs font-bold text-[#121212] uppercase tracking-wider">Audit Findings</h4>
+            <p className="text-[10px] text-[#8A8A8A] mt-0.5">Critical gaps and confirmed matches sorted by priority.</p>
           </div>
           
-          <div className="flex-1 overflow-y-auto divide-y divide-slate-100/60 p-2 space-y-1">
+          <div className="flex-1 overflow-y-auto divide-y divide-[#EBEBEB] p-2 space-y-1">
             
             {/* Gaps List */}
             {analysis.weak_points.map((p, idx) => {
@@ -237,16 +237,16 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
                   onClick={() => setSelectedItem({ type: 'gap', index: idx })}
                   className={`w-full text-left p-3.5 rounded-xl transition-all flex items-start space-x-3 focus:outline-none ${
                     isActive
-                      ? 'bg-rose-500/10 border-l-4 border-l-rose-500 shadow-sm'
+                      ? 'bg-rose-500/10 border-l-4 border-l-[#C0432A] shadow-xs'
                       : 'hover:bg-slate-100/70 border-l-4 border-l-transparent'
                   }`}
                 >
-                  <AlertTriangle className={`w-4 h-4 mt-0.5 shrink-0 ${isActive ? 'text-rose-600' : 'text-slate-400'}`} />
+                  <AlertTriangle className={`w-4 h-4 mt-0.5 shrink-0 ${isActive ? 'text-[#C0432A]' : 'text-slate-400'}`} />
                   <div className="min-w-0 flex-1 space-y-1">
-                    <span className="inline-block text-[8px] font-extrabold uppercase bg-rose-50 text-rose-600 border border-rose-100/60 px-1.5 py-0.5 rounded">
+                    <span className="inline-block text-[8px] font-extrabold uppercase bg-[#FBEAEA] text-[#C0432A] border border-rose-100/60 px-1.5 py-0.5 rounded">
                       Missing Gap
                     </span>
-                    <p className={`text-xs font-bold truncate leading-tight ${isActive ? 'text-rose-955 font-extrabold' : 'text-slate-705'}`}>
+                    <p className={`text-xs font-bold truncate leading-tight ${isActive ? 'text-[#121212] font-extrabold' : 'text-[#5B5B5B]'}`}>
                       {p.split(':')[0] || p}
                     </p>
                   </div>
@@ -263,16 +263,16 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
                   onClick={() => setSelectedItem({ type: 'strength', index: idx })}
                   className={`w-full text-left p-3.5 rounded-xl transition-all flex items-start space-x-3 focus:outline-none ${
                     isActive
-                      ? 'bg-emerald-500/10 border-l-4 border-l-emerald-500 shadow-sm'
+                      ? 'bg-[#1DB954]/10 border-l-4 border-l-[#1DB954] shadow-xs'
                       : 'hover:bg-slate-100/70 border-l-4 border-l-transparent'
                   }`}
                 >
-                  <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
+                  <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${isActive ? 'text-[#0E9E48]' : 'text-slate-400'}`} />
                   <div className="min-w-0 flex-1 space-y-1">
-                    <span className="inline-block text-[8px] font-extrabold uppercase bg-emerald-50 text-emerald-600 border border-emerald-100/60 px-1.5 py-0.5 rounded">
+                    <span className="inline-block text-[8px] font-extrabold uppercase bg-[#1DB954]/12 text-[#0E9E48] border border-[#1DB954]/20 px-1.5 py-0.5 rounded">
                       Matched
                     </span>
-                    <p className={`text-xs font-bold truncate leading-tight ${isActive ? 'text-emerald-955 font-extrabold' : 'text-slate-705'}`}>
+                    <p className={`text-xs font-bold truncate leading-tight ${isActive ? 'text-[#121212] font-extrabold' : 'text-[#5B5B5B]'}`}>
                       {p.split(':')[0] || p}
                     </p>
                   </div>
@@ -363,7 +363,7 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
                                 type="checkbox"
                                 checked={isChecked}
                                 onChange={() => {}} // handled by button click
-                                className="rounded text-blue-600 focus:ring-blue-500 border-slate-300 h-3.5 w-3.5 shrink-0 mt-0.5 cursor-pointer"
+                                className="rounded text-[#1DB954] focus:ring-[#1DB954] border-slate-300 h-3.5 w-3.5 shrink-0 mt-0.5 cursor-pointer"
                               />
                               <span className={`leading-normal ${isChecked ? 'line-through text-slate-400 font-semibold' : 'text-slate-650 font-semibold'}`}>
                                 {task.replace(/^<(.*)>$/, '$1')}
@@ -418,30 +418,30 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
       </div>
 
       {/* 3. Action Panel & Detailed Scorecard Toggle */}
-      <div className="flex flex-col sm:flex-row items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 gap-4">
-        <div className="flex items-center space-x-3">
-          <div className="p-2.5 bg-blue-100 text-blue-600 rounded-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between p-4 bg-[#FBFBFB] rounded-2xl border border-[#EBEBEB] gap-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-[#1DB954]/10 text-[#1DB954] rounded-xl">
             <FileDown className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-slate-700">Audit report generated</h4>
-            <p className="text-[10px] text-slate-400">Save matching metrics locally as a high-quality PDF report.</p>
+            <h4 className="text-xs font-bold text-[#121212]">Audit report generated</h4>
+            <p className="text-[10px] text-[#8A8A8A]">Save matching metrics locally as a high-quality PDF report.</p>
           </div>
         </div>
         
         <div className="flex flex-wrap gap-2.5 w-full sm:w-auto">
           <button
             onClick={() => generateAnalysisPDF(analysis)}
-            className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-all"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 bg-[#121212] hover:bg-[#121212]/90 text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-subtle transition-all active:scale-95 duration-150"
           >
             <span>Download PDF Report</span>
           </button>
           
           <button
             onClick={() => setCoverLetterOpen(!coverLetterOpen)}
-            className="flex-1 sm:flex-initial flex items-center justify-center space-x-2 px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg shadow-sm transition-all"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 bg-[#1DB954] hover:bg-[#1aa34a] text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-subtle transition-all active:scale-95 duration-150"
           >
-            <Sparkles className="w-3.5 h-3.5 text-blue-500 animate-pulse" />
+            <Sparkles className="w-3.5 h-3.5 text-white animate-pulse" />
             <span>Generate Cover Letter</span>
           </button>
         </div>
@@ -457,17 +457,17 @@ export default function AuditReportStep({ analysis, cvText, jds }: AuditReportSt
       )}
 
       {/* 4. Detailed Scorecard Matrix (Toggleable) */}
-      <div className="flex flex-col items-center space-y-4 pt-4 border-t border-slate-105">
+      <div className="flex flex-col items-center space-y-4 pt-4 border-t border-[#EBEBEB]">
         <button
           onClick={() => setShowScorecard(!showScorecard)}
-          className="inline-flex items-center space-x-2 px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl shadow-sm transition-all focus:outline-none"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-[#CFCFCF] hover:bg-[#F3F3F3] text-[#121212] text-[11px] font-bold uppercase tracking-wider rounded-full shadow-xs transition-all focus:outline-none active:scale-95"
         >
           <span>{showScorecard ? 'Hide Detailed Matching Matrix' : 'Show Detailed Matching Matrix'}</span>
-          {showScorecard ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
+          {showScorecard ? <ChevronUp className="w-4 h-4 text-[#8A8A8A]" /> : <ChevronDown className="w-4 h-4 text-[#8A8A8A]" />}
         </button>
 
         {showScorecard && (
-          <div className="w-full border border-slate-100 bg-white p-5 rounded-2xl shadow-sm space-y-4 animate-slideDown">
+          <div className="w-full border border-[#EBEBEB] bg-white p-5 rounded-2xl shadow-card space-y-4 animate-slideDown">
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Detailed Position Scorecard Matrix</h4>
             <div className="space-y-3">
               {analysis.per_jd_scores.map((jd, idx) => {

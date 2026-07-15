@@ -136,7 +136,7 @@ export default function SettingsTab({ currentUser }: SettingsTabProps) {
               <div className="flex justify-end pt-2">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-lg shadow-sm transition-all"
+                  className="px-5 py-2.5 bg-[#121212] hover:bg-[#121212]/90 text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-subtle transition-all duration-150"
                 >
                   Save Profile Settings
                 </button>
@@ -178,7 +178,7 @@ export default function SettingsTab({ currentUser }: SettingsTabProps) {
               <div className="flex justify-end pt-2">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary hover:bg-primary-hover text-white text-xs font-bold rounded-lg shadow-sm transition-all"
+                  className="px-5 py-2.5 bg-[#121212] hover:bg-[#121212]/90 text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-subtle transition-all duration-150"
                 >
                   Change Password
                 </button>

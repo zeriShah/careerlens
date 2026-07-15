@@ -90,44 +90,44 @@ export default function JDListStep({
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto py-4">
-      <div className="space-y-1">
-        <h2 className="text-xl font-semibold text-slate-800">Identify Target Positions</h2>
-        <p className="text-sm text-slate-500">
-          Provide the job descriptions (JDs) you want to optimize your resume against. We recommend adding between 5 and 10 JDs.
+    <div className="space-y-6 max-w-2xl mx-auto py-4 font-sans text-left">
+      <div className="text-center space-y-1">
+        <h2 className="font-extrabold text-2xl tracking-tight text-[#121212]">What role are you targeting?</h2>
+        <p className="text-[13.5px] text-[#5B5B5B]">
+          We'll pull the most relevant live openings and score your ATS compatibility fit.
         </p>
       </div>
 
       {fetchError && (
-        <div className="flex items-center space-x-2 p-3 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm animate-fadeIn">
+        <div className="flex items-center space-x-2 p-3.5 bg-danger/10 border border-danger/20 text-[#E22134] rounded-xl text-xs font-bold animate-fadeIn">
           <AlertCircle className="w-4.5 h-4.5 shrink-0" />
           <span>{fetchError}</span>
         </div>
       )}
 
       {/* Search JDs panel */}
-      <div className="bg-slate-50 border border-slate-100 p-5 rounded-2xl space-y-4">
-        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Search Live Job Listings</h3>
+      <div className="bg-[#FBFBFB] border border-[#EBEBEB] p-5 rounded-2xl space-y-4">
+        <h3 className="text-[10px] font-bold text-[#8A8A8A] uppercase tracking-wider">Search Live Job Listings</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="text-[11px] font-semibold text-slate-500">Position / Job Title <span className="text-red-400">*</span></label>
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-[#5B5B5B]">Target role / Job Title <span className="text-red-400">*</span></label>
             <input
               type="text"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              placeholder="e.g. Senior Frontend Engineer"
-              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-800 text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-all placeholder-slate-400"
+              placeholder="e.g. Senior Product Designer"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#EBEBEB] bg-white text-[#121212] text-xs font-medium focus:outline-none focus:border-[#1DB954] focus:ring-2 focus:ring-[#1DB954]/10 transition-all placeholder-[#8A8A8A]"
             />
           </div>
-          <div className="space-y-1">
-            <label className="text-[11px] font-semibold text-slate-500">Location</label>
+          <div className="space-y-1.5">
+            <label className="text-[11px] font-bold text-[#5B5B5B]">Location</label>
             <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. San Francisco, CA or Remote"
-              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-800 text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100 transition-all placeholder-slate-400"
+              placeholder="e.g. London, UK or Remote"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#EBEBEB] bg-white text-[#121212] text-xs font-medium focus:outline-none focus:border-[#1DB954] focus:ring-2 focus:ring-[#1DB954]/10 transition-all placeholder-[#8A8A8A]"
             />
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function JDListStep({
           <button
             onClick={handleFetchJDs}
             disabled={fetchLoading || jds.length >= 10 || !role.trim()}
-            className="flex items-center space-x-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white text-xs font-semibold rounded-lg shadow-sm transition-all"
+            className="flex items-center justify-center gap-1.5 px-5 py-2.5 bg-[#1DB954] hover:bg-[#1aa34a] disabled:bg-[#F3F3F3] disabled:text-[#8A8A8A] text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-xs active:scale-95 transition-all"
           >
             {fetchLoading ? (
               <>
@@ -146,22 +146,22 @@ export default function JDListStep({
             ) : (
               <>
                 <Search className="w-3.5 h-3.5" />
-                <span>Fetch Live Jobs</span>
+                <span>Find matching roles</span>
               </>
             )}
           </button>
 
           <button
             onClick={() => setManualMode(!manualMode)}
-            className="flex items-center space-x-1.5 px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold rounded-lg shadow-sm transition-all"
+            className="flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white border border-[#CFCFCF] hover:bg-[#F3F3F3] text-[#121212] text-[11px] font-bold tracking-wider uppercase rounded-full shadow-xs active:scale-95 transition-all"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Add Position Manually</span>
+            <span>Add Manually</span>
           </button>
 
           {jds.length >= 10 && (
-            <span className="text-[11px] font-medium text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
-              Maximum of 10 positions added
+            <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
+              Max 10 jobs reached
             </span>
           )}
         </div>
@@ -169,50 +169,50 @@ export default function JDListStep({
 
       {/* Manual Entry */}
       {manualMode && (
-        <div className="bg-white border border-blue-100 p-5 rounded-2xl space-y-4 shadow-sm animate-fadeIn">
-          <h3 className="text-sm font-semibold text-slate-800">Add Custom Position</h3>
+        <div className="bg-white border border-[#EBEBEB] p-5 rounded-2xl space-y-4 shadow-card animate-fadeIn">
+          <h3 className="text-xs font-bold text-[#121212] uppercase tracking-wider">Add Custom Position</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-slate-500">Position Title <span className="text-red-400">*</span></label>
+              <label className="text-[11px] font-bold text-[#5B5B5B]">Position Title <span className="text-red-400">*</span></label>
               <input
                 type="text"
                 value={manualJd.title}
                 onChange={(e) => setManualJd({ ...manualJd, title: e.target.value })}
                 placeholder="e.g. React Developer"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-blue-500 transition-all text-slate-800"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#EBEBEB] text-xs font-medium focus:outline-none focus:border-[#1DB954] transition-all text-[#121212]"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-slate-500">Company Name</label>
+              <label className="text-[11px] font-bold text-[#5B5B5B]">Company Name</label>
               <input
                 type="text"
                 value={manualJd.company}
                 onChange={(e) => setManualJd({ ...manualJd, company: e.target.value })}
                 placeholder="e.g. Stripe"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-blue-500 transition-all text-slate-800"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#EBEBEB] text-xs font-medium focus:outline-none focus:border-[#1DB954] transition-all text-[#121212]"
               />
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-[11px] font-semibold text-slate-500">Job Description / Requirements <span className="text-red-400">*</span></label>
+            <label className="text-[11px] font-bold text-[#5B5B5B]">Job Description / Requirements <span className="text-red-400">*</span></label>
             <textarea
               value={manualJd.text}
               onChange={(e) => setManualJd({ ...manualJd, text: e.target.value })}
               placeholder="Paste details of the job requirements here..."
               rows={5}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-blue-500 transition-all text-slate-800 resize-none"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#EBEBEB] text-xs font-medium focus:outline-none focus:border-[#1DB954] transition-all text-[#121212] resize-none"
             />
           </div>
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-end gap-2">
             <button
               onClick={() => setManualMode(false)}
-              className="px-3.5 py-1.5 text-xs text-slate-500 hover:text-slate-700"
+              className="px-4 py-2 text-xs font-bold text-[#5B5B5B] hover:text-[#121212]"
             >
               Cancel
             </button>
             <button
               onClick={handleAddManualJd}
-              className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition-all"
+              className="px-4 py-2 bg-[#1DB954] hover:bg-[#1aa34a] text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-xs transition-all"
             >
               Add to List
             </button>
@@ -223,54 +223,54 @@ export default function JDListStep({
       {/* List of positions */}
       {jds.length > 0 && (
         <div className="space-y-3">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h3 className="text-sm font-semibold text-slate-700">Target Position List ({jds.length}/10)</h3>
+          <div className="flex items-center justify-between border-b border-[#F0F0F0] pb-2">
+            <h3 className="text-xs font-bold text-[#121212] uppercase tracking-wider">Target Position List ({jds.length}/10)</h3>
             {jds.length >= 5 ? (
-              <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+              <span className="text-[10px] font-bold text-[#0E9E48] bg-[#1DB954]/10 px-2 py-0.5 rounded border border-[#1DB954]/20 uppercase tracking-wide">
                 Ready to Analyze
               </span>
             ) : (
-              <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-100">
-                Need {5 - jds.length} more position{5 - jds.length !== 1 ? 's' : ''}
+              <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-100 uppercase tracking-wide">
+                Need {5 - jds.length} more
               </span>
             )}
           </div>
 
           <div className="space-y-2">
             {jds.map((jd, idx) => (
-              <div key={idx} className="border border-slate-100 rounded-xl overflow-hidden bg-white shadow-sm transition-all hover:border-slate-200">
+              <div key={idx} className="border border-[#EBEBEB] rounded-xl overflow-hidden bg-white shadow-xs transition-all hover:border-[#1DB954]/40">
                 <div
                   onClick={() => setExpandedJd(expandedJd === idx ? null : idx)}
-                  className="flex items-center justify-between px-4 py-3.5 cursor-pointer select-none bg-slate-50/50 hover:bg-slate-50 transition-all"
+                  className="flex items-center justify-between px-4 py-3 cursor-pointer select-none bg-[#FBFBFB]/50 hover:bg-[#F3F3F3]/20 transition-all"
                 >
-                  <div className="flex items-center space-x-3 min-w-0">
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-8 h-8 rounded-lg bg-[#1DB954]/10 flex items-center justify-center text-[#1DB954] shrink-0">
                       <Briefcase className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
-                      <div className="flex items-center space-x-2 flex-wrap">
-                        <p className="text-xs font-bold text-slate-800 truncate">{jd.title}</p>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-xs font-bold text-[#121212] truncate">{jd.title}</p>
                         {jd.source === 'live' ? (
-                          <span className="text-[9px] font-semibold text-emerald-600 bg-emerald-50 border border-emerald-100 px-1.5 py-0.2 rounded">Live</span>
+                          <span className="text-[9px] font-bold text-[#0E9E48] bg-[#1DB954]/10 border border-[#1DB954]/20 px-1.5 py-0.2 rounded uppercase">Live</span>
                         ) : (
-                          <span className="text-[9px] font-semibold text-purple-600 bg-purple-50 border border-purple-100 px-1.5 py-0.2 rounded">Custom</span>
+                          <span className="text-[9px] font-bold text-[#121212] bg-[#F3F3F3] border border-[#E6E6E6] px-1.5 py-0.2 rounded uppercase">Custom</span>
                         )}
                         {jd.location && (
-                          <span className="text-[9px] font-medium text-slate-400">{jd.location}</span>
+                          <span className="text-[9px] font-bold text-[#8A8A8A]">{jd.location}</span>
                         )}
                       </div>
-                      <p className="text-[11px] text-slate-400 truncate">{jd.company}</p>
+                      <p className="text-[11px] text-[#5B5B5B] truncate mt-0.5">{jd.company}</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3 shrink-0">
+                  <div className="flex items-center gap-2.5 shrink-0">
                     {jd.applyLink && (
                       <a
                         href={jd.applyLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center space-x-1 text-[10px] text-blue-600 hover:text-blue-700 bg-blue-50/50 px-2 py-1 rounded-md"
+                        className="flex items-center gap-1 text-[10px] text-[#1DB954] hover:text-[#1aa34a] bg-[#1DB954]/10 border border-[#1DB954]/20 px-2.5 py-1 rounded-full font-bold transition-all"
                       >
                         <span>Link</span>
                         <ExternalLink className="w-2.5 h-2.5" />
@@ -281,21 +281,21 @@ export default function JDListStep({
                         e.stopPropagation();
                         handleRemoveJd(idx);
                       }}
-                      className="p-1 text-slate-300 hover:text-red-500 rounded-lg hover:bg-red-50 transition-all"
+                      className="p-1 text-[#8A8A8A] hover:text-[#E22134] rounded-lg hover:bg-red-50 transition-all"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                     {expandedJd === idx ? (
-                      <ChevronUp className="w-4 h-4 text-slate-400" />
+                      <ChevronUp className="w-4 h-4 text-[#8A8A8A]" />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-slate-400" />
+                      <ChevronDown className="w-4 h-4 text-[#8A8A8A]" />
                     )}
                   </div>
                 </div>
 
                 {expandedJd === idx && (
-                  <div className="px-4 py-4 border-t border-slate-100 bg-white">
-                    <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-wrap">{jd.text}</p>
+                  <div className="px-4 py-4 border-t border-[#EBEBEB] bg-white text-left">
+                    <p className="text-xs text-[#5B5B5B] leading-relaxed whitespace-pre-wrap font-medium">{jd.text}</p>
                   </div>
                 )}
               </div>
@@ -304,26 +304,27 @@ export default function JDListStep({
         </div>
       )}
 
-      <div className="flex items-center justify-between border-t border-slate-100 pt-5">
+      {/* Footer Controls */}
+      <div className="flex items-center justify-between border-t border-[#F0F0F0] pt-5">
         <button
           onClick={onBack}
-          className="px-4 py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all"
+          className="px-5 py-2.5 border border-[#CFCFCF] rounded-full text-[11px] font-bold uppercase tracking-wider text-[#121212] hover:bg-[#F3F3F3] transition-all"
         >
-          Back to Resume
+          Back
         </button>
 
         <button
           onClick={onAnalyze}
           disabled={jds.length < 5 || analysisLoading}
-          className="flex items-center space-x-1.5 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm disabled:opacity-50 transition-all"
+          className="flex items-center justify-center gap-2 px-6 py-2.5 bg-[#1DB954] hover:bg-[#1aa34a] text-white text-[11px] font-bold tracking-wider uppercase rounded-full shadow-subtle disabled:opacity-50 transition-all duration-150"
         >
           {analysisLoading ? (
             <>
               <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Auditing Resume (takes 10-15s)...</span>
+              <span>Auditing...</span>
             </>
           ) : (
-            <span>Run ATS Audit ({jds.length} JDs)</span>
+            <span>Find matching roles</span>
           )}
         </button>
       </div>
