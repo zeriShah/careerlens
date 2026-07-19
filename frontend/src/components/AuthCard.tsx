@@ -11,10 +11,10 @@ export default function AuthCard({ title, description, children }: AuthCardProps
   const isRegister = title.toLowerCase().includes('create') || title.toLowerCase().includes('register') || title.toLowerCase().includes('sign up');
 
   return (
-    <div className="w-full max-w-[1000px] min-h-[640px] bg-white border border-[#EBEBEB] rounded-2xl shadow-card grid grid-cols-1 md:grid-cols-2 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
-      
-      {/* Left Column: Brand Panel (Connect UIUX style) */}
-      <div className="relative bg-[#121212] p-10 flex flex-col justify-between overflow-hidden text-left text-white select-none">
+    <div className="w-full max-w-[1000px] md:min-h-[640px] bg-white border border-[#EBEBEB] rounded-2xl shadow-card grid grid-cols-1 md:grid-cols-2 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+
+      {/* Left Column: Brand Panel (Connect UIUX style) — hidden on mobile to keep the form front-and-center */}
+      <div className="relative bg-[#121212] p-10 hidden md:flex flex-col justify-between overflow-hidden text-left text-white select-none">
         
         {/* Glow Spotlight */}
         <div className="absolute top-[-100px] right-[-100px] w-[400px] h-[400px] bg-gradient-to-br from-[#1DB954]/25 to-transparent rounded-full blur-[80px] pointer-events-none" />

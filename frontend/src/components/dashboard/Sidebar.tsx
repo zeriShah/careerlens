@@ -22,6 +22,7 @@ interface SidebarProps {
   onLogout: () => void;
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
+  mobileOpen?: boolean;
 }
 
 export default function Sidebar({
@@ -30,7 +31,8 @@ export default function Sidebar({
   currentUser,
   onLogout,
   collapsed,
-  setCollapsed
+  setCollapsed,
+  mobileOpen = false
 }: SidebarProps) {
   const { user } = useAuth();
   const [resumeOpen, setResumeOpen] = useState(true);
@@ -43,10 +45,10 @@ export default function Sidebar({
   const isResumeTabActive = (tab: string) => activeTab === tab;
 
   return (
-    <aside 
-      className={`bg-[#FBFBFB] text-[#121212] border-r border-[#EEEEEE] h-screen fixed left-0 top-0 flex flex-col justify-between z-45 font-sans select-none transition-all duration-300 ${
+    <aside
+      className={`bg-[#FBFBFB] text-[#121212] border-r border-[#EEEEEE] h-screen fixed left-0 top-0 flex flex-col justify-between z-50 font-sans select-none transition-transform duration-300 ${
         collapsed ? 'w-20' : 'w-64'
-      }`}
+      } ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
     >
       <div className="flex-1 flex flex-col min-h-0 overflow-y-auto">
         {/* Brand Header: Profiling with green magnifying glass logo & collapse toggle */}
@@ -67,7 +69,7 @@ export default function Sidebar({
           
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className={`p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#121212] hover:bg-[#F3F3F3] transition-colors focus:outline-none shrink-0 ${
+            className={`hidden lg:block p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#121212] hover:bg-[#F3F3F3] transition-colors focus:outline-none shrink-0 ${
               collapsed ? 'mt-2' : ''
             }`}
             title={collapsed ? "Expand Sidebar" : "Minimize Sidebar"}

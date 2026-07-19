@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../services/api';
@@ -27,9 +27,25 @@ export default function Dashboard() {
     createdAt: new Date().toISOString()
   };
 
-  const [activeTab, setActiveTab] = useState<string>('dashboard');
+  const [activeTab, setActiveTabRaw] = useState<string>('dashboard');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
+
+  // Mobile off-canvas sidebar drawer state
+  const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== 'undefined' ? window.innerWidth >= 1024 : true);
+  useEffect(() => {
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  // On desktop honour the collapse toggle; on mobile the drawer always shows the full menu.
+  const effectiveCollapsed = isDesktop ? sidebarCollapsed : false;
+  // Selecting a tab also closes the mobile drawer.
+  const setActiveTab = (tab: string) => {
+    setActiveTabRaw(tab);
+    setMobileNavOpen(false);
+  };
   
   // Shared Resume states
   const [cvText, setCvText] = useState<string>(() => sessionStorage.getItem('careerlens_cv_text') || '');
@@ -149,33 +165,44 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#FBFBFB] flex font-sans select-none text-[#121212]">
-      
+
+      {/* Mobile drawer backdrop */}
+      {mobileNavOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={() => setMobileNavOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* LEFT SIDEBAR NAVBAR */}
       <Sidebar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         currentUser={currentUser}
         onLogout={handleLogout}
-        collapsed={sidebarCollapsed}
+        collapsed={effectiveCollapsed}
         setCollapsed={setSidebarCollapsed}
+        mobileOpen={mobileNavOpen}
       />
 
       {/* RIGHT WORKSPACE PANELS CONTAINER */}
-      <div className={`flex-1 ${sidebarCollapsed ? 'pl-20' : 'pl-64'} flex flex-col min-h-screen transition-all duration-300`}>
-        
+      <div className={`flex-1 min-w-0 pl-0 ${sidebarCollapsed ? 'lg:pl-20' : 'lg:pl-64'} flex flex-col min-h-screen transition-all duration-300`}>
+
         {/* STICKY HEADER */}
         <Header
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           onNewAnalysis={handleNewAnalysis}
+          onMenuClick={() => setMobileNavOpen(true)}
         />
 
         {/* WORKSPACE CONTENT BODY */}
-        <main className="flex-1 p-8 overflow-y-auto max-w-7xl w-full mx-auto text-left space-y-6">
-          
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl w-full mx-auto text-left space-y-6">
+
           {/* Stepper Header (renders on any resume workspace screen) */}
           {isResumeTab && (
-            <div className="py-4 border-b border-[#F0F0F0] flex items-center justify-between gap-0 font-sans select-none mb-4 bg-white px-6 rounded-2xl">
+            <div className="py-4 border-b border-[#F0F0F0] flex items-center justify-between gap-0 font-sans select-none mb-4 bg-white px-3 sm:px-6 rounded-2xl overflow-x-auto">
               <div className="flex items-center flex-1 justify-start">
                 
                 {/* Step 1: Upload CV */}
@@ -188,12 +215,12 @@ export default function Dashboard() {
                   }`}>
                     {currentStep > 1 ? '✓' : '1'}
                   </div>
-                  <span className={`text-[13px] font-bold transition-all duration-200 ${
+                  <span className={`hidden sm:inline text-[13px] font-bold transition-all duration-200 ${
                     currentStep === 1 ? 'text-[#121212]' : 'text-[#8A8A8A]'
                   }`}>Upload CV</span>
                 </button>
                 
-                <div className={`flex-1 h-[2px] mx-4 transition-all duration-200 ${
+                <div className={`flex-1 h-[2px] mx-2 sm:mx-4 transition-all duration-200 ${
                   currentStep >= 2 ? 'bg-[#1DB954]' : 'bg-[#F0F0F0]'
                 }`} />
 
@@ -208,12 +235,12 @@ export default function Dashboard() {
                   }`}>
                     {currentStep > 2 ? '✓' : '2'}
                   </div>
-                  <span className={`text-[13px] font-bold transition-all duration-200 ${
+                  <span className={`hidden sm:inline text-[13px] font-bold transition-all duration-200 ${
                     currentStep === 2 ? 'text-[#121212]' : 'text-[#8A8A8A]'
                   }`}>Target role</span>
                 </button>
 
-                <div className={`flex-1 h-[2px] mx-4 transition-all duration-200 ${
+                <div className={`flex-1 h-[2px] mx-2 sm:mx-4 transition-all duration-200 ${
                   currentStep >= 3 ? 'bg-[#1DB954]' : 'bg-[#F0F0F0]'
                 }`} />
 
@@ -228,12 +255,12 @@ export default function Dashboard() {
                   }`}>
                     {currentStep > 3 ? '✓' : '3'}
                   </div>
-                  <span className={`text-[13px] font-bold transition-all duration-200 ${
+                  <span className={`hidden sm:inline text-[13px] font-bold transition-all duration-200 ${
                     currentStep === 3 ? 'text-[#121212]' : 'text-[#8A8A8A]'
                   }`}>Matches</span>
                 </button>
 
-                <div className={`flex-1 h-[2px] mx-4 transition-all duration-200 ${
+                <div className={`flex-1 h-[2px] mx-2 sm:mx-4 transition-all duration-200 ${
                   currentStep >= 4 ? 'bg-[#1DB954]' : 'bg-[#F0F0F0]'
                 }`} />
 
@@ -248,7 +275,7 @@ export default function Dashboard() {
                   }`}>
                     4
                   </div>
-                  <span className={`text-[13px] font-bold transition-all duration-200 ${
+                  <span className={`hidden sm:inline text-[13px] font-bold transition-all duration-200 ${
                     currentStep === 4 ? 'text-[#121212]' : 'text-[#8A8A8A]'
                   }`}>Tailor &amp; apply</span>
                 </button>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Cpu, Play } from 'lucide-react';
+import { ArrowRight, Cpu, Play, Menu, X } from 'lucide-react';
 import { Logo } from '../components/Logo';
 
 export default function LandingPage() {
@@ -8,6 +8,18 @@ export default function LandingPage() {
 
   // FAQ Accordion State
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
+
+  // Responsive viewport tracking (inline styles can't use CSS media queries,
+  // so we track width in JS to switch grid/layout at breakpoints).
+  const [vw, setVw] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1240);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  useEffect(() => {
+    const onResize = () => setVw(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  const isMobile = vw < 768;   // phones
+  const isTablet = vw < 1024;  // phones + small tablets (collapse two-column layouts)
 
   // Parallax Tilt State for the Hero 3D Graphic
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -80,10 +92,10 @@ export default function LandingPage() {
       {/* Top Background Gradient Aura */}
       <div style={{ position: 'absolute', top: '-320px', left: '50%', transform: 'translateX(-50%)', width: '1200px', height: '680px', background: 'radial-gradient(ellipse at center,rgba(29,185,84,.10),transparent 66%)', pointerEvents: 'none' }}></div>
 
-      <div style={{ position: 'relative', maxWidth: '1240px', margin: '0 auto', padding: '0 40px' }}>
+      <div style={{ position: 'relative', maxWidth: '1240px', margin: '0 auto', padding: '0 clamp(18px, 5vw, 40px)' }}>
 
         {/* ===================== NAVBAR ===================== */}
-        <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 0' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 0', position: 'relative' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '11px' }}>
             <Logo variant="light" size={36} />
             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', fontFamily: "'DM Sans', sans-serif" }}>
@@ -91,32 +103,68 @@ export default function LandingPage() {
               <span style={{ fontSize: '8.5px', fontWeight: 700, color: '#8A8A8A', letterSpacing: '.3em', textTransform: 'uppercase', marginTop: '4px', lineHeight: 1 }}>by morpheralabs</span>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '34px', fontSize: '14px', color: '#5B5B5B', fontWeight: 700 }}>
+
+          {/* Desktop center links */}
+          <div style={{ display: isMobile ? 'none' : 'flex', alignItems: 'center', gap: '34px', fontSize: '14px', color: '#5B5B5B', fontWeight: 700 }}>
             <a href="#features" style={{ color: '#5B5B5B' }}>Product</a>
             <a href="#how-it-works" style={{ color: '#5B5B5B' }}>Features</a>
             <a href="#pricing" style={{ color: '#5B5B5B' }}>Pricing</a>
             <a href="#faq" style={{ color: '#5B5B5B' }}>FAQ</a>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '22px' }}>
-            <button 
-              onClick={() => navigate('/login')} 
+
+          {/* Desktop actions */}
+          <div style={{ display: isMobile ? 'none' : 'flex', alignItems: 'center', gap: '22px' }}>
+            <button
+              onClick={() => navigate('/login')}
               style={{ fontSize: '14px', color: '#5B5B5B', fontWeight: 700, border: 'none', background: 'transparent', cursor: 'pointer' }}
             >
               Sign in
             </button>
-            <button 
-              onClick={() => navigate('/register')} 
+            <button
+              onClick={() => navigate('/register')}
               style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '.05em', textTransform: 'uppercase', color: '#FFFFFF', background: '#1DB954', padding: '11px 22px', borderRadius: '9999px', border: 'none', cursor: 'pointer', outline: 'none' }}
             >
               Get started
             </button>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(o => !o)}
+            aria-label="Toggle menu"
+            style={{ display: isMobile ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center', width: '42px', height: '42px', borderRadius: '10px', border: '1px solid #EBEBEB', background: '#FFFFFF', color: '#121212', cursor: 'pointer' }}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
+          {/* Mobile dropdown menu */}
+          {isMobile && mobileMenuOpen && (
+            <div style={{ position: 'absolute', top: 'calc(100% + 8px)', left: 0, right: 0, background: '#FFFFFF', border: '1px solid #EBEBEB', borderRadius: '14px', padding: '14px', display: 'flex', flexDirection: 'column', gap: '4px', zIndex: 100, boxShadow: '0 16px 40px rgba(0,0,0,.10)' }}>
+              <a href="#features" onClick={() => setMobileMenuOpen(false)} style={{ color: '#121212', fontWeight: 600, fontSize: '15px', padding: '10px 8px', textDecoration: 'none' }}>Product</a>
+              <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} style={{ color: '#121212', fontWeight: 600, fontSize: '15px', padding: '10px 8px', textDecoration: 'none' }}>Features</a>
+              <a href="#pricing" onClick={() => setMobileMenuOpen(false)} style={{ color: '#121212', fontWeight: 600, fontSize: '15px', padding: '10px 8px', textDecoration: 'none' }}>Pricing</a>
+              <a href="#faq" onClick={() => setMobileMenuOpen(false)} style={{ color: '#121212', fontWeight: 600, fontSize: '15px', padding: '10px 8px', textDecoration: 'none' }}>FAQ</a>
+              <div style={{ height: '1px', background: '#EBEBEB', margin: '6px 0' }} />
+              <button
+                onClick={() => { setMobileMenuOpen(false); navigate('/login'); }}
+                style={{ width: '100%', textAlign: 'center', fontSize: '14px', fontWeight: 700, color: '#121212', background: 'transparent', border: '1px solid #CFCFCF', padding: '12px', borderRadius: '9999px', cursor: 'pointer' }}
+              >
+                Sign in
+              </button>
+              <button
+                onClick={() => { setMobileMenuOpen(false); navigate('/register'); }}
+                style={{ width: '100%', textAlign: 'center', fontSize: '13px', fontWeight: 700, letterSpacing: '.05em', textTransform: 'uppercase', color: '#FFFFFF', background: '#1DB954', padding: '12px', borderRadius: '9999px', border: 'none', cursor: 'pointer', marginTop: '4px' }}
+              >
+                Get started
+              </button>
+            </div>
+          )}
         </nav>
 
         <div style={{ height: '1px', background: '#EBEBEB' }}></div>
 
         {/* ===================== HERO SECTION ===================== */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.04fr 1fr', gap: '56px', alignItems: 'center', padding: '76px 0 68px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isTablet ? '1fr' : '1.04fr 1fr', gap: isTablet ? '36px' : '56px', alignItems: 'center', padding: 'clamp(40px, 7vw, 76px) 0 clamp(36px, 6vw, 68px)' }}>
           
           {/* Hero Left Content */}
           <div style={{ textAlign: 'left' }}>
@@ -125,7 +173,7 @@ export default function LandingPage() {
               <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', color: '#5B5B5B', textTransform: 'uppercase' }}>AI résumé &amp; LinkedIn optimization</span>
             </div>
 
-            <h1 style={{ fontWeight: 800, fontSize: '64px', lineHeight: 1.06, letterSpacing: '-.03em', color: '#121212', margin: '22px 0 0', textWrap: 'balance', animation: 'clUp .6s .05s both' }}>
+            <h1 style={{ fontWeight: 800, fontSize: 'clamp(34px, 7.5vw, 64px)', lineHeight: 1.06, letterSpacing: '-.03em', color: '#121212', margin: '22px 0 0', textWrap: 'balance', animation: 'clUp .6s .05s both' }}>
               Your résumé, matched to the job that wants it.
             </h1>
 
@@ -161,11 +209,11 @@ export default function LandingPage() {
           </div>
 
           {/* Hero Right 3D Visual Panel */}
-          <div style={{ position: 'relative', animation: 'clUp .7s .2s both', height: '460px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div 
+          <div style={{ position: 'relative', animation: 'clUp .7s .2s both', height: isMobile ? '340px' : '460px', display: 'flex', alignItems: 'center', justifyContent: 'center', order: isTablet ? 2 : 0 }}>
+            <div
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              style={{ perspective: '1200px', width: '100%', maxWidth: '500px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'default' }}
+              style={{ perspective: '1200px', width: '100%', maxWidth: '500px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'default', transform: isMobile ? 'scale(0.78)' : undefined }}
             >
               <div 
                 style={{ 
@@ -394,15 +442,15 @@ export default function LandingPage() {
 
       {/* ===================== HOW IT WORKS ===================== */}
       <div id="how-it-works" style={{ background: '#F7F8F7', borderTop: '1px solid #EBEBEB' }}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '82px 40px' }}>
-          
+        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: 'clamp(56px, 9vw, 82px) clamp(18px, 5vw, 40px)' }}>
+
           <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0E9E48' }}>How it works</span>
-            <h2 style={{ fontWeight: 800, fontSize: '40px', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.1' }}>From upload to tailored application in three steps.</h2>
+            <h2 style={{ fontWeight: 800, fontSize: 'clamp(28px, 6vw, 40px)', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.1' }}>From upload to tailored application in three steps.</h2>
             <p style={{ fontSize: '16px', color: '#5B5B5B', margin: '16px 0 0', lineHeight: '1.6' }}>No forms, no guesswork. Give us your CV and the role you want — we handle the rest.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px', marginTop: '52px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '22px', marginTop: 'clamp(36px, 6vw, 52px)' }}>
             <div style={{ background: '#FFFFFF', border: '1px solid #EBEBEB', borderRadius: '12px', padding: '26px', textAlign: 'left' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ width: '42px', height: '42px', borderRadius: '10px', background: 'rgba(29,185,84,.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -450,12 +498,12 @@ export default function LandingPage() {
       </div>
 
       {/* ===================== FEATURE: RESUME ANALYZER ===================== */}
-      <div id="features" style={{ maxWidth: '1240px', margin: '0 auto', padding: '88px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.05fr', gap: '60px', alignItems: 'center' }}>
+      <div id="features" style={{ maxWidth: '1240px', margin: '0 auto', padding: 'clamp(60px, 9vw, 88px) clamp(18px, 5vw, 40px)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isTablet ? '1fr' : '1fr 1.05fr', gap: isTablet ? '40px' : '60px', alignItems: 'center' }}>
           
           <div style={{ textAlign: 'left' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0E9E48' }}>Résumé analyzer</span>
-            <h2 style={{ fontWeight: 800, fontSize: '38px', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.12' }}>See exactly why you match — and what's missing.</h2>
+            <h2 style={{ fontWeight: 800, fontSize: 'clamp(26px, 5.5vw, 38px)', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.12' }}>See exactly why you match — and what's missing.</h2>
             <p style={{ fontSize: '16px', color: '#5B5B5B', margin: '16px 0 0', lineHeight: '1.6' }}>Every role gets a fit score, a keyword breakdown, and the precise gaps holding you back. Then we close them for you.</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '28px' }}>
               <div style={{ display: 'flex', gap: '13px' }}>
@@ -578,8 +626,8 @@ export default function LandingPage() {
 
       {/* ===================== FEATURE: LINKEDIN ===================== */}
       <div style={{ background: '#F7F8F7', borderTop: '1px solid #EBEBEB', borderBottom: '1px solid #EBEBEB' }}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '88px 40px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 1fr', gap: '60px', alignItems: 'center' }}>
+        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: 'clamp(60px, 9vw, 88px) clamp(18px, 5vw, 40px)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isTablet ? '1fr' : '1.05fr 1fr', gap: isTablet ? '40px' : '60px', alignItems: 'center' }}>
             
             {/* LinkedIn Preview Graphic Card */}
             <div style={{ background: '#121212', borderRadius: '14px', padding: '24px', boxShadow: '0 24px 60px rgba(18,18,18,.18)', order: 2, textAlign: 'left' }}>
@@ -620,7 +668,7 @@ export default function LandingPage() {
             {/* LinkedIn copy content */}
             <div style={{ order: 1, textAlign: 'left' }}>
               <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0E9E48' }}>LinkedIn growth</span>
-              <h2 style={{ fontWeight: 800, fontSize: '38px', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.12' }}>Show up consistently — without the daily effort.</h2>
+              <h2 style={{ fontWeight: 800, fontSize: 'clamp(26px, 5.5vw, 38px)', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.12' }}>Show up consistently — without the daily effort.</h2>
               <p style={{ fontSize: '16px', color: '#5B5B5B', margin: '16px 0 0', lineHeight: '1.6' }}>Draft posts, schedule them for peak hours, and track what's actually working. Connected securely.</p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '28px' }}>
@@ -672,13 +720,13 @@ export default function LandingPage() {
       </div>
 
       {/* ===================== PRICING ===================== */}
-      <div id="pricing" style={{ maxWidth: '1240px', margin: '0 auto', padding: '88px 40px' }}>
+      <div id="pricing" style={{ maxWidth: '1240px', margin: '0 auto', padding: 'clamp(60px, 9vw, 88px) clamp(18px, 5vw, 40px)' }}>
         <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
           <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0E9E48' }}>Pricing</span>
-          <h2 style={{ fontWeight: 800, fontSize: '40px', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.1' }}>Start free. Upgrade when it lands you interviews.</h2>
+          <h2 style={{ fontWeight: 800, fontSize: 'clamp(28px, 6vw, 40px)', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0', lineHeight: '1.1' }}>Start free. Upgrade when it lands you interviews.</h2>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '22px', maxWidth: '840px', margin: '48px auto 0' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '22px', maxWidth: '840px', margin: '48px auto 0' }}>
           {/* Free Card */}
           <div style={{ background: '#FFFFFF', border: '1px solid #EBEBEB', borderRadius: '14px', padding: '30px', textAlign: 'left' }}>
             <div style={{ fontSize: '14px', fontWeight: 700, color: '#121212' }}>Trial</div>
@@ -723,10 +771,10 @@ export default function LandingPage() {
 
       {/* ===================== FAQ ===================== */}
       <div id="faq" style={{ background: '#F7F8F7', borderTop: '1px solid #EBEBEB' }}>
-        <div style={{ maxWidth: '820px', margin: '0 auto', padding: '82px 40px' }}>
+        <div style={{ maxWidth: '820px', margin: '0 auto', padding: 'clamp(56px, 9vw, 82px) clamp(18px, 5vw, 40px)' }}>
           <div style={{ textAlign: 'center' }}>
             <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#0E9E48' }}>FAQ</span>
-            <h2 style={{ fontWeight: 800, fontSize: '36px', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0' }}>Questions, answered.</h2>
+            <h2 style={{ fontWeight: 800, fontSize: 'clamp(26px, 5.5vw, 36px)', letterSpacing: '-.02em', color: '#121212', margin: '14px 0 0' }}>Questions, answered.</h2>
           </div>
 
           <div style={{ marginTop: '40px', display: 'flex', flexDirection: 'column', gap: '12px', textAlign: 'left' }}>
@@ -767,12 +815,12 @@ export default function LandingPage() {
 
       {/* ===================== FINAL CTA ===================== */}
       <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '88px 40px' }}>
-        <div style={{ background: '#121212', borderRadius: '20px', padding: '64px 40px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ background: '#121212', borderRadius: '20px', padding: 'clamp(40px, 8vw, 64px) clamp(22px, 5vw, 40px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           {/* Radial brand overlay light */}
           <div style={{ position: 'absolute', top: '-120px', left: '50%', transform: 'translateX(-50%)', width: '600px', height: '400px', background: 'radial-gradient(ellipse at center,rgba(29,185,84,.28),transparent 66%)', pointerEvents: 'none' }}></div>
           
           <div style={{ position: 'relative' }}>
-            <h2 style={{ fontWeight: 800, fontSize: '44px', letterSpacing: '-.03em', color: '#FFFFFF', margin: 0, lineHeight: '1.08' }}>Ready to grow your career?</h2>
+            <h2 style={{ fontWeight: 800, fontSize: 'clamp(28px, 6.5vw, 44px)', letterSpacing: '-.03em', color: '#FFFFFF', margin: 0, lineHeight: '1.08' }}>Ready to grow your career?</h2>
             <p style={{ fontSize: '16px', color: '#B3B3B3', margin: '16px auto 0', maxWidth: '480px', lineHeight: '1.6' }}>Analyze your résumé, tailor every application, and keep your LinkedIn working while you sleep.</p>
             
             <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', marginTop: '32px', flexWrap: 'wrap' }}>
@@ -797,8 +845,8 @@ export default function LandingPage() {
 
       {/* ===================== FOOTER ===================== */}
       <div style={{ borderTop: '1px solid #EBEBEB' }}>
-        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '52px 40px 36px', textAlign: 'left' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: '40px' }}>
+        <div style={{ maxWidth: '1240px', margin: '0 auto', padding: 'clamp(40px, 7vw, 52px) clamp(18px, 5vw, 40px) 36px', textAlign: 'left' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : '1.6fr 1fr 1fr 1fr', gap: isMobile ? '28px' : '40px' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '11px' }}>
                 <Logo variant="light" size={36} />
