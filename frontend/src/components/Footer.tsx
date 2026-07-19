@@ -1,3 +1,4 @@
+import { Logo } from './Logo';
 import { Linkedin, Github, Twitter } from 'lucide-react';
 
 export default function Footer() {
@@ -8,12 +9,15 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="md:col-span-4 flex flex-col items-start text-left gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-white font-extrabold text-lg">P</span>
+              <Logo variant="light" size={36} />
+              <div className="flex flex-col text-left" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <span className="text-[20px] font-extrabold text-[#121212] tracking-[-0.025em] leading-none">
+                  Profiling
+                </span>
+                <span className="text-[8.5px] font-bold text-[#8A8A8A] leading-none tracking-[0.3em] uppercase mt-1">
+                  by morpheralabs
+                </span>
               </div>
-              <span className="font-sans font-bold text-xl text-text-primary tracking-tight">
-                Profiling
-              </span>
             </div>
             <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
               The premium career operating system for modern software professionals and leaders.

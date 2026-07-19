@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { Logo } from '../Logo';
+import { useAuth } from '../../contexts/AuthContext';
 import {
-  LayoutDashboard,
+  Home,
   FileText,
   ChevronDown,
   ChevronRight,
-  History,
-  BarChart2,
+  FolderOpen,
   Settings,
   LogOut,
   Linkedin
@@ -19,216 +20,342 @@ interface SidebarProps {
     email: string;
   };
   onLogout: () => void;
+  collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
 }
 
-export default function Sidebar({ activeTab, setActiveTab, currentUser, onLogout }: SidebarProps) {
+export default function Sidebar({
+  activeTab,
+  setActiveTab,
+  currentUser,
+  onLogout,
+  collapsed,
+  setCollapsed
+}: SidebarProps) {
+  const { user } = useAuth();
   const [resumeOpen, setResumeOpen] = useState(true);
-  const [linkedinOpen, setLinkedinOpen] = useState(true);
+  const [linkedinOpen, setLinkedinOpen] = useState(false);
+
+  // Helpers to determine active groups
+  const isResumeTabGroupActive = ['resume-upload', 'resume-target', 'resume-matches', 'resume-gaps', 'resume-tailor', 'resume-covers'].includes(activeTab);
+  const isLinkedinTabGroupActive = ['linkedin-posts', 'linkedin-scheduling', 'linkedin-connects', 'linkedin-impressions'].includes(activeTab);
+
+  const isResumeTabActive = (tab: string) => activeTab === tab;
 
   return (
-    <aside className="w-64 bg-[#FBFBFB] text-[#121212] border-r border-[#EEEEEE] h-screen fixed left-0 top-0 flex flex-col justify-between z-40 font-sans">
-      
-      {/* Workspace Brand */}
-      <div className="p-5 border-b border-[#EEEEEE] flex items-center gap-2.5">
-        <div className="w-[30px] h-[30px] rounded-full bg-[#1DB954] flex items-center justify-center">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.8"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" strokeLinecap="round"/></svg>
+    <aside 
+      className={`bg-[#FBFBFB] text-[#121212] border-r border-[#EEEEEE] h-screen fixed left-0 top-0 flex flex-col justify-between z-45 font-sans select-none transition-all duration-300 ${
+        collapsed ? 'w-20' : 'w-64'
+      }`}
+    >
+      <div className="flex-1 flex flex-col min-h-0 overflow-y-auto">
+        {/* Brand Header: Profiling with green magnifying glass logo & collapse toggle */}
+        <div className={`p-4 flex items-center justify-between gap-3 ${collapsed ? 'flex-col justify-center' : ''}`}>
+          <div className="flex items-center gap-3">
+            <Logo variant="light" size={36} className="shrink-0" />
+            {!collapsed && (
+              <div className="flex flex-col text-left animate-fadeIn" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <span className="text-[20px] font-extrabold text-[#121212] tracking-[-0.025em] leading-none">
+                  Profiling
+                </span>
+                <span className="text-[8.5px] font-bold text-[#8A8A8A] leading-none tracking-[0.3em] uppercase mt-1">
+                  by morpheralabs
+                </span>
+              </div>
+            )}
+          </div>
+          
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className={`p-1.5 rounded-lg text-[#8A8A8A] hover:text-[#121212] hover:bg-[#F3F3F3] transition-colors focus:outline-none shrink-0 ${
+              collapsed ? 'mt-2' : ''
+            }`}
+            title={collapsed ? "Expand Sidebar" : "Minimize Sidebar"}
+          >
+            {collapsed ? (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m9 18 6-6-6-6"/></svg>
+            ) : (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="m15 18-6-6 6-6"/></svg>
+            )}
+          </button>
         </div>
-        <div>
-          <span className="font-extrabold text-lg text-[#121212] block tracking-tight leading-none">Profiling</span>
-        </div>
+
+        {/* Navigation Links */}
+        <nav className="px-3 py-2 space-y-1.5 overflow-y-auto scrollbar-none">
+          
+          {/* 1. Home Tab */}
+          <button
+            onClick={() => setActiveTab('dashboard')}
+            className={`flex items-center rounded-xl text-[13.5px] font-bold transition-all duration-200 text-left ${
+              activeTab === 'dashboard'
+                ? 'bg-[#1DB954]/8 text-[#121212]'
+                : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+            } ${collapsed ? 'w-12 h-12 justify-center mx-auto' : 'w-full gap-3 px-3 py-2.5'}`}
+            title="Home Dashboard"
+          >
+            <Home className={`w-5 h-5 shrink-0 ${activeTab === 'dashboard' ? 'text-[#1DB954]' : 'text-[#8A8A8A]'}`} />
+            {!collapsed && <span>Home</span>}
+          </button>
+
+          {/* 2. Résumé Analyzer Tab Menu */}
+          {collapsed ? (
+            <button
+              onClick={() => setActiveTab('resume-upload')}
+              className={`flex items-center justify-center rounded-xl transition-all duration-200 mx-auto w-12 h-12 ${
+                isResumeTabGroupActive
+                  ? 'bg-[#1DB954]/8 text-[#121212]'
+                  : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+              }`}
+              title="Résumé Analyzer"
+            >
+              <FileText className={`w-5 h-5 shrink-0 ${isResumeTabGroupActive ? 'text-[#1DB954]' : 'text-[#8A8A8A]'}`} />
+            </button>
+          ) : (
+            <div className="space-y-0.5">
+              <button
+                onClick={() => setResumeOpen(!resumeOpen)}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-[13.5px] font-bold text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212] transition-all duration-200 text-left"
+              >
+                <div className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-[#8A8A8A]" />
+                  <span>Résumé analyzer</span>
+                </div>
+                {resumeOpen ? <ChevronDown className="w-4 h-4 text-[#B0B0B0]" /> : <ChevronRight className="w-4 h-4 text-[#B0B0B0]" />}
+              </button>
+              
+              {resumeOpen && (
+                <div className="pl-9 pr-2 space-y-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <button
+                    onClick={() => setActiveTab('resume-upload')}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
+                      isResumeTabActive('resume-upload') 
+                        ? 'bg-[#1DB954]/8 text-[#121212]' 
+                        : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    Upload CV
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('resume-matches')}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
+                      isResumeTabActive('resume-matches') 
+                        ? 'bg-[#1DB954]/8 text-[#121212]' 
+                        : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    <span>Job matches</span>
+                    <span className="bg-[#1DB954]/12 text-[#0E9E48] text-[9.5px] font-extrabold px-1.5 py-0.5 rounded-full">
+                      10
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('resume-gaps')}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
+                      isResumeTabActive('resume-gaps') 
+                        ? 'bg-[#1DB954]/8 text-[#121212]' 
+                        : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    Gaps &amp; keywords
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('resume-tailor')}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
+                      isResumeTabActive('resume-tailor') 
+                        ? 'bg-[#1DB954]/8 text-[#121212]' 
+                        : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    Tailored CV
+                  </button>
+
+                  <button
+                    onClick={() => setActiveTab('resume-covers')}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
+                      isResumeTabActive('resume-covers') 
+                        ? 'bg-[#1DB954]/8 text-[#121212]' 
+                        : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    Cover letters
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* 3. LinkedIn Tab Menu */}
+          {collapsed ? (
+            <button
+              onClick={() => setActiveTab('linkedin-posts')}
+              className={`flex items-center justify-center rounded-xl transition-all duration-200 mx-auto w-12 h-12 ${
+                isLinkedinTabGroupActive
+                  ? 'bg-[#1DB954]/8 text-[#121212]'
+                  : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+              }`}
+              title="LinkedIn Growth"
+            >
+              <Linkedin className={`w-5 h-5 shrink-0 ${isLinkedinTabGroupActive ? 'text-[#1DB954]' : 'text-[#8A8A8A]'}`} />
+            </button>
+          ) : (
+            <div className="space-y-0.5">
+              <button
+                onClick={() => setLinkedinOpen(!linkedinOpen)}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-[13.5px] font-bold text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212] transition-all duration-200 text-left"
+              >
+                <div className="flex items-center gap-3">
+                  <Linkedin className="w-5 h-5 text-[#8A8A8A]" />
+                  <span>LinkedIn</span>
+                </div>
+                {linkedinOpen ? <ChevronDown className="w-4 h-4 text-[#B0B0B0]" /> : <ChevronRight className="w-4 h-4 text-[#B0B0B0]" />}
+              </button>
+              
+              {linkedinOpen && (
+                <div className="pl-9 pr-2 space-y-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <button
+                    onClick={() => setActiveTab('linkedin-posts')}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
+                      activeTab === 'linkedin-posts' ? 'bg-[#1DB954]/8 text-[#121212]' : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    <span>Posts</span>
+                    <span className="text-[8px] font-extrabold text-[#8A8A8A] bg-[#EEEEEE] px-1.5 py-0.5 rounded uppercase tracking-wider scale-90">Soon</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('linkedin-scheduling')}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
+                      activeTab === 'linkedin-scheduling' ? 'bg-[#1DB954]/8 text-[#121212]' : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    <span>Scheduling</span>
+                    <span className="text-[8px] font-extrabold text-[#8A8A8A] bg-[#EEEEEE] px-1.5 py-0.5 rounded uppercase tracking-wider scale-90">Soon</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('linkedin-connects')}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
+                      activeTab === 'linkedin-connects' ? 'bg-[#1DB954]/8 text-[#121212]' : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    <span>Connects</span>
+                    <span className="text-[8px] font-extrabold text-[#8A8A8A] bg-[#EEEEEE] px-1.5 py-0.5 rounded uppercase tracking-wider scale-90">Soon</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('linkedin-impressions')}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 ${
+                      activeTab === 'linkedin-impressions' ? 'bg-[#1DB954]/8 text-[#121212]' : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+                    }`}
+                  >
+                    <span>Impressions</span>
+                    <span className="text-[8px] font-extrabold text-[#8A8A8A] bg-[#EEEEEE] px-1.5 py-0.5 rounded uppercase tracking-wider scale-90">Soon</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* 4. My Projects */}
+          <button
+            onClick={() => setActiveTab('my-documents')}
+            className={`flex items-center rounded-xl text-[13.5px] font-bold transition-all duration-200 text-left ${
+              activeTab === 'my-documents'
+                ? 'bg-[#1DB954]/8 text-[#121212]'
+                : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+            } ${collapsed ? 'w-12 h-12 justify-center mx-auto' : 'w-full gap-3 px-3 py-2.5'}`}
+            title="My Projects"
+          >
+            <FolderOpen className={`w-5 h-5 shrink-0 ${activeTab === 'my-documents' ? 'text-[#1DB954]' : 'text-[#8A8A8A]'}`} />
+            {!collapsed && <span>My projects</span>}
+          </button>
+
+          {/* 5. Settings */}
+          <button
+            onClick={() => setActiveTab('settings')}
+            className={`flex items-center rounded-xl text-[13.5px] font-bold transition-all duration-200 text-left ${
+              activeTab === 'settings'
+                ? 'bg-[#1DB954]/8 text-[#121212]'
+                : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
+            } ${collapsed ? 'w-12 h-12 justify-center mx-auto' : 'w-full gap-3 px-3 py-2.5'}`}
+            title="Settings"
+          >
+            <Settings className={`w-5 h-5 shrink-0 ${activeTab === 'settings' ? 'text-[#1DB954]' : 'text-[#8A8A8A]'}`} />
+            {!collapsed && <span>Settings</span>}
+          </button>
+
+        </nav>
       </div>
 
-      {/* Sidebar Nav Links */}
-      <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
+      {/* Upgrade Banner & User Profile Footer */}
+      <div className="p-4 space-y-4 border-t border-[#EEEEEE] shrink-0">
         
-        {/* Main Dashboard Link */}
-        <button
-          onClick={() => setActiveTab('dashboard')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
-            activeTab === 'dashboard'
-              ? 'bg-[#1DB954]/12 text-[#0E9E48]'
-              : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-          }`}
-        >
-          <LayoutDashboard className="w-4.5 h-4.5" />
-          Home
-        </button>
+        {/* Dynamic Upgrade Card Box (hidden if collapsed) */}
+        {!collapsed && (() => {
+          const registrationDate = user?.createdAt ? new Date(user.createdAt) : new Date();
+          const daysSinceReg = Math.floor((Date.now() - registrationDate.getTime()) / (1000 * 60 * 60 * 24));
+          const trialDaysLeft = Math.max(0, 30 - daysSinceReg);
+          const isPro = user?.subscriptionStatus === 'active';
 
-        {/* Resume Section (Collapsible) */}
-        <div className="space-y-0.5">
-          <button
-            onClick={() => setResumeOpen(!resumeOpen)}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212] transition-all duration-200"
-          >
-            <div className="flex items-center gap-3">
-              <FileText className="w-4.5 h-4.5" />
-              <span>Résumé analyzer</span>
+          if (isPro) {
+            return (
+              <div className="bg-[#121212] rounded-2xl p-4 text-left text-white select-none shadow-xl border border-[#282828] animate-fadeIn">
+                <div className="font-extrabold text-[12.5px] tracking-wide text-[#1DB954]">Pro Plan Active</div>
+                <div className="text-[11px] text-[#A7A7A7] mt-1.5 font-medium leading-relaxed">
+                  All premium features, including My Projects auto-alignment, are fully unlocked.
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className="bg-[#121212] rounded-2xl p-4 text-left text-white select-none shadow-xl border border-[#282828] animate-fadeIn">
+              <div className="flex justify-between items-center">
+                <div className="font-extrabold text-[12.5px] tracking-wide">30-Day Trial Active</div>
+                <span className="text-[9px] font-bold bg-[#1DB954]/15 text-[#1DB954] px-2 py-0.5 rounded">Free</span>
+              </div>
+              <div className="text-[11px] text-[#A7A7A7] mt-1 font-medium">{trialDaysLeft} days left in trial</div>
+              <div className="h-1.5 rounded-full bg-[#282828] mt-3 overflow-hidden">
+                <div 
+                  className="h-full bg-[#1DB954] rounded-full transition-all duration-500" 
+                  style={{ width: `${Math.round((trialDaysLeft / 30) * 100)}%` }}
+                ></div>
+              </div>
+              <a 
+                href="https://pay.rev.cat/poaaekrofyijbwwq"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block w-full text-center mt-4 font-bold text-[11px] tracking-wider uppercase text-[#121212] bg-[#1DB954] py-2.5 rounded-full hover:scale-95 active:scale-90 transition-all"
+              >
+                Upgrade to Pro ($1.99)
+              </a>
             </div>
-            {resumeOpen ? <ChevronDown className="w-3.5 h-3.5 text-[#B0B0B0]" /> : <ChevronRight className="w-3.5 h-3.5 text-[#B0B0B0]" />}
-          </button>
-          
-          {resumeOpen && (
-            <div className="pl-6 pr-2 space-y-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
-              <button
-                onClick={() => setActiveTab('resume-analyzer')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
-                  activeTab === 'resume-analyzer' 
-                    ? 'bg-[#1DB954]/12 text-[#0E9E48]' 
-                    : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-                }`}
-              >
-                Upload CV
-              </button>
-              <button
-                onClick={() => setActiveTab('resume-skills')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
-                  activeTab === 'resume-skills' 
-                    ? 'bg-[#1DB954]/12 text-[#0E9E48]' 
-                    : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-                }`}
-              >
-                Gaps &amp; keywords
-              </button>
-              <button
-                onClick={() => setActiveTab('resume-tailor')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
-                  activeTab === 'resume-tailor' 
-                    ? 'bg-[#1DB954]/12 text-[#0E9E48]' 
-                    : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-                }`}
-              >
-                Tailored CV
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* LinkedIn Section (Collapsible) */}
-        <div className="space-y-0.5">
-          <button
-            onClick={() => setLinkedinOpen(!linkedinOpen)}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212] transition-all duration-200"
-          >
-            <div className="flex items-center gap-3">
-              <Linkedin className="w-4.5 h-4.5" />
-              <span>LinkedIn</span>
-            </div>
-            {linkedinOpen ? <ChevronDown className="w-3.5 h-3.5 text-[#B0B0B0]" /> : <ChevronRight className="w-3.5 h-3.5 text-[#B0B0B0]" />}
-          </button>
-          
-          {linkedinOpen && (
-            <div className="pl-6 pr-2 space-y-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
-              <button
-                onClick={() => setActiveTab('linkedin-enhancer')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
-                  activeTab === 'linkedin-enhancer' 
-                    ? 'bg-[#1DB954]/12 text-[#0E9E48]' 
-                    : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-                }`}
-              >
-                Posts
-              </button>
-              <button
-                onClick={() => setActiveTab('linkedin-generator')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
-                  activeTab === 'linkedin-generator' 
-                    ? 'bg-[#1DB954]/12 text-[#0E9E48]' 
-                    : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-                }`}
-              >
-                Post Generator
-              </button>
-              <button
-                onClick={() => setActiveTab('linkedin-scheduler')}
-                className={`w-full text-left px-3 py-2 rounded-lg text-xs font-bold transition-all duration-200 block ${
-                  activeTab === 'linkedin-scheduler' 
-                    ? 'bg-[#1DB954]/12 text-[#0E9E48]' 
-                    : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-                }`}
-              >
-                Scheduling
-              </button>
-            </div>
-          )}
-        </div>
-
-        <hr className="border-[#EEEEEE] my-2" />
-
-        {/* History */}
-        <button
-          onClick={() => setActiveTab('history')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
-            activeTab === 'history'
-              ? 'bg-[#1DB954]/12 text-[#0E9E48]'
-              : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-          }`}
-        >
-          <History className="w-4.5 h-4.5" />
-          History
-        </button>
-
-        {/* Reports */}
-        <button
-          onClick={() => setActiveTab('reports')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
-            activeTab === 'reports'
-              ? 'bg-[#1DB954]/12 text-[#0E9E48]'
-              : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-          }`}
-        >
-          <BarChart2 className="w-4.5 h-4.5" />
-          Reports
-        </button>
-
-        {/* Settings */}
-        <button
-          onClick={() => setActiveTab('settings')}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
-            activeTab === 'settings'
-              ? 'bg-[#1DB954]/12 text-[#0E9E48]'
-              : 'text-[#5B5B5B] hover:bg-[#F3F3F3] hover:text-[#121212]'
-          }`}
-        >
-          <Settings className="w-4.5 h-4.5" />
-          Settings
-        </button>
-      </nav>
-
-      {/* Upgrade Banner & Sidebar Footer / User Profile */}
-      <div className="p-4 space-y-4">
-        {/* Upgrade Pro Widget Box */}
-        <div className="bg-[#121212] rounded-xl p-4 text-left text-white select-none">
-          <div className="font-bold text-xs">Free plan</div>
-          <div className="text-[11px] text-[#A7A7A7] mt-1">1 of 3 analyses used</div>
-          <div className="h-1.5 rounded-full bg-[#282828] mt-2.5 overflow-hidden">
-            <div className="h-full w-1/3 bg-[#1DB954] rounded-full"></div>
-          </div>
-          <button className="w-full text-center mt-3.5 font-bold text-[10px] tracking-wider uppercase text-[#121212] bg-[#1DB954] py-2 rounded-full hover:bg-[#1aa34a] transition-all">
-            Upgrade to Pro
-          </button>
-        </div>
+          );
+        })()}
 
         {/* User Card */}
-        <div className="flex items-center justify-between gap-2.5 pt-2 border-t border-[#EEEEEE]">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-9 h-9 rounded-full bg-[#1DB954] flex items-center justify-center text-white font-extrabold text-sm shrink-0">
-              {currentUser.fullName.charAt(0).toUpperCase()}
+        <div className={`pt-3.5 border-t border-[#EEEEEE] flex ${collapsed ? 'flex-col items-center gap-3.5' : 'items-center justify-between gap-2.5'}`}>
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-9 h-9 rounded-full bg-[#1DB954] flex items-center justify-center text-white font-extrabold text-sm shrink-0 shadow-sm" title={currentUser.fullName}>
+              {currentUser.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AR'}
             </div>
-            <div className="min-w-0">
-              <span className="font-extrabold text-xs text-[#121212] block truncate leading-tight">{currentUser.fullName}</span>
-              <span className="text-[10px] text-[#8A8A8A] block truncate">{currentUser.email}</span>
-            </div>
+            {!collapsed && (
+              <div className="min-w-0 text-left animate-fadeIn">
+                <span className="font-extrabold text-[12.5px] text-[#121212] block truncate leading-tight">{currentUser.fullName}</span>
+                <span className="text-[10px] text-[#8A8A8A] block truncate leading-none mt-0.5">{currentUser.email}</span>
+              </div>
+            )}
           </div>
+          
           <button
             onClick={onLogout}
-            className="p-1.5 text-[#8A8A8A] hover:text-[#E22134] hover:bg-[#E22134]/10 rounded-full transition-colors active:scale-95"
+            className={`p-2 text-[#8A8A8A] hover:text-[#E22134] hover:bg-[#E22134]/8 rounded-full transition-all active:scale-95 shrink-0`}
             title="Log Out"
           >
-            <LogOut className="w-4.5 h-4.5" />
+            <LogOut className="w-4 h-4" />
           </button>
         </div>
       </div>
     </aside>
   );
 }
-

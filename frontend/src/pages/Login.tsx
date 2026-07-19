@@ -11,6 +11,7 @@ import { Input } from '../components/ui/Input';
 import { PasswordInput } from '../components/ui/PasswordInput';
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../contexts/AuthContext';
+import api from '../services/api';
 
 const loginFormSchema = z.object({
   email: z
@@ -35,6 +36,16 @@ export default function Login() {
   const [require2FA, setRequire2FA] = useState<boolean>(false);
   const [loginEmail, setLoginEmail] = useState<string>('');
   const [otpCode, setOtpCode] = useState<string>('');
+
+  // Forgot / Reset password state variables
+  const [forgotMode, setForgotMode] = useState<boolean>(false);
+  const [resetMode, setResetMode] = useState<boolean>(false);
+  const [forgotEmail, setForgotEmail] = useState<string>('');
+  const [resetOtp, setResetOtp] = useState<string>('');
+  const [resetNewPassword, setResetNewPassword] = useState<string>('');
+  const [resetConfirmPassword, setResetConfirmPassword] = useState<string>('');
+  const [forgotLoading, setForgotLoading] = useState<boolean>(false);
+  const [forgotSuccess, setForgotSuccess] = useState<string | null>(null);
   const [otpSubmitting, setOtpSubmitting] = useState<boolean>(false);
 
   // Auto-verify if email and otp are present in the URL query string (Magic Link feature)
@@ -42,6 +53,17 @@ export default function Login() {
     const emailParam = searchParams.get('email');
     const otpParam = searchParams.get('otp');
     const otpSentParam = searchParams.get('otpSent');
+
+    // Auto-populate reset password form from URL params
+    const resetEmailParam = searchParams.get('resetEmail');
+    const resetOtpParam = searchParams.get('resetOtp');
+    if (resetEmailParam && resetOtpParam) {
+      setForgotMode(true);
+      setResetMode(true);
+      setForgotEmail(resetEmailParam);
+      setResetOtp(resetOtpParam);
+      return;
+    }
 
     if (emailParam) {
       if (otpParam) {
@@ -115,17 +137,193 @@ export default function Login() {
     }
   };
 
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotEmail) {
+      setApiError('Please enter your email address.');
+      return;
+    }
+
+    setForgotLoading(true);
+    setApiError(null);
+    setForgotSuccess(null);
+    try {
+      await api.post('/auth/forgot-password', { email: forgotEmail });
+      setResetMode(true);
+      setForgotSuccess('Reset code sent! Check your email.');
+    } catch (err: any) {
+      setApiError(err.response?.data?.message || err.message || 'Failed to send reset code.');
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!resetOtp || resetOtp.length !== 6) {
+      setApiError('Please enter a valid 6-digit reset code.');
+      return;
+    }
+    if (resetNewPassword.length < 8) {
+      setApiError('Password must be at least 8 characters long.');
+      return;
+    }
+    if (resetNewPassword !== resetConfirmPassword) {
+      setApiError('Passwords do not match.');
+      return;
+    }
+
+    setForgotLoading(true);
+    setApiError(null);
+    setForgotSuccess(null);
+    try {
+      await api.post('/auth/reset-password', {
+        email: forgotEmail,
+        otpCode: resetOtp,
+        newPassword: resetNewPassword,
+      });
+      setForgotSuccess('Password reset successfully! You can now sign in with your new password.');
+      setForgotMode(false);
+      setResetMode(false);
+      setForgotEmail('');
+      setResetOtp('');
+      setResetNewPassword('');
+      setResetConfirmPassword('');
+    } catch (err: any) {
+      setApiError(err.response?.data?.message || err.message || 'Failed to reset password.');
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
   return (
     <AuthLayout>
       <AuthCard
-        title={require2FA ? "Enter Verification Code" : "Welcome Back"}
+        title={
+          forgotMode
+            ? (resetMode ? 'Reset Your Password' : 'Forgot Password?')
+            : require2FA
+              ? 'Enter Verification Code'
+              : 'Welcome Back'
+        }
         description={
-          require2FA 
-            ? `We have sent a 6-digit secure OTP code to ${loginEmail}.`
-            : "Sign in to continue to CareerLens."
+          forgotMode
+            ? (resetMode
+                ? `Enter the 6-digit code sent to ${forgotEmail} and your new password.`
+                : "Enter your email address and we'll send you a reset code.")
+            : require2FA
+              ? `We have sent a 6-digit secure OTP code to ${loginEmail}.`
+              : 'Sign in to continue to Profiling.'
         }
       >
-        {require2FA ? (
+        {forgotMode ? (
+          /* Forgot / Reset password flows */
+          resetMode ? (
+            /* Reset Password form */
+            <form onSubmit={handleResetPassword} className="space-y-4" noValidate>
+              {apiError && (
+                <div className="p-3 bg-danger/10 border border-danger/20 rounded-lg text-xs font-semibold text-danger text-left animate-fadeIn">
+                  {apiError}
+                </div>
+              )}
+              {forgotSuccess && (
+                <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-xs font-semibold text-green-700 text-left animate-fadeIn">
+                  {forgotSuccess}
+                </div>
+              )}
+
+              <FormField label="6-Digit Reset Code" error={resetOtp.length > 0 && resetOtp.length !== 6 ? 'Code must be 6 digits' : ''}>
+                <input
+                  type="text"
+                  maxLength={6}
+                  placeholder="123456"
+                  value={resetOtp}
+                  onChange={(e) => setResetOtp(e.target.value.replace(/\D/g, ''))}
+                  disabled={forgotLoading}
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-center tracking-[12px] font-extrabold text-lg text-slate-800 focus:outline-none focus:border-blue-500 transition-all bg-white"
+                />
+              </FormField>
+
+              <FormField label="New Password" error={resetNewPassword.length > 0 && resetNewPassword.length < 8 ? 'Password must be at least 8 characters' : ''}>
+                <PasswordInput
+                  placeholder="••••••••"
+                  value={resetNewPassword}
+                  onChange={(e) => setResetNewPassword(e.target.value)}
+                  disabled={forgotLoading}
+                  autoComplete="new-password"
+                />
+              </FormField>
+
+              <FormField label="Confirm Password" error={resetConfirmPassword.length > 0 && resetNewPassword !== resetConfirmPassword ? 'Passwords do not match' : ''}>
+                <PasswordInput
+                  placeholder="••••••••"
+                  value={resetConfirmPassword}
+                  onChange={(e) => setResetConfirmPassword(e.target.value)}
+                  disabled={forgotLoading}
+                  autoComplete="new-password"
+                />
+              </FormField>
+
+              <Button type="submit" variant="primary" isLoading={forgotLoading}>
+                Reset Password
+              </Button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setForgotMode(false);
+                  setResetMode(false);
+                  setForgotEmail('');
+                  setResetOtp('');
+                  setResetNewPassword('');
+                  setResetConfirmPassword('');
+                  setApiError(null);
+                  setForgotSuccess(null);
+                }}
+                className="w-full text-center text-xs font-semibold text-slate-500 hover:text-slate-700 py-1 transition-colors"
+              >
+                Back to Login
+              </button>
+            </form>
+          ) : (
+            /* Forgot Password - enter email form */
+            <form onSubmit={handleForgotPassword} className="space-y-4" noValidate>
+              {apiError && (
+                <div className="p-3 bg-danger/10 border border-danger/20 rounded-lg text-xs font-semibold text-danger text-left animate-fadeIn">
+                  {apiError}
+                </div>
+              )}
+
+              <FormField label="Email Address">
+                <Input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={forgotEmail}
+                  onChange={(e) => setForgotEmail(e.target.value)}
+                  disabled={forgotLoading}
+                  autoComplete="email"
+                />
+              </FormField>
+
+              <Button type="submit" variant="primary" isLoading={forgotLoading}>
+                Send Reset Code
+              </Button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setForgotMode(false);
+                  setForgotEmail('');
+                  setApiError(null);
+                  setForgotSuccess(null);
+                }}
+                className="w-full text-center text-xs font-semibold text-slate-500 hover:text-slate-700 py-1 transition-colors"
+              >
+                Back to Login
+              </button>
+            </form>
+          )
+        ) : require2FA ? (
           /* OTP verification form */
           <form onSubmit={handleVerifyOTP} className="space-y-4" noValidate>
             {apiError && (
@@ -203,9 +401,17 @@ export default function Login() {
                 />
                 <span>Remember Me</span>
               </label>
-              <a href="#forgot" className="text-primary hover:underline">
+              <button
+                type="button"
+                onClick={() => {
+                  setForgotMode(true);
+                  setApiError(null);
+                  setForgotSuccess(null);
+                }}
+                className="text-primary hover:underline"
+              >
                 Forgot Password?
-              </a>
+              </button>
             </div>
 
             {/* Submit Button */}

@@ -4,6 +4,7 @@ import type { ResumeAnalysisResult } from '../../services/resumeService';
 
 interface HistoryTabProps {
   setActiveTab: (tab: string) => void;
+  searchQuery?: string;
 }
 
 interface HistoryItem {
@@ -16,7 +17,7 @@ interface HistoryItem {
   cvText: string;
 }
 
-export default function HistoryTab({ setActiveTab }: HistoryTabProps) {
+export default function HistoryTab({ setActiveTab, searchQuery = '' }: HistoryTabProps) {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [activeAnalysis, setActiveAnalysis] = useState<ResumeAnalysisResult | null>(null);
 
@@ -111,6 +112,12 @@ export default function HistoryTab({ setActiveTab }: HistoryTabProps) {
     setHistory(history.filter(item => item.id !== id));
   };
 
+  const filteredHistory = history.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.company.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="space-y-6 max-w-4xl mx-auto py-2 text-left">
       <div className="space-y-1">
@@ -149,9 +156,9 @@ export default function HistoryTab({ setActiveTab }: HistoryTabProps) {
           <h3 className="text-xs font-bold text-text-secondary uppercase tracking-wider">Historical Scans</h3>
         </div>
 
-        {history.length > 0 ? (
+        {filteredHistory.length > 0 ? (
           <div className="divide-y divide-slate-100">
-            {history.map((item) => (
+            {filteredHistory.map((item) => (
               <div key={item.id} className="p-4 flex flex-col sm:flex-row justify-between sm:items-center gap-4 hover:bg-slate-50/30 transition-colors">
                 <div className="flex items-start space-x-3 min-w-0 text-left">
                   <div className="w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center text-text-secondary shrink-0 border border-border/80">

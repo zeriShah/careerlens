@@ -3,6 +3,8 @@ import multer from 'multer';
 import path from 'path';
 import mammoth from 'mammoth';
 import Groq from 'groq-sdk';
+import { authenticate, AuthenticatedRequest } from '../middleware/auth';
+import prisma from '../config/db';
 
 // Safely require pdf-parse to avoid declaration conflicts
 const pdfParse = require('pdf-parse');
@@ -307,9 +309,10 @@ Return ONLY valid JSON (no markdown blocks, no other text):
 });
 
 // 6. Tailor Resume against a target Job Description (JD)
-router.post('/tailor', async (req: Request, res: Response) => {
+router.post('/tailor', authenticate, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { cvText, jdText } = req.body;
+    const userId = req.user?.id;
 
     if (!cvText || !jdText) {
       return res.status(400).json({ error: 'Both cvText and jdText are required for tailoring' });
@@ -324,6 +327,33 @@ router.post('/tailor', async (req: Request, res: Response) => {
 
     const groq = new Groq({ apiKey });
 
+    // Fetch user's uploaded project files/descriptions from DB (Locked Pro Feature)
+    let projectsPromptSegment = '';
+    if (userId) {
+      const user = await prisma.user.findUnique({
+        where: { id: userId }
+      });
+
+      if (user && user.subscriptionStatus === 'active') {
+        const userProjects = await prisma.project.findMany({
+          where: { userId }
+        });
+        if (userProjects.length > 0) {
+          projectsPromptSegment = `
+ADDITIONAL PROJECT POOL:
+We have a pool of the candidate's custom projects (from their portfolio/files) that are not necessarily in the main CV. Review these project descriptions and titles carefully:
+${userProjects.map((p, idx) => `Project ${idx + 1}:
+Title: ${p.title}
+Details: ${p.description}`).join('\n\n')}
+
+PROJECT ALIGNMENT INSTRUCTION:
+Compare the projects in the pool above against the target JD. Select up to 3 projects from the pool that are most relevant/aligned to the technologies, skills, or responsibilities mentioned in the JD. Rephrase and tailor them to align with the JD, and list them in the "projects" array of the tailored JSON.
+If there are no projects in the additional pool, or if none of them are relevant/aligned to the JD, fall back to tailoring the projects that are already present in the candidate's CV.
+`;
+        }
+      }
+    }
+
     const prompt = `You are a master resume writer and career strategist with 10 years of experience.
 Your job is to tailor the candidate's Resume (CV) to align perfectly with the target Job Description (JD).
 
@@ -332,6 +362,7 @@ ${cvText}
 
 TARGET JOB DESCRIPTION:
 ${jdText}
+${projectsPromptSegment}
 
 Return ONLY a valid JSON object matching this exact schema:
 {
@@ -377,7 +408,7 @@ Return ONLY a valid JSON object matching this exact schema:
 }
 
 Rules:
-1. Do NOT fabricate fake jobs, titles, or fake educational credentials. Ground all edits strictly in the candidate's actual CV details.
+1. Do NOT fabricate fake jobs, titles, or fake educational credentials. Ground all edits strictly in the candidate's actual CV details or the projects pool.
 2. Optimize the Professional Summary to emphasize target keywords and match JD requirements.
 3. Improve action verbs in work experience bullets (e.g. Optimized, Developed, Automated, Engineered).
 4. Do NOT wrap in markdown fences. Return ONLY the raw JSON string.`;

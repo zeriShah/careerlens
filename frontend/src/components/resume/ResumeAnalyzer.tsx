@@ -18,7 +18,7 @@ export default function ResumeAnalyzer({ onAnalysisUpdated }: ResumeAnalyzerProp
   const [analysis, setAnalysis] = useState<ResumeAnalysisResult | null>(null);
   
   // Loading & error states for running the final analysis
-  const [analysisLoading, setAnalysisLoading] = useState<boolean>(false);
+  const [_analysisLoading, _setAnalysisLoading] = useState<boolean>(false);
   const [analysisError, setAnalysisError] = useState<string>('');
 
   // Sync state from sessionStorage upon mounting
@@ -70,7 +70,7 @@ export default function ResumeAnalyzer({ onAnalysisUpdated }: ResumeAnalyzerProp
       return;
     }
 
-    setAnalysisLoading(true);
+    _setAnalysisLoading(true);
     setAnalysisError('');
     try {
       const res = await analyzeCV(cvText, jds);
@@ -81,7 +81,7 @@ export default function ResumeAnalyzer({ onAnalysisUpdated }: ResumeAnalyzerProp
     } catch (e: any) {
       setAnalysisError(e.response?.data?.error || 'CV analysis failed. Please try again.');
     } finally {
-      setAnalysisLoading(false);
+      _setAnalysisLoading(false);
     }
   };
 
@@ -183,11 +183,10 @@ export default function ResumeAnalyzer({ onAnalysisUpdated }: ResumeAnalyzerProp
 
       {step === 1 && (
         <JDListStep
-          jds={jds}
+          cvText={cvText}
           onJdsChange={handleJdsChange}
           onBack={() => setStep(0)}
           onAnalyze={handleRunAnalysis}
-          analysisLoading={analysisLoading}
         />
       )}
 

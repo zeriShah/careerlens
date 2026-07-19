@@ -7,6 +7,7 @@ interface User {
   fullName: string;
   email: string;
   createdAt: string;
+  subscriptionStatus?: string;
 }
 
 interface AuthContextType {
@@ -19,6 +20,7 @@ interface AuthContextType {
   registerUser: (fullName: string, email: string, password: string, confirmPassword: string) => Promise<{ require2FA: boolean; email?: string }>;
   logout: () => Promise<void>;
   updateProfile: (fullName: string, email: string, currentPassword?: string, newPassword?: string) => Promise<void>;
+  refreshUser: () => Promise<void>;
   error: string | null;
   setError: (err: string | null) => void;
 }
@@ -162,6 +164,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         registerUser,
         logout,
         updateProfile,
+        refreshUser: fetchCurrentUser,
         error,
         setError,
       }}

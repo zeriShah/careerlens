@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 import prisma from '../config/db';
-import { sendOtpEmail } from '../utils/mailer';
+import { sendOtpEmail, sendResetEmail } from '../utils/mailer';
 import { AuthenticatedRequest } from '../middleware/auth';
 import { CustomError } from '../middleware/errorHandler';
 
@@ -148,6 +148,7 @@ export const login = async (
           fullName: user.fullName,
           email: user.email,
           createdAt: user.createdAt,
+          subscriptionStatus: user.subscriptionStatus,
         },
       },
     });
@@ -205,6 +206,7 @@ export const me = async (
           fullName: user.fullName,
           email: user.email,
           createdAt: user.createdAt,
+          subscriptionStatus: user.subscriptionStatus,
         },
       },
     });
@@ -428,6 +430,96 @@ export const updateProfile = async (
           createdAt: updatedUser.createdAt,
         },
       },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const forgotPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    
+    // Security best practice: do not leak if user doesn't exist. Just say success.
+    if (!user) {
+      return res.status(200).json({
+        success: true,
+        message: 'If the email exists in our system, a password reset code has been sent.',
+      });
+    }
+
+    // Generate a 6-digit random code for password reset
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        otpCode: otp,
+        otpExpiresAt: expires
+      }
+    });
+
+    await sendResetEmail(user.email, otp, user.fullName);
+
+    res.status(200).json({
+      success: true,
+      message: 'If the email exists in our system, a password reset code has been sent.',
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const resetPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email, otpCode, newPassword } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      const error: CustomError = new Error('Invalid email or code');
+      error.statusCode = 400;
+      return next(error);
+    }
+
+    if (!user.otpCode || user.otpCode !== otpCode) {
+      const error: CustomError = new Error('Invalid or incorrect verification code');
+      error.statusCode = 400;
+      return next(error);
+    }
+
+    if (user.otpExpiresAt && new Date() > user.otpExpiresAt) {
+      const error: CustomError = new Error('Verification code has expired. Please request a new one.');
+      error.statusCode = 400;
+      return next(error);
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update user
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        password: hashedPassword,
+        otpCode: null,
+        otpExpiresAt: null,
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Your password has been reset successfully. You can now log in with your new password.',
     });
   } catch (err) {
     next(err);

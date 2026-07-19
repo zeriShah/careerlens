@@ -5,7 +5,11 @@ import type { JobDescription } from '../../services/resumeService';
 import { generateTailoredResumePDF } from '../../lib/generateTailoredResumePDF';
 import type { TailoredResumeData } from '../../lib/generateTailoredResumePDF';
 
-export default function ResumeTailor() {
+interface ResumeTailorProps {
+  setActiveTab: (tab: string) => void;
+}
+
+export default function ResumeTailor({ setActiveTab }: ResumeTailorProps) {
   const [cvText, setCvText] = useState<string>('');
   const [jdText, setJdText] = useState<string>('');
   const [selectedJdId, setSelectedJdId] = useState<string>('');
@@ -379,7 +383,23 @@ export default function ResumeTailor() {
         </div>
       ) : (
         /* Dynamic Split Screen: Left Editor Form vs Right Live A4 Preview */
-        <div className="space-y-5">
+        <div className="space-y-6">
+          {/* Workspace Sub-tabs for Step 4 (Tailored CV vs Cover Letter) */}
+          <div className="flex border-b border-slate-200 select-none mb-2">
+            <button
+              onClick={() => setActiveTab('resume-tailor')}
+              className="pb-3 text-sm font-extrabold border-b-2 px-4 transition-all border-emerald-500 text-slate-800 focus:outline-none"
+            >
+              Tailored Resume
+            </button>
+            <button
+              onClick={() => setActiveTab('resume-covers')}
+              className="pb-3 text-sm font-extrabold border-b-2 px-4 transition-all border-transparent text-slate-400 hover:text-slate-800 focus:outline-none"
+            >
+              Cover Letter
+            </button>
+          </div>
+
           {/* Accent Customizer Controls Panel */}
           <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-6">
@@ -852,7 +872,7 @@ export default function ResumeTailor() {
                   <span>Real-time Sync</span>
                 </span>
               </div>
-              <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.02)] border border-slate-100 w-full min-h-[760px] p-8 text-slate-800 leading-normal text-left relative selection:bg-blue-100 rounded-sm">
+              <div className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.02)] border border-slate-100 w-full min-h-[760px] shrink-0 p-8 text-slate-800 leading-normal text-left relative selection:bg-blue-100 rounded-sm">
                 
                 {/* Visual A4 paper borders */}
                 <div className={`${fontClassMap[fontFamily]} space-y-4`}>

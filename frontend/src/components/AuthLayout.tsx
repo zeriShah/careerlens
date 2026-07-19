@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Logo } from './Logo';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -17,7 +18,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       {/* Premium dual-tone background radial glow spotlights */}
       <div className="absolute top-1/2 left-1/3 w-[450px] h-[450px] bg-[#1DB954]/5 rounded-full blur-[120px] pointer-events-none animate-glow-spot" />
       <div className="absolute top-1/2 left-2/3 w-[450px] h-[450px] bg-[#5B5B5B]/5 rounded-full blur-[120px] pointer-events-none animate-glow-spot [animation-delay:4s]" />
-
+      
       {/* Vector Geometry Lines in background */}
       <div className="absolute top-16 left-16 w-32 h-32 rounded-full border border-[#1DB954]/10 animate-float pointer-events-none" />
       <div className="absolute bottom-24 right-24 w-48 h-48 rounded-full border border-[#5B5B5B]/10 animate-float pointer-events-none [animation-delay:2s]" />
@@ -25,12 +26,15 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       {/* Top Header */}
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center relative z-10 shrink-0">
         <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-[30px] h-[30px] rounded-full bg-[#1DB954] flex items-center justify-center">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.8"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" strokeLinecap="round"/></svg>
+          <Logo variant="light" size={36} />
+          <div className="flex flex-col text-left" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <span className="text-[20px] font-extrabold text-[#121212] tracking-[-0.025em] leading-none">
+              Profiling
+            </span>
+            <span className="text-[8.5px] font-bold text-[#8A8A8A] leading-none tracking-[0.3em] uppercase mt-1">
+              by morpheralabs
+            </span>
           </div>
-          <span className="font-sans font-extrabold text-lg text-[#121212] tracking-tight">
-            Profiling
-          </span>
         </div>
         <a
           href="/"

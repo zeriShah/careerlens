@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Logo } from './Logo';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,12 +27,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-[30px] h-[30px] rounded-full bg-[#1DB954] flex items-center justify-center">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.8"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" strokeLinecap="round"/></svg>
+          <Logo variant="light" size={36} />
+          <div className="flex flex-col text-left" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <span className="text-[20px] font-extrabold text-[#121212] tracking-[-0.025em] leading-none">
+              Profiling
+            </span>
+            <span className="text-[8.5px] font-bold text-[#8A8A8A] leading-none tracking-[0.3em] uppercase mt-1">
+              by morpheralabs
+            </span>
           </div>
-          <span className="font-sans font-extrabold text-lg text-[#121212] tracking-tight leading-none">
-            Profiling
-          </span>
         </div>
 
         {/* Desktop Links */}

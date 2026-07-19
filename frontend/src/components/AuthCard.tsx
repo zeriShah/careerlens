@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Logo } from './Logo';
 
 interface AuthCardProps {
   title: string;
@@ -20,10 +21,11 @@ export default function AuthCard({ title, description, children }: AuthCardProps
         
         {/* Logo */}
         <div className="relative flex items-center gap-2.5">
-          <div className="w-[30px] h-[30px] rounded-full bg-[#1DB954] flex items-center justify-center">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2.8"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5l5 5" strokeLinecap="round"/></svg>
+          <Logo variant="dark" size={36} />
+          <div className="flex flex-col text-left" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <span className="text-[20px] font-extrabold text-white tracking-[-0.025em] leading-none">Profiling</span>
+            <span className="text-[8.5px] font-bold text-[#3BEB86] leading-none tracking-[0.3em] uppercase mt-1">by morpheralabs</span>
           </div>
-          <span className="font-extrabold text-lg text-white tracking-tight leading-none">Profiling</span>
         </div>
 
         {/* Content Segment */}
